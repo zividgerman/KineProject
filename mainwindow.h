@@ -118,6 +118,38 @@ private slots:
 
     void on_toolButton_bpsc_clicked();
 
+    void on_pushButton_valider_bilan_bpf_clicked();
+
+    void on_pushButton_bpsc_photos_analysePosturaleStatique_clicked();
+
+    void on_pushButton_bpsc_photos_analysePosturaleDynamique_clicked();
+
+    void on_pushButton_bpf_photos_analysePosturaleStatique_clicked();
+
+    void on_pushButton_bpf_photos_analysePosturaleDynamiqueMI_clicked();
+
+    void on_pushButton_validerRapport_bpf_clicked();
+
+    void on_toolButton_bpf_clicked();
+
+    void on_pushButton_bpf_photos_analyseGestuelleFVV_clicked();
+
+    void on_pushButton_bpf_photos_analyseGestuelle_clicked();
+
+    void on_pushButton_validerRapport_bpcf_clicked();
+
+    void on_pushButton_valider_bilan_bpcf_clicked();
+
+    void on_pushButton_bpcf_photos_analysePosturaleStatique_clicked();
+
+    void on_pushButton_bpcf_photos_analysePosturaleDynamiqueMI_clicked();
+
+    void on_pushButton_bpcf_photos_analysePosturaleDynamiqueMS_clicked();
+
+    void on_pushButton_bpcf_photos_analyseGestuelle_clicked();
+
+    void on_pushButton_bpf_photos_analysePosturaleDynamiqueMS_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -148,6 +180,8 @@ private:
     QMap<QString, QString> remplirQMapInfoBilanCheville(QString typeRequete);
     QMap<QString, QString> remplirQMapInfoBilanBpc(QString typeRequete);
     QMap<QString, QString> remplirQMapInfoBilanBpsc(QString typeRequete);
+    QMap<QString, QString> remplirQMapInfoBilanBpf(QString typeRequete);
+    QMap<QString, QString> remplirQMapInfoBilanBpcf(QString typeRequete);
 
     QMap<QString, QString> recupererInfosBilanGenouBdd(QString numeroTest);
     QMap<QString, QString> recupererInfosBilanEpauleBdd(QString numeroTest);
@@ -155,7 +189,8 @@ private:
     QMap<QString, QString> recupererInfosBilanHancheBdd(QString numeroTest);
     QMap<QString, QString> recupererInfosBilanBpcBdd(QString numeroTest);
     QMap<QString, QString> recupererInfosBilanBpscBdd(QString numeroTest);
-
+    QMap<QString, QString> recupererInfosBilanBpfBdd(QString numeroTest);
+    QMap<QString, QString> recupererInfosBilanBpcfBdd(QString numeroTest);
 
     QString getCouleurRatioIschio(double ratio);
     QString getCouleurRatioAbd(double ratio);
@@ -189,6 +224,8 @@ private:
     QString ecrireAmplitudesHanche(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireAmplitudesCheville(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireAmplitudesBp(QList<QPair<QString, QMap<QString, QString> > > listePairesRapport);
+    QString ecrireAmplitudesBpf(QList<QPair<QString, QMap<QString, QString> > > listePairesRapport);
+    QString ecrireAmplitudesBpcf(QList<QPair<QString, QMap<QString, QString> > > listePairesRapport);
 
     QString ecrirePerimetres(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
 
@@ -213,7 +250,7 @@ private:
     QString ecrireTestGrip(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireReRiR1(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireReRiR2(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
-    QString testIYT(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
+    QString ecrireTestIYT(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireSiRsi(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireUQYBT(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString dessinerTestUQ(QList<QPair<QString, QMap<QString, QString> > > listePairesRapport, QString suffixeBrasDroit, QString suffixeBrasGauche, QString labelBrasDroit,
@@ -244,21 +281,38 @@ private:
     QString ecrireRatioAABP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireMcCallBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireIPBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+
     QString ecrireSjBipodalBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireCmjBipodalBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString sexe);
     QString ecrireDjBipodalBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireCmjUnipodalBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireDjUnipodalBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireSautsRepetesBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+
     QString ecrireFmaxBS(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString poids);
     QString ecrireHopBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireTripleHopBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireCrossOverHopBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireHeelRiseBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+    QString ecrireTestIYTBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+    QString ecrireTestGripBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+
+    QString ecrireMTT(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+
 
     QString ecrireFmaxPL(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString poids);
-    QString ecrireProfilFV(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+    QString ecrireTestFmaxBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString poids);
+    QString ecrireTestFmaxBPCF(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString poids);
+
+    QString ecrireProfilFVV(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+    QString ecrireProfilFVH(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+
     QString ecrireProfilVM(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+    QString ecrireDSI(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+
+    QString ecrireReRiR1BP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+    QString ecrireReRiR2BP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+
 
     QString ecrirePhotos();
     QString redimensionnerImage(QString pathFichierImage, int taille);
@@ -277,11 +331,15 @@ private:
     QString remplirChaineHtmlCheville(QStringList listeNumerosTest);
     QString remplirChaineHtmlCourse(QStringList listeNumerosTest);
     QString remplirChaineHtmlSportCollectif(QStringList listeNumerosTest);
+    QString remplirChaineHtmlSportCombat(QStringList listeNumerosTest);
+    QString remplirChaineHtmlCrossfit(QStringList listeNumerosTest);
 
     //Course
     QString ecrireAnalyseGenerique(QMap<QString, QString> mapChemins, QString texteEncadre, QString titreEncadre, QString typeEncadre);
 
     QString ecrireInterpretation(QString texteInterpretation, QString titreInterpretation);
+    QString encadrerTableauEtImage(const QString& texteTableau, const QString& cheminImage);
+
 
         void redimensionnerImages();
     void initialiserDatabase();
