@@ -1,0 +1,17 @@
+la base de donnees est ouverte
+Requete impossible : SELECT (EXISTS (SELECT idPatient FROM infosBilanGenou WHERE idPatient17))
+la base de donnees est ouverte
+153636719:  la base de donnees est ouverte
+153706387:  la base de donnees est ouverte
+154218828:  la base de donnees est ouverte
+154639978:  la base de donnees est ouverte
+154813598:  la base de donnees est ouverte
+155045555:  la base de donnees est ouverte
+191958705:  la base de donnees est ouverte
+195636784:  la base de donnees est ouverte
+195817781:  la base de donnees est ouverte
+200206442:  la base de donnees est ouverte
+200731567:  la base de donnees est ouverte
+201110247:  la base de donnees est ouverte
+201833287:  la base de donnees est ouverte
+202216981:  la base de donnees est ouverte
