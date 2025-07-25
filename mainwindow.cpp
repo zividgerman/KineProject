@@ -1099,7 +1099,7 @@ QMap<QString, QString> MainWindow::remplirQMapInfoBilanBpc(QString typeRequete){
     QList<QWidget *> allWidgets = this->findChildren<QWidget *>();
     for( QWidget * w : allWidgets ) {
 
-        if(w->objectName().contains("doubleSpinBox_bpc")){
+        if(w->objectName().contains("doubleSpinBox_bpc_")){
             QDoubleSpinBox *dSpinBox = dynamic_cast<QDoubleSpinBox*>(w);
             double valeurCourante = dSpinBox->value();
 
@@ -1110,24 +1110,13 @@ QMap<QString, QString> MainWindow::remplirQMapInfoBilanBpc(QString typeRequete){
                 }
             }
         }
-        else if(w->objectName().contains("spinBox_bpc")){
+        else if(w->objectName().contains("spinBox_bpc_")){
             QSpinBox *spinBox = dynamic_cast<QSpinBox*>(w);
             int valeurCourante = spinBox->value();
 
             foreach (QString nomColonne, listeColonnes) {
                 if(nomColonne == w->objectName().split("_").last()){
                     mapRequete.insert(nomColonne, QString::number(valeurCourante));
-                    break;
-                }
-            }
-        }
-        else if(w->objectName().contains("comboBox_bpc")){
-            QComboBox *comboBox = dynamic_cast<QComboBox*>(w);
-            QString texteCourant = comboBox->currentText();
-
-            foreach (QString nomColonne, listeColonnes) {
-                if(nomColonne == w->objectName().split("_").last()){
-                    mapRequete.insert(nomColonne, "'" + texteCourant + "'");
                     break;
                 }
             }
@@ -1211,7 +1200,7 @@ QMap<QString, QString> MainWindow::remplirQMapInfoBilanBpsc(QString typeRequete)
     QList<QWidget *> allWidgets = this->findChildren<QWidget *>();
     for( QWidget * w : allWidgets ) {
 
-        if(w->objectName().contains("doubleSpinBox_bpsc")){
+        if(w->objectName().contains("doubleSpinBox_bpsc_")){
             QDoubleSpinBox *dSpinBox = dynamic_cast<QDoubleSpinBox*>(w);
             double valeurCourante = dSpinBox->value();
 
@@ -1222,7 +1211,7 @@ QMap<QString, QString> MainWindow::remplirQMapInfoBilanBpsc(QString typeRequete)
                 }
             }
         }
-        else if(w->objectName().contains("spinBox_bpsc")){
+        else if(w->objectName().contains("spinBox_bpsc_")){
             QSpinBox *spinBox = dynamic_cast<QSpinBox*>(w);
             int valeurCourante = spinBox->value();
 
@@ -1233,7 +1222,7 @@ QMap<QString, QString> MainWindow::remplirQMapInfoBilanBpsc(QString typeRequete)
                 }
             }
         }
-        else if(w->objectName().contains("radioButton_bpsc")){
+        else if(w->objectName().contains("radioButton_bpsc_")){
             QRadioButton *radio = dynamic_cast<QRadioButton*>(w);
             QString texteCourant = radio->text();
 
@@ -1337,7 +1326,7 @@ QMap<QString, QString> MainWindow::remplirQMapInfoBilanBpf(QString typeRequete){
                 }
             }
         }
-        else if(w->objectName().contains("spinBox_bpf")){
+        else if(w->objectName().contains("spinBox_bpf_")){
             QSpinBox *spinBox = dynamic_cast<QSpinBox*>(w);
             int valeurCourante = spinBox->value();
 
@@ -1348,7 +1337,7 @@ QMap<QString, QString> MainWindow::remplirQMapInfoBilanBpf(QString typeRequete){
                 }
             }
         }
-        else if(w->objectName().contains("comboBox_bpf")){
+        else if(w->objectName().contains("comboBox_bpf_")){
             QComboBox *comboBox = dynamic_cast<QComboBox*>(w);
             QString texteCourant = comboBox->currentText();
 
@@ -1803,6 +1792,7 @@ QString MainWindow::getCouleurRsi(double rsi){
     else
         return "#fdfefe";
 
+    return "#000000"; // ou une couleur par défaut, ou une gestion d'erreur
 }
 
 //****************************************
@@ -1818,6 +1808,8 @@ QString MainWindow::getCouleurReRiR1(double ratio){
         return "#f5b041";
     else if(ratio >= 0.85)
         return "#ec7063";
+
+    return "#000000"; // ou une couleur par défaut, ou une gestion d'erreur
 }
 
 //****************************************
@@ -1833,6 +1825,8 @@ QString MainWindow::getCouleurReRiR2(double ratio){
         return "#f5b041";
     else if(ratio >= 0.75)
         return "#ec7063";
+
+    return "#000000"; // ou une couleur par défaut, ou une gestion d'erreur
 }
 
 //****************************************
@@ -1848,6 +1842,58 @@ QString MainWindow::getCouleurEI(double ratio){
         return "#f5b041";
     else if(ratio > 1.25)
         return "#ec7063";
+
+    return "#000000"; // ou une couleur par défaut, ou une gestion d'erreur
+}
+
+
+//****************************************
+QString MainWindow::getCouleurIllinois(double value, QString sexe){
+
+    if(sexe == "F"){
+
+        if(value < 17.9)
+            return "#28b463";
+        else if( value >= 17.9 && value < 21.7)
+            return "#f5b041";
+        else
+            return "#ec7063";
+    }
+    else if(sexe == "M"){
+
+        if(value < 16.1)
+            return "#28b463";
+        else if( value >= 16.1 && value < 18.1)
+            return "#f5b041";
+        else
+            return "#ec7063";
+    }
+
+    return "#000000"; // ou une couleur par défaut, ou une gestion d'erreur
+}
+
+//****************************************
+QString MainWindow::getCouleurAgility(double value, QString sexe){
+
+    if(sexe == "F"){
+
+        if(value < 5)
+            return "#28b463";
+        else if( value >= 5 && value < 5.5)
+            return "#f5b041";
+        else
+            return "#ec7063";
+    }
+    else if(sexe == "M"){
+        if(value < 4.5)
+            return "#28b463";
+        else if( value >= 4.5 && value < 5)
+            return "#f5b041";
+        else
+            return "#ec7063";
+    }
+
+    return "#000000"; // ou une couleur par défaut, ou une gestion d'erreur
 }
 
 //****************************************
@@ -9993,26 +10039,35 @@ QString MainWindow::ecrireFmaxBS(QList<QPair<QString, QMap<QString, QString>>> l
 
     // 1ere row - FMax Ischios
     //Membre sain T1 - Membre opere T1
-    texteTableauCourant = texteTableauCourant + "</tr>"
-                                                "<tr>"
-                                                "<th scope=\"row\">3-5 RM</th>"
-                                                "<td>" + mapCourante.value("troisRMBS") + "</td>";
+    listeCaracteresCol.clear();
+    listeCaracteresCol << "unRMBS";
+    if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
+        texteTableauCourant = texteTableauCourant + "</tr>"
+                            "<tr>"
+                            "<th scope=\"row\">1 RM</th>"
+                            "<td>" + mapCourante.value("unRMBS") + "</td>";
+    }
 
-    // 2e row - FMax Quadri
-    texteTableauCourant = texteTableauCourant + "</tr>"
-                                                "<tr>"
-                                                "<th scope=\"row\">1 RM (theorique)</th>"
-                                                "<td>" + mapCourante.value("unRMBS") + "</td>";
+    listeCaracteresCol.clear();
+    listeCaracteresCol << "troisRMBS";
+    if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
+        texteTableauCourant = texteTableauCourant + "</tr>"
+                            "<tr>"
+                            "<th scope=\"row\">5 RM</th>"
+                            "<td>" + mapCourante.value("unRMBS") + "</td>";
+    }
 
-    // 2e row - FMax Quadri
-    texteTableauCourant = texteTableauCourant + "</tr>"
-                                                "<tr>"
-                                                "<th scope=\"row\">Poids de corps</th>"
-                                                "<td>" + poids + "</td>";
-
+    listeCaracteresCol.clear();
+    listeCaracteresCol << "cinqRMBS";
+    if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
+        texteTableauCourant = texteTableauCourant + "</tr>"
+                            "<tr>"
+                            "<th scope=\"row\">5 RM</th>"
+                            "<td>" + mapCourante.value("unRMBS") + "</td>";
+    }
     texteTableauCourant.append("</table>");
 
-    //DiSPLAYZ
+    //Display
     QString cheminImageScore =  QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "BS");
     cheminImageScore = redimensionnerImage(cheminImageScore, 400);
 
@@ -10324,7 +10379,7 @@ QString MainWindow::ecrireProfilFVV(QList<QPair<QString, QMap<QString, QString>>
 
     // En-têtes des lignes (deviennent la première colonne)
     texteTableauCourant.append("<tr>"
-                                "<th scope=\"row\" style=\"background-color: #f7dc6f; color: black;\">Profil F-V</th>"
+                                "<th scope=\"row\" style=\"background-color: #f7dc6f; color: black;\">Profil Force / Vitesse Vertical</th>"
                                 "<th scope=\"row\">Valeurs mesurées</th>"
                                 "</tr>");
 
@@ -10359,6 +10414,16 @@ QString MainWindow::ecrireProfilFVV(QList<QPair<QString, QMap<QString, QString>>
     cheminImageScore = redimensionnerImage(cheminImageScore, 300);
 
     texteTableauCourant = encadrerTableauEtImage(texteTableauCourant, cheminImageScore);
+
+    //Courbe FVV
+    QString cheminImageVV = redimensionnerImage(mapCheminsImages.key("PFVV"), 250);
+    texteTableauCourant += "<table><tr>"
+                           "<td colspan=\"2\" style=\"padding: 10px; border:0px; text-align: center; vertical-align: middle;\">"
+                           "<p align=\"center\">"
+                           "<img src=\"" + cheminImageVV + "\" />"
+                           "</p>"
+                           "</td>"
+                           "</tr></table>";
 
     return texteTableauCourant;
 }
@@ -10561,7 +10626,7 @@ QString MainWindow::ecrireDSI(QList<QPair<QString, QMap<QString, QString>>> list
     return texteTableauCourant;
 }
 //****************************************
-QString MainWindow::ecrireProfilVM(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport){
+QString MainWindow::ecrireProfilVM(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString sexe){
     QString texteTableauCourant;
 
     QMap<QString, QString> mapCourante = getMapListeRapport(listePairesRapport, "1");
@@ -10575,16 +10640,31 @@ QString MainWindow::ecrireProfilVM(QList<QPair<QString, QMap<QString, QString>>>
     texteTableauCourant.append("<table>");
 
     // Ligne Pro Agility
-    texteTableauCourant.append("<tr>"
-        "<th scope=\"row\" style=\"background-color: #f7dc6f; color: black;\">Pro Agility 5-10-5 (s)</th>"
-        "<td>" + mapCourante.value("proAgility", "-") + "</td>"
-        "</tr>");
+    listeCaracteresCol.clear();
+    listeCaracteresCol << "proAgility";
+    if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
+
+        texteTableauCourant += "<tr>"
+                                "<th scope=\"col\" style=\"background-color:  #f7dc6f; color: black;\">Pro agility 5-10-5 (s)</th>"
+                                "<td style=\"background-color:" + getCouleurAgility(mapCourante.value("proAgility", "-").toDouble(), sexe)
+                                + "; color: black;border: 1px solid rgb(160 160 160); padding: 8px 10px;\">"
+                                + mapCourante.value("proAgility", "-")
+                                + "</td>"
+                                "</tr>";
+    }
 
     // Ligne Illinois Agility
-    texteTableauCourant.append("<tr>"
-        "<th scope=\"row\" style=\"background-color: #f7dc6f; color: black;\">Illinois Agility Test (s)</th>"
-        "<td>" + mapCourante.value("illinoisAgility", "-") + "</td>"
-        "</tr>");
+    listeCaracteresCol.clear();
+    listeCaracteresCol << "illinoisAgility";
+    if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
+        texteTableauCourant += "<tr>"
+                               "<th scope=\"col\" style=\"background-color:  #f7dc6f; color: black;\">Illinois agility Test (s)</th>"
+                               "<td style=\"background-color:" + getCouleurIllinois(mapCourante.value("illinoisAgility", "-").toDouble(), sexe)
+                               + "; color: black;border: 1px solid rgb(160 160 160); padding: 8px 10px;\">"
+                               + mapCourante.value("illinoisAgility", "-")
+                               + "</td>"
+                               "</tr>";
+    }
     texteTableauCourant.append("</table>");
 
     return texteTableauCourant;
@@ -11649,6 +11729,8 @@ void MainWindow::on_pushButton_generer_rapport_clicked(){
         ui->pushButton_editer_bilan->setEnabled(false);
 
         ui->pushButton_annulerEditionRapport->setVisible(true);
+
+        this->mapCheminsImages.clear();
     }
 }
 
@@ -11881,15 +11963,25 @@ void MainWindow::on_pushButton_annulerEditionBilan_clicked(){
 
     ui->pushButton_editer_bilan->setText("Ajouter un nouveau bilan");
 
+    //SETTINGS
     ui->widget_genou->setEnabled(false);
     ui->widget_epaule->setEnabled(false);
     ui->widget_hanche->setEnabled(false);
     ui->widget_cheville->setEnabled(false);
+    ui->widget_bpc->setEnabled(false);
+    ui->widget_bpsc->setEnabled(false);
+    ui->widget_bpf->setEnabled(false);
+    ui->widget_bpcf->setEnabled(false);
 
+    //SETTINGS
     ui->pushButton_valider_bilan->setVisible(false);
     ui->pushButton_valider_bilan_epaule->setVisible(false);
     ui->pushButton_valider_bilan_hanche->setVisible(false);
     ui->pushButton_valider_bilan_cheville->setVisible(false);
+    ui->pushButton_valider_bilan_bpc->setVisible(false);
+    ui->pushButton_valider_bilan_bpsc->setVisible(false);
+    ui->pushButton_valider_bilan_bpf->setVisible(false);
+    ui->pushButton_valider_bilan_bpcf->setVisible(false);
 
     ui->pushButton_annulerEditionBilan->setVisible(false);
     ui->pushButton_annulerModificationBilan->setVisible(false);
@@ -11935,6 +12027,8 @@ void MainWindow::on_pushButton_annulerEditionRapport_clicked(){
     ui->comboBox_patient_courant->setEnabled(true);
     ui->pushButton_rechercher->setEnabled(true);
     ui->pushButton_editer_bilan->setEnabled(true);
+
+    this->mapCheminsImages.clear();
 
     emit on_pushButton_rechercher_clicked();
 }
@@ -12044,6 +12138,8 @@ void MainWindow::on_pushButton_validerRapport_clicked(){
         ui->pushButton_editer_bilan->setEnabled(true);
 
         ui->pushButton_annulerEditionRapport->setVisible(false);
+
+        this->mapCheminsImages.clear();
 
         emit on_pushButton_rechercher_clicked();
     }
@@ -12158,6 +12254,8 @@ void MainWindow::on_pushButton_validerRapport_epaule_clicked(){
 
         ui->pushButton_annulerEditionRapport->setVisible(false);
 
+        this->mapCheminsImages.clear();
+
         emit on_pushButton_rechercher_clicked();
     }
     else{
@@ -12271,6 +12369,8 @@ void MainWindow::on_pushButton_validerRapport_hanche_clicked()
 
         ui->pushButton_annulerEditionRapport->setVisible(false);
 
+        this->mapCheminsImages.clear();
+
         emit on_pushButton_rechercher_clicked();
     }
     else{
@@ -12383,6 +12483,8 @@ void MainWindow::on_pushButton_validerRapport_cheville_clicked()
         ui->pushButton_editer_bilan->setEnabled(true);
 
         ui->pushButton_annulerEditionRapport->setVisible(false);
+
+        this->mapCheminsImages.clear();
 
         emit on_pushButton_rechercher_clicked();
     }
@@ -14933,8 +15035,6 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
     res.append(ecrireTripleHopBP(listePairesRapport));
     res.append(ecrireCrossOverHopBP(listePairesRapport));
 
-    //Ecrire Force Vitesse
-
     res.append("<h1 style=\"text-align:left;\">Tests Force / Vitesse</h1>");
     res.append("<div style=\"height: 30px;\"></div>");
 
@@ -14946,7 +15046,9 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
     res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpsc_analyseGestuelleSprint->toPlainText(),
                    "Analyse Gestuelle Sprint", "AGSprint"));
 
-    res.append(ecrireProfilVM(listePairesRapport));
+    res.append("<h1 style=\"text-align:left;\">Tests de vitesse multidirectionnelle</h1>");
+    res.append("<div style=\"height: 30px;\"></div>");
+    res.append(ecrireProfilVM(listePairesRapport, mapInfosPatient.value("sexe")));
 
     res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpsc_analyseGestuelleVM->toPlainText(),
                    "Analyse Gestuelle", "AGVM"));
@@ -15128,6 +15230,8 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
 
     res.append(legende);
 
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Analyse mobilité articulaire</h1>");
+    res.append("<div style=\"height: 30px;\"></div>");
     // ecrire le tableau des amplitudes articulaires
     res.append(ecrireAmplitudesBpf(listePairesRapport));
 
@@ -15140,7 +15244,8 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
     res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpf_analysePosturaleDynamiqueMS->toPlainText(),
                    "Analyse Posturale Dynamique Membre Superieur", "APDMS"));
 
-    res.append("<h1 style=\"text-align:center;\">Tests et ratios de force isométrique</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes</h1>");
+    res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du test de grip
     res.append(ecrireTestGripBP(listePairesRapport));
@@ -15159,7 +15264,8 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
     // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
     //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align:center;\">Tests de puissance</h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de puissance</h1>");
+    res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du squatJump bipodal
     res.append(ecrireSjBipodalBP(listePairesRapport));
@@ -15174,12 +15280,15 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
     res.append(ecrireHopBP(listePairesRapport));
     res.append(ecrireMTT(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:center;\">Tests Force / Vitesse</h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests Force / Vitesse</h1>");
+    res.append("<div style=\"height: 30px;\"></div>");
 
     res.append(ecrireDSI(listePairesRapport));
     res.append(ecrireProfilFVV(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:center;\">Tests Force Maximale</h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de Force Maximale </h1>");
+    res.append("<div style=\"height: 30px;\"></div>");
+
     res.append(ecrireTestFmaxBP(listePairesRapport, mapInfosPatient.value("poids")));
 
     res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpf_analyseGestuelle->toPlainText(),
@@ -15361,20 +15470,21 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
 
     res.append(legende);
 
-    // ecrire le tableau des amplitudes articulaires
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Analyse mobilité articulaire</h1>");
+    res.append("<div style=\"height: 30px;\"></div>");// ecrire le tableau des amplitudes articulaires
     res.append(ecrireAmplitudesBpcf(listePairesRapport));
 
-    res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpf_analysePosturaleStatique->toPlainText(),
+    res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpcf_analysePosturaleStatique->toPlainText(),
                "Analyse Posturale Statique", "APS"));
 
-    res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpf_analysePosturaleDynamiqueMI->toPlainText(),
+    res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpcf_analysePosturaleDynamiqueMI->toPlainText(),
                    "Analyse Posturale Dynamique Membre Inferieur", "APDMI"));
 
-    res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpf_analysePosturaleDynamiqueMS->toPlainText(),
+    res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpcf_analysePosturaleDynamiqueMS->toPlainText(),
                    "Analyse Posturale Dynamique Membre Superieur", "APDMS"));
 
-    res.append("<h1 style=\"text-align:center;\">Tests et ratios de force isométrique</h1>");
-
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes</h1>");
+    res.append("<div style=\"height: 30px;\"></div>");
     // ecrire le tableau du test de grip
     res.append(ecrireTestGripBP(listePairesRapport));
 
@@ -15392,7 +15502,8 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
     // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
     //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align:center;\">Tests de puissance</h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de puissance</h1>");
+    res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du squatJump bipodal
     res.append(ecrireSjBipodalBP(listePairesRapport));
@@ -15416,12 +15527,14 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
     res.append(ecrireHopBP(listePairesRapport));
     res.append(ecrireMTT(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:center;\">Tests Force / Vitesse</h1>");
-
+    res.append("<h1 style=\"text-align:left;\">Tests Force / Vitesse</h1>");
+    res.append("<div style=\"height: 30px;\"></div>");
     res.append(ecrireDSI(listePairesRapport));
     res.append(ecrireProfilFVV(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:center;\">Tests Force Maximale</h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de Force Maximale </h1>");
+    res.append("<div style=\"height: 30px;\"></div>");
+
     res.append(ecrireTestFmaxBPCF(listePairesRapport, mapInfosPatient.value("poids")));
 
     res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpcf_analyseGestuelle->toPlainText(),
@@ -15527,27 +15640,30 @@ QString MainWindow::ecrireAnalyseGenerique(QMap<QString, QString> mapChemins, QS
 
     int compteur = 0;
     QStringList imagesAInserer;
+    bool trouve = false;
 
     for (auto it = mapCheminsImages.begin(); it != mapCheminsImages.end(); ++it) {
         if (it.value() == typeEncadre) {
             QString pathFichier = redimensionnerImage(it.key(), 250);
             imagesAInserer.append(pathFichier);
+            trouve=true;
         }
     }
 
-    while (compteur < imagesAInserer.size()) {
+    while (compteur < imagesAInserer.size() && trouve) {
         texteInfos += "<tr>";
 
         if (compteur == imagesAInserer.size() - 1) {
             // Une seule image restante → la centrer sur 2 colonnes
-            texteInfos += "<td colspan=\"2\" style=\"padding: 10px; border:0px; text-align: center; vertical-align: middle;\">"
+            texteInfos += "<td colspan=\"3\" style=\"padding: 10px; border:0px; text-align: center; vertical-align: middle;\">"
                           "<div style=\"height: 220px; display: flex; align-items: center; justify-content: center;\">"
                           "<img src=\"" + imagesAInserer[compteur] + "\" style=\"max-height: 200px; border: 0px; max-width: 300px; height: auto; width: auto;\" />"
                           "</div></td>";
             compteur++;
-        } else {
-            // Deux images par ligne
-            for (int i = 0; i < 2; ++i) {
+        }
+        else {
+            // trois images par ligne
+            for (int i = 0; i < 3; ++i) {
                 texteInfos += "<td style=\"padding: 10px; border:0px; text-align: center; vertical-align: middle;\">"
                               "<div style=\"height: 220px; display: flex; align-items: center; justify-content: center;\">"
                               "<img src=\"" + imagesAInserer[compteur] + "\" style=\"max-height: 200px; border: 0px; max-width: 300px; height: auto; width: auto;\" />"
@@ -15838,7 +15954,6 @@ void MainWindow::on_pushButton_bpsc_photos_analysePosturaleDynamique_clicked()
  */
 void MainWindow::on_pushButton_bpf_photos_analysePosturaleDynamiqueMI_clicked()
 {
-
     QStringList nomFichiers;
     QStringList pathsFichiers = QFileDialog::getOpenFileNames(
                 this,
@@ -16078,6 +16193,20 @@ void MainWindow::on_pushButton_bpsc_photos_analyseGestuelleFVV_clicked()
     this->ui->lineEdit_bpsc_photos_analyseGestuelleFVV->setText(fichierInfo.fileName());
 }
 
+void MainWindow::on_pushButton_bpcf_photos_analyseGestuelleFVV_clicked()
+{
+    QString pathFichierCourant = QFileDialog::getOpenFileName(
+                this,
+                "Choisir une image",
+                QString(),
+                "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
+                );
+
+    QFileInfo fichierInfo(pathFichierCourant);
+    mapCheminsImages.insert(pathFichierCourant,"PFVV");
+
+    this->ui->lineEdit_bpcf_photos_analyseGestuelleFVV->setText(fichierInfo.fileName());
+}
 
 /****************************************
 /*
@@ -16138,21 +16267,21 @@ void MainWindow::on_pushButton_bpsc_photos_analyseGestuelleSprint_clicked()
 void MainWindow::on_pushButton_bpsc_photos_analyseGestuelleVM_clicked()
 {
     QStringList nomFichiers;
-       QStringList pathsFichiers = QFileDialog::getOpenFileNames(
-                   this,
-                   "Choisir des images",
-                   QString(),
-                   "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
-                   );
+    QStringList pathsFichiers = QFileDialog::getOpenFileNames(
+               this,
+               "Choisir des images",
+               QString(),
+               "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
+               );
 
-       for (QString pathFichierCourant : pathsFichiers) {
+    for (QString pathFichierCourant : pathsFichiers) {
 
-           QFileInfo fichierInfo(pathFichierCourant);
-           nomFichiers << fichierInfo.fileName();
-           mapCheminsImages.insert(pathFichierCourant,"AGVM");
-       }
+       QFileInfo fichierInfo(pathFichierCourant);
+       nomFichiers << fichierInfo.fileName();
+       mapCheminsImages.insert(pathFichierCourant,"AGVM");
+    }
 
-       this->ui->lineEdit_bpsc_photos_analyseGestuelleVM->setText(nomFichiers.join(" | "));
+    this->ui->lineEdit_bpsc_photos_analyseGestuelleVM->setText(nomFichiers.join(" | "));
 }
 
 /****************************************
@@ -16182,7 +16311,18 @@ void MainWindow::on_pushButton_bpsc_photos_analyseGestuelleBS_clicked()
  */
 void MainWindow::on_pushButton_bpf_photos_analyseGestuelleFVV_clicked()
 {
+    QString pathFichierCourant = QFileDialog::getOpenFileName(
+                this,
+                "Choisir une image",
+                QString(),
+                "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
+                );
 
+
+    QFileInfo fichierInfo(pathFichierCourant);
+    mapCheminsImages.insert(pathFichierCourant,"PFVV");
+
+    this->ui->lineEdit_bpf_photos_analyseGestuelleFVV->setText(fichierInfo.fileName());
 }
 
 
@@ -16193,6 +16333,22 @@ void MainWindow::on_pushButton_bpf_photos_analyseGestuelleFVV_clicked()
 void MainWindow::on_pushButton_bpf_photos_analyseGestuelle_clicked()
 {
 
+    QStringList nomFichiers;
+    QStringList pathsFichiers = QFileDialog::getOpenFileNames(
+               this,
+               "Choisir des images",
+               QString(),
+               "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
+               );
+
+    for (QString pathFichierCourant : pathsFichiers) {
+
+       QFileInfo fichierInfo(pathFichierCourant);
+       nomFichiers << fichierInfo.fileName();
+       mapCheminsImages.insert(pathFichierCourant,"AGVM");
+    }
+
+    this->ui->lineEdit_bpf_photos_analyseGestuelle->setText(nomFichiers.join(" | "));
 }
 
 
@@ -16203,6 +16359,23 @@ void MainWindow::on_pushButton_bpf_photos_analyseGestuelle_clicked()
 void MainWindow::on_pushButton_bpcf_photos_analyseGestuelle_clicked()
 {
 
+
+    QStringList nomFichiers;
+    QStringList pathsFichiers = QFileDialog::getOpenFileNames(
+               this,
+               "Choisir des images",
+               QString(),
+               "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
+               );
+
+    for (QString pathFichierCourant : pathsFichiers) {
+
+       QFileInfo fichierInfo(pathFichierCourant);
+       nomFichiers << fichierInfo.fileName();
+       mapCheminsImages.insert(pathFichierCourant,"AGVM");
+    }
+
+    this->ui->lineEdit_bpcf_photos_analyseGestuelle->setText(nomFichiers.join(" | "));
 }
 
 QString MainWindow::encadrerTableauEtImage(const QString& texteTableau, const QString& cheminImage) {
@@ -16219,3 +16392,6 @@ QString MainWindow::encadrerTableauEtImage(const QString& texteTableau, const QS
             "</table>";
     return html;
 }
+
+
+

@@ -150,6 +150,8 @@ private slots:
 
     void on_pushButton_bpf_photos_analysePosturaleDynamiqueMS_clicked();
 
+    void on_pushButton_bpcf_photos_analyseGestuelleFVV_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -216,6 +218,9 @@ private:
     QString getCouleurPourcentageLSI(double pourcentage);
     QString getCouleurCKCuest(double nbTouches);
     QString getCouleurURLT(double nbRepetitions);
+    QString getCouleurAgility(double value, QString sexe);
+    QString getCouleurIllinois(double value, QString sexe);
+
     QPair<QString, QString> getPaireSstart(double sStart);
 
     QMap<QString, QString> getMapListeRapport(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString numeroTest);
@@ -307,7 +312,7 @@ private:
     QString ecrireProfilFVV(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireProfilFVH(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
 
-    QString ecrireProfilVM(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+    QString ecrireProfilVM(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString sexe);
     QString ecrireDSI(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
 
     QString ecrireReRiR1BP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
