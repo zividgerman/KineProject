@@ -14184,12 +14184,12 @@ QString MainWindow::remplirChaineHtmlHanche(QStringList listeNumerosTest){
 
     res.append(ecrireIP(listePairesRapport, labelBlessure));
 
+    // ecrire le tableau des abdd add
+    res.append(ecrireRatioA(listePairesRapport, labelBlessure));
+
     //Nouvelle page si T3 ou T2
     if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
         res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
-
-    // ecrire le tableau des abdd add
-    res.append(ecrireRatioA(listePairesRapport, labelBlessure));
 
     res.append("<h1 style=\"text-align:center;\">Tests de sauts verticaux</h1>");
 
