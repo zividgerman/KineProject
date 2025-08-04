@@ -19701,7 +19701,7 @@
       <enum>Qt::TextFormat::PlainText</enum>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -19986,6 +19986,107 @@
       </item>
      </layout>
     </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>2540</y>
+       <width>139</width>
+       <height>86</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_99">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_test_cmjB_18">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>F/V Horizontal</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::TextFormat::PlainText</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_opere_88">
+        <property name="text">
+         <string>temps (s)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_hauteur_saut_cmjB_19">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>10 metres</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpsc_distanceTenMeters">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_tps_stabilisation_cmj_15">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>30 metres</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpsc_distanceThirtyMeters">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget_generation_rapport_bpsc" native="true">
     <property name="geometry">
@@ -20097,7 +20198,7 @@
       <rect>
        <x>30</x>
        <y>1640</y>
-       <width>691</width>
+       <width>771</width>
        <height>1151</height>
       </rect>
      </property>
@@ -20357,7 +20458,7 @@
       <rect>
        <x>30</x>
        <y>1030</y>
-       <width>351</width>
+       <width>461</width>
        <height>21</height>
       </rect>
      </property>
@@ -20626,7 +20727,7 @@
       <rect>
        <x>40</x>
        <y>590</y>
-       <width>151</width>
+       <width>211</width>
        <height>21</height>
       </rect>
      </property>
@@ -24377,14 +24478,14 @@
       <x>30</x>
       <y>32780</y>
       <width>1091</width>
-      <height>2761</height>
+      <height>2931</height>
      </rect>
     </property>
     <widget class="QTextEdit" name="textEdit_interpretation_kine_bpf">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>1080</y>
+       <y>1300</y>
        <width>721</width>
        <height>191</height>
       </rect>
@@ -24397,7 +24498,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>1360</y>
+       <y>1580</y>
        <width>451</width>
        <height>20</height>
       </rect>
@@ -24419,7 +24520,7 @@
      <property name="geometry">
       <rect>
        <x>220</x>
-       <y>2690</y>
+       <y>2910</y>
        <width>201</width>
        <height>51</height>
       </rect>
@@ -24432,7 +24533,7 @@
      <property name="geometry">
       <rect>
        <x>510</x>
-       <y>2630</y>
+       <y>2850</y>
        <width>61</width>
        <height>26</height>
       </rect>
@@ -24445,7 +24546,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>2590</y>
+       <y>2810</y>
        <width>151</width>
        <height>31</height>
       </rect>
@@ -24467,7 +24568,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>2630</y>
+       <y>2850</y>
        <width>441</width>
        <height>26</height>
       </rect>
@@ -24480,7 +24581,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>1380</y>
+       <y>1600</y>
        <width>691</width>
        <height>1181</height>
       </rect>
@@ -24726,7 +24827,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>1280</y>
+       <y>1500</y>
        <width>611</width>
        <height>20</height>
       </rect>
@@ -24744,7 +24845,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>910</y>
+       <y>1130</y>
        <width>721</width>
        <height>91</height>
       </rect>
@@ -24754,7 +24855,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>810</y>
+       <y>1030</y>
        <width>251</width>
        <height>21</height>
       </rect>
@@ -24783,7 +24884,7 @@
      <property name="geometry">
       <rect>
        <x>340</x>
-       <y>870</y>
+       <y>1090</y>
        <width>91</width>
        <height>18</height>
       </rect>
@@ -24796,7 +24897,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>840</y>
+       <y>1060</y>
        <width>721</width>
        <height>20</height>
       </rect>
@@ -24809,7 +24910,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>890</y>
+       <y>1110</y>
        <width>91</width>
        <height>20</height>
       </rect>
@@ -24830,7 +24931,7 @@
      <property name="geometry">
       <rect>
        <x>200</x>
-       <y>1320</y>
+       <y>1540</y>
        <width>461</width>
        <height>20</height>
       </rect>
@@ -25195,7 +25296,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>1050</y>
+       <y>1270</y>
        <width>291</width>
        <height>21</height>
       </rect>
@@ -25220,12 +25321,124 @@
       <enum>Qt::TextFormat::PlainText</enum>
      </property>
     </widget>
+    <widget class="QLabel" name="label_amplitude_articulaire_69">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>790</y>
+       <width>251</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <bold>true</bold>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="text">
+      <string>Analyse Test de Force Maximale:</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::PlainText</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_bpf_photos_forceMaximale">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>850</y>
+       <width>91</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Ajouter Photo(s)</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="textEdit_bpf_analyseForceMaximale">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>890</y>
+       <width>721</width>
+       <height>91</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_axes_38">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>870</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Encadre analyse</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::PlainText</enum>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_bpf_photos_analyseForceMaximale">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>820</y>
+       <width>721</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="Line" name="line_81">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>1000</y>
+       <width>461</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_82">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>1240</y>
+       <width>461</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget_bpcf" native="true">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>35560</y>
+      <y>35770</y>
       <width>1091</width>
       <height>3491</height>
      </rect>
@@ -29383,14 +29596,14 @@
       <x>20</x>
       <y>39270</y>
       <width>901</width>
-      <height>3031</height>
+      <height>3121</height>
      </rect>
     </property>
     <widget class="QTextEdit" name="textEdit_interpretation_kine_bpcf">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>1080</y>
+       <y>1260</y>
        <width>721</width>
        <height>191</height>
       </rect>
@@ -29403,7 +29616,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>1360</y>
+       <y>1540</y>
        <width>451</width>
        <height>20</height>
       </rect>
@@ -29425,7 +29638,7 @@
      <property name="geometry">
       <rect>
        <x>220</x>
-       <y>2950</y>
+       <y>3130</y>
        <width>201</width>
        <height>51</height>
       </rect>
@@ -29438,7 +29651,7 @@
      <property name="geometry">
       <rect>
        <x>510</x>
-       <y>2890</y>
+       <y>3070</y>
        <width>61</width>
        <height>26</height>
       </rect>
@@ -29451,7 +29664,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>2850</y>
+       <y>3030</y>
        <width>151</width>
        <height>31</height>
       </rect>
@@ -29473,7 +29686,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>2890</y>
+       <y>3070</y>
        <width>441</width>
        <height>26</height>
       </rect>
@@ -29486,7 +29699,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>1380</y>
+       <y>1560</y>
        <width>691</width>
        <height>1441</height>
       </rect>
@@ -29767,7 +29980,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>1280</y>
+       <y>1460</y>
        <width>611</width>
        <height>20</height>
       </rect>
@@ -29785,7 +29998,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>910</y>
+       <y>1120</y>
        <width>721</width>
        <height>91</height>
       </rect>
@@ -29795,7 +30008,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>810</y>
+       <y>1020</y>
        <width>251</width>
        <height>21</height>
       </rect>
@@ -29824,7 +30037,7 @@
      <property name="geometry">
       <rect>
        <x>340</x>
-       <y>870</y>
+       <y>1080</y>
        <width>91</width>
        <height>18</height>
       </rect>
@@ -29837,7 +30050,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>840</y>
+       <y>1050</y>
        <width>721</width>
        <height>20</height>
       </rect>
@@ -29850,7 +30063,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>890</y>
+       <y>1100</y>
        <width>91</width>
        <height>20</height>
       </rect>
@@ -29871,7 +30084,7 @@
      <property name="geometry">
       <rect>
        <x>200</x>
-       <y>1320</y>
+       <y>1500</y>
        <width>461</width>
        <height>20</height>
       </rect>
@@ -30236,7 +30449,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>1050</y>
+       <y>1230</y>
        <width>291</width>
        <height>21</height>
       </rect>
@@ -30259,6 +30472,105 @@
      </property>
      <property name="textFormat">
       <enum>Qt::TextFormat::PlainText</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_axes_39">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>870</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Encadre analyse</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::PlainText</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_amplitude_articulaire_70">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>790</y>
+       <width>251</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <bold>true</bold>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="text">
+      <string>Analyse Test de Force Maximale:</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::PlainText</enum>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_bpcf_photos_analyseForceMaximale">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>820</y>
+       <width>721</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="textEdit_bpcf_analyseForceMaximale">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>890</y>
+       <width>721</width>
+       <height>91</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_bpcf_photos_forceMaximale">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>850</y>
+       <width>91</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Ajouter Photo(s)</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line_83">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>1000</y>
+       <width>461</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
    </widget>

@@ -150,6 +150,10 @@ private slots:
 
     void on_pushButton_bpcf_photos_analyseGestuelleFVV_clicked();
 
+    void on_pushButton_bpcf_photos_forceMaximale_clicked();
+
+    void on_pushButton_bpf_photos_forceMaximale_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -309,7 +313,7 @@ private:
 
     QString ecrireMTT(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireNordicCurl(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
-
+    QString ecrireSprintTest(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
 
     QString ecrireFmaxPL(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString poids);
     QString ecrireTestFmaxBPF(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString poids);
@@ -346,13 +350,13 @@ private:
     QString remplirChaineHtmlCrossfit(QStringList listeNumerosTest);
 
     //Course
-    QString ecrireAnalyseGenerique(QMap<QString, QString> mapChemins, QString texteEncadre, QString titreEncadre, QString typeEncadre);
-
+    QString ecrireAnalyseGenerique(QMap<QString, QString> mapChemins, QString texteEncadre, QString titreEncadre, QString typeEncadre, int maxWidth, int maxHeight);
     QString ecrireInterpretation(QString texteInterpretation, QString titreInterpretation);
-    QString encadrerTableauEtImage(const QString& texteTableau, const QString& cheminImage);
+    QString encadrerTableauEtImage(const QString& texteTableau, const QString& cheminImage, int maxWidth, int maxHeight);
+    QString encadrerTableauEtImageFlexible(const QString& texteTableau, const QString& cheminImage, const QString& position,int maxWidth,int maxHeight);
 
 
-        void redimensionnerImages();
+    void redimensionnerImages();
     void initialiserDatabase();
     void testDb();
     void genererRapportPdf(QString contenuHtml);
