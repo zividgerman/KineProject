@@ -116,7 +116,7 @@
     </property>
     <property name="font">
      <font>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -134,7 +134,7 @@
     </property>
     <property name="font">
      <font>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -152,7 +152,7 @@
     </property>
     <property name="font">
      <font>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -170,7 +170,7 @@
     </property>
     <property name="font">
      <font>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -188,7 +188,7 @@
     </property>
     <property name="font">
      <font>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -206,7 +206,7 @@
     </property>
     <property name="font">
      <font>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -224,7 +224,7 @@
     </property>
     <property name="font">
      <font>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -268,7 +268,7 @@
     </property>
     <property name="font">
      <font>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -286,7 +286,7 @@
     </property>
     <property name="font">
      <font>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -334,6 +334,11 @@
       <width>121</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Cote blesse</string>

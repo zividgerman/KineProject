@@ -86,8 +86,6 @@ private slots:
 
     void on_pushButton_valider_bilan_cheville_clicked();
 
-    void on_pushButton_clicked();
-
     void on_pushButton_validerRapport_bpc_clicked();
 
     void on_toolButton_bpc_clicked();
@@ -200,6 +198,7 @@ private:
     QString getCouleurRsiModifie(double rsi, QString sexe);
     QString getCouleurRsi(double rsi);
     QString getCouleurBkfo(double bkfo);
+    QString getCouleurScoreBS(double bkfo, int poids);
     QString getCouleurEI(double ratio);
     QString getCouleurSautsRepetesRsi(double rsi);
 
@@ -237,6 +236,7 @@ private:
     QString ecrireRatioIJ(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireMcCall(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireRatioA(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
+    QString ecrireRatioREHanche(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireIP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrirePointsReceptionUnipodale(QList<QPair<QString, QMap<QString, QString> > > listePairesRapport);
 
@@ -270,6 +270,7 @@ private:
     QString ecrireHop(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure, QString contexte);
     QString ecrireTripleHop(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireCrossOverHop(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
+    QString ecrireFootLift(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
 
     QString ecrireFmaxReleveursCheville(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireFmaxSoleaireCheville(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
@@ -279,6 +280,10 @@ private:
 
     QString ecrireHeelRise(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireSLIHRH(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
+
+    QString ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
+    QString dessinerTestYBalance(QList<QPair<QString, QMap<QString, QString> > > listePairesRapport, QString suffixeDroit, QString suffixeGauche, QString labelDroit,
+                                 QString labelGauche, QString numeroTest);
 
     QString ecrireRatioVerseursBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireFmaxReleveursSoleaireBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
@@ -303,10 +308,11 @@ private:
     QString ecrireTestGripBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
 
     QString ecrireMTT(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+    QString ecrireNordicCurl(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
 
 
     QString ecrireFmaxPL(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString poids);
-    QString ecrireTestFmaxBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString poids);
+    QString ecrireTestFmaxBPF(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString poids);
     QString ecrireTestFmaxBPCF(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString poids);
 
     QString ecrireProfilFVV(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
