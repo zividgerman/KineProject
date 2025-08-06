@@ -349,7 +349,12 @@ private:
     QString remplirChaineHtmlSportCombat(QStringList listeNumerosTest);
     QString remplirChaineHtmlCrossfit(QStringList listeNumerosTest);
 
-    //Course
+    QString genererPageCouvertureBF(const QString& patientName,
+                                    const QString& patientDate,
+                                    const QString& pathAthleteImage,
+                                    const QString& pathLogo, const QString &titreBilan);
+
+        //Course
     QString ecrireAnalyseGenerique(QMap<QString, QString> mapChemins, QString texteEncadre, QString titreEncadre, QString typeEncadre, int maxWidth, int maxHeight);
     QString ecrireInterpretation(QString texteInterpretation, QString titreInterpretation);
     QString encadrerTableauEtImage(const QString& texteTableau, const QString& cheminImage, int maxWidth, int maxHeight);

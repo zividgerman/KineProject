@@ -1,0 +1,1 @@
+C:\Users\Rikke\Documents\German\QtProject\KineProject\PDFTK\pdftk C:\Users\Rikke\Documents\German\QtProject\KineProject\PDFTK\*.pdf cat output C:\Users\Rikke\Documents\German\QtProject\KineProject\PDFTK\combined.pdf

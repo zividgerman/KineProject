@@ -2797,7 +2797,7 @@ QString MainWindow::ecrireAmplitudesHanche(QList<QPair<QString, QMap<QString, QS
                                "dans une position de flexion, abduction et rotation externe des hanches  avec les deux voûtes plantaires collées"
                                " ensembles proche des fesses, distance optimale inf. 17 cm</p>");
 
-    texteTableauCourant.append("<p style=\"text-align: justify;margin-bottom:50px;\"></p>< /br>< /br>");
+    texteTableauCourant.append("<p style=\"margin-bottom:50px;\"><br><br></p>");
 
 
     return texteTableauCourant;
@@ -9917,7 +9917,7 @@ QString MainWindow::ecrireSautsRepetes(QList<QPair<QString, QMap<QString, QStrin
     cheminImageScore = redimensionnerImage(cheminImageScore, 1000);
 
     // Image à droite du tableau
-    texteTableauCourant = encadrerTableauEtImageFlexible(texteTableauCourant, cheminImageScore, "right", 400, 300);
+    texteTableauCourant = encadrerTableauEtImageFlexible(texteTableauCourant, cheminImageScore, "bottom", 400, 300);
 
     return texteTableauCourant;
 }
@@ -9991,7 +9991,7 @@ QString MainWindow::ecrireSautsRepetesBP(QList<QPair<QString, QMap<QString, QStr
     cheminImageScore = redimensionnerImage(cheminImageScore, 1000);
 
     // Image à droite du tableau
-    texteTableauCourant = encadrerTableauEtImageFlexible(texteTableauCourant, cheminImageScore, "right", 400, 300);
+    texteTableauCourant = encadrerTableauEtImageFlexible(texteTableauCourant, cheminImageScore, "bottom", 400, 300);
 
     return texteTableauCourant;
 }
@@ -14407,18 +14407,30 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
 
     res.append("<body>");
 
-    res = res + "<img src=\"" + QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "nomFichierLogo") +
-          "\" width=\"175\" height=\"125\">"
-          "<p style=\"text-align: center;margin-left: 5px;font-weight:bold;font-size:350px;margin-bottom:200px;margin-top:110px;\">BILAN FONCTIONNEL DU GENOU</p>";
+    res += genererPageCouvertureBF(
+                mapInfosPatient.value("nomFamille") + " " + mapInfosPatient.value("prenom"),
+                QDate::currentDate().toString("dd/MM/yyyy"),
+                QUrl::fromLocalFile(QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "pageGardeSprint")).toString(),
+                QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "nomFichierLogo"),
+                "GENOU"
+            );
 
-    //-----------------
-    // ecrire le tableau des donnees du patient
-    //-----------------
+    qDebug() << QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "pageGardeSprint");
+    qDebug() << res;
 
-    // Si le patient a eu une intervention chirurgicale
-    QString texteInfosOperation;
+
+    // res = res + "<img src=\"" + QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "nomFichierLogo") +
+    //       "\" width=\"175\" height=\"125\">"
+    //       "<p style=\"text-align: center;margin-left: 5px;font-weight:bold;font-size:350px;margin-bottom:200px;margin-top:110px;\">BILAN FONCTIONNEL DU GENOU</p>";
+
+    // //-----------------
+    // // ecrire le tableau des donnees du patient
+    // //-----------------
+
+    // // Si le patient a eu une intervention chirurgicale
+    // QString texteInfosOperation;
     QString texteInfosCoteLese;
-    QString marginBottom;
+    // QString marginBottom;
     QString labelBlessure;
     QString typeBlessure;
 
@@ -14433,55 +14445,55 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
         typeBlessure = "Type d'intervention chirurgicale";
     }
 
-    // Texte operation
-    if(mapInfosPatient.value("estOpere") == "Non"){
-        marginBottom = "115px";
-    }
-    else{
-        texteInfosOperation = texteInfosOperation +
-                "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Date de l'operation : </td>"
-                "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("dateOperation") +  "</td></tr>";
+    // // Texte operation
+    // if(mapInfosPatient.value("estOpere") == "Non"){
+    //     marginBottom = "115px";
+    // }
+    // else{
+    //     texteInfosOperation = texteInfosOperation +
+    //             "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Date de l'operation : </td>"
+    //             "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("dateOperation") +  "</td></tr>";
 
-        marginBottom = "50px";
-    }
-    texteInfosOperation = texteInfosOperation +
-            "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\">" + typeBlessure + " : </td>"
-            "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("typeOperation") +  "</td></tr>";
+    //     marginBottom = "50px";
+    // }
+    // texteInfosOperation = texteInfosOperation +
+    //         "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\">" + typeBlessure + " : </td>"
+    //         "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("typeOperation") +  "</td></tr>";
 
-    // Informations
-    res = res + "<table style=\"border: none; margin-top:75px;margin-bottom:" + marginBottom + ";text-align:left;padding:10px 10px;\">"
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding: 10px 10px;\">Nom et prénom : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("nomFamille") + " " + mapInfosPatient.value("prenom") + "</td></tr>"
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Date de naissance : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("dateNaissance") +  "</td></tr>"
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Sexe : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("sexe") +  "</td></tr>"
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Taille : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("taille") +  "cm</td></tr>"
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Poids : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("poids") +  "kg</td></tr>"
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\">" + texteInfosCoteLese + " : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("coteBlesse") + "</td></tr>"
-                    + texteInfosOperation +
-                "</table>";
+    // // Informations
+    // res = res + "<table style=\"border: none; margin-top:75px;margin-bottom:" + marginBottom + ";text-align:left;padding:10px 10px;\">"
+    //                 "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding: 10px 10px;\">Nom et prénom : </td>"
+    //                 "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("nomFamille") + " " + mapInfosPatient.value("prenom") + "</td></tr>"
+    //                 "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Date de naissance : </td>"
+    //                 "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("dateNaissance") +  "</td></tr>"
+    //                 "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Sexe : </td>"
+    //                 "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("sexe") +  "</td></tr>"
+    //                 "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Taille : </td>"
+    //                 "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("taille") +  "cm</td></tr>"
+    //                 "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Poids : </td>"
+    //                 "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("poids") +  "kg</td></tr>"
+    //                 "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\">" + texteInfosCoteLese + " : </td>"
+    //                 "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("coteBlesse") + "</td></tr>"
+    //                 + texteInfosOperation +
+    //             "</table>";
 
-    res = res +  "<p>Date du rapport : " + QDate::currentDate().toString("dd/MM/yyyy") + "</p>< /br>< /br>";
+    // res = res +  "<p>Date du rapport : " + QDate::currentDate().toString("dd/MM/yyyy") + "</p>< /br>< /br>";
 
-    foreach (QString numeroTest, listeNumerosTest) {
+    // foreach (QString numeroTest, listeNumerosTest) {
 
-        QString dateCourante = "Date du test numero T" + numeroTest + " : ";
-        dateCourante = dateCourante + getMapListeRapport(listePairesRapport, numeroTest).value("dateBilan");
-        res = res +  "<p>" + dateCourante + "</p>";
-    }
+    //     QString dateCourante = "Date du test numero T" + numeroTest + " : ";
+    //     dateCourante = dateCourante + getMapListeRapport(listePairesRapport, numeroTest).value("dateBilan");
+    //     res = res +  "<p>" + dateCourante + "</p>";
+    // }
 
-    // Ecrire les infos du cabinet de Jordan
-    res = res + "<table style=\"margin-top:45px; width: 300px;text-align:center;\">"
-                "<tr>"
-                "<th scope=\"col\" style=\"background-color:transparent;font-weight:normal;color:#002e40;\">"
-                "<p>Cabinet Kinesithérapie SCP 9 bis   -   9 bis Route de Launaguet, 31200 Toulouse</p>"
-                "<p>scp9bis@gmail.com - 05 61 57 13 13</p></th>"
-                "</tr>"
-                "</table>";
+    // // Ecrire les infos du cabinet de Jordan
+    // res = res + "<table style=\"margin-top:45px; width: 300px;text-align:center;\">"
+    //             "<tr>"
+    //             "<th scope=\"col\" style=\"background-color:transparent;font-weight:normal;color:#002e40;\">"
+    //             "<p>Cabinet Kinesithérapie SCP 9 bis   -   9 bis Route de Launaguet, 31200 Toulouse</p>"
+    //             "<p>scp9bis@gmail.com - 05 61 57 13 13</p></th>"
+    //             "</tr>"
+    //             "</table>";
 
     // // Ecrire les infos du cabinet d antho
     // res = res + "<table style=\"margin-top:45px; width: 300px;text-align:center;\">"
@@ -16519,6 +16531,51 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
 /*
  *
  */
+QString MainWindow::genererPageCouvertureBF(const QString& patientName,
+                                            const QString& patientDate,
+                                            const QString& pathAthleteImage,
+                                            const QString& pathLogo,
+                                            const QString& titreBilan)
+{
+    QString html;
+
+    // Conteneur principal
+    html += "<div style='padding:40px; font-family:\"Barlow Semi Condensed\", Arial, sans-serif;'>";
+
+    // Image athlète en haut à droite
+    html += "<div align='right'><img src='" + pathAthleteImage + "' width='150' height='350' "
+            "style='background:#efefef; padding:2px; border:1px solid #ccc;'></div>";
+
+
+    // Nom du patient
+    html += "<br><center><font color='#002e40' size='4'><b>" + patientName + "</b></font></center><br><br>";
+
+    // Titre principal (bilan)
+    html += "<center>"
+            "<hr style='height:10px; background:black; border:none; width:85%;'>"
+            "<font color='#0056b3' size='35'><b>BILAN FONCTIONNEL<br>" + titreBilan.toUpper() + "</b></font>"
+            "<hr style='height:10px; background:black; border:none; width:85%;'>"
+            "</center><br><br>";
+
+    // Date
+    html += "<center><font color='#002e40' size='4'><b>DATE : " + patientDate + "</b></font></center><br><br><br>";
+
+    // Logo en bas centré
+    html += "<div align='center' style='margin-top:150px;'><img src='" + pathLogo + "' width='175' height='125'></div>";
+
+    html += "</div>";
+
+    return html;
+}
+
+
+/****************************************
+/*
+ *
+ *//****************************************
+/*
+ *
+ */
 bool MainWindow::doitEtreEcrit(QStringList listecaractereCles, QMap<QString, QString> map){
 
     bool res = true;
@@ -17415,6 +17472,87 @@ QString MainWindow::encadrerTableauEtImage(const QString& texteTableau,
 // }
 
 
+// QString MainWindow::encadrerTableauEtImageFlexible(const QString& texteTableau,
+//                                                    const QString& cheminImage,
+//                                                    const QString& position,
+//                                                    int maxWidth,
+//                                                    int maxHeight)
+// {
+//     QString html;
+
+//     // Charger l'image pour obtenir ses dimensions
+//     QImage img(cheminImage);
+//     if (img.isNull()) {
+//         html = "<div style='color:red;'>Image introuvable</div>" + texteTableau;
+//         return html;
+//     }
+
+//     // Calcul du ratio
+//     double ratio = qMin((double)maxWidth / img.width(), (double)maxHeight / img.height());
+//     int newW = (int)(img.width() * ratio);
+//     int newH = (int)(img.height() * ratio);
+
+//     // Construction HTML en fonction de la position
+//     if (position == "left" || position == "right") {
+//         // Image à gauche ou à droite du tableau
+//         html += "<table style='border-collapse: collapse; width: 100%;'><tr>";
+
+//         if (position == "left") {
+//             html += "<td style='vertical-align: middle; text-align: center;'>"
+//                     "<img src='" + cheminImage +
+//                     "' width='" + QString::number(newW) +
+//                     "' height='" + QString::number(newH) +
+//                     "' style='display:block; margin:auto; border:0;'/>"
+//                     "</td>"
+//                     "<td style='vertical-align: middle; text-align: left; width:100%; padding: 0;'>"
+//                     + texteTableau +
+//                     "</td>";
+//         } else { // right
+//             html += "<td style='vertical-align: middle; text-align: left; width:100%; padding: 0;'>"
+//                     + texteTableau +
+//                     "</td>"
+//                     "<td style='vertical-align: middle; text-align: center;'>"
+//                     "<img src='" + cheminImage +
+//                     "' width='" + QString::number(newW) +
+//                     "' height='" + QString::number(newH) +
+//                     "' style='display:block; margin:auto; border:0;'/>"
+//                     "</td>";
+//         }
+
+//         html += "</tr></table>";
+
+//     } else {
+//         // Image au-dessus ou en dessous du tableau
+//         html += "<div style='width:100%; margin-bottom:10px;'>";
+
+//         if (position == "top") {
+//             html += "<div style='text-align:center;'>"
+//                     "<img src='" + cheminImage +
+//                     "' width='" + QString::number(newW) +
+//                     "' height='" + QString::number(newH) +
+//                     "' style='display:block; margin:auto; border:0;'/>"
+//                     "</div>"
+//                     "<div style='text-align:left; padding:0;'>" +
+//                     texteTableau +
+//                     "</div>";
+//         } else { // bottom
+//             html += "<div style='text-align:left; padding:0;'>" +
+//                     texteTableau +
+//                     "</div>"
+//                     "<div style='text-align:center;'>"
+//                     "<img src='" + cheminImage +
+//                     "' width='" + QString::number(newW) +
+//                     "' height='" + QString::number(newH) +
+//                     "' style='display:block; margin:auto; border:0;'/>"
+//                     "</div>";
+//         }
+
+//         html += "</div>";
+//     }
+
+//     return html;
+// }
+
 QString MainWindow::encadrerTableauEtImageFlexible(const QString& texteTableau,
                                                    const QString& cheminImage,
                                                    const QString& position,
@@ -17432,70 +17570,61 @@ QString MainWindow::encadrerTableauEtImageFlexible(const QString& texteTableau,
 
     // Calcul du ratio
     double ratio = qMin((double)maxWidth / img.width(), (double)maxHeight / img.height());
-    int newW = (int)(img.width() * ratio);
-    int newH = (int)(img.height() * ratio);
+    int newW = static_cast<int>(img.width() * ratio);
+    int newH = static_cast<int>(img.height() * ratio);
 
-    // Construction HTML en fonction de la position
     if (position == "left" || position == "right") {
-        // Image à gauche ou à droite du tableau
         html += "<table style='border-collapse: collapse; width: 100%;'><tr>";
 
         if (position == "left") {
             html += "<td style='vertical-align: middle; text-align: center;'>"
-                    "<img src='" + cheminImage +
-                    "' width='" + QString::number(newW) +
+                    "<img src='" + cheminImage + "' width='" + QString::number(newW) +
                     "' height='" + QString::number(newH) +
                     "' style='display:block; margin:auto; border:0;'/>"
                     "</td>"
                     "<td style='vertical-align: middle; text-align: left; width:100%; padding: 0;'>"
                     + texteTableau +
                     "</td>";
-        } else { // right
+        } else {
             html += "<td style='vertical-align: middle; text-align: left; width:100%; padding: 0;'>"
                     + texteTableau +
                     "</td>"
                     "<td style='vertical-align: middle; text-align: center;'>"
-                    "<img src='" + cheminImage +
-                    "' width='" + QString::number(newW) +
+                    "<img src='" + cheminImage + "' width='" + QString::number(newW) +
                     "' height='" + QString::number(newH) +
                     "' style='display:block; margin:auto; border:0;'/>"
                     "</td>";
         }
-
         html += "</tr></table>";
 
     } else {
-        // Image au-dessus ou en dessous du tableau
+        // Image en haut ou en bas
         html += "<div style='width:100%; margin-bottom:10px;'>";
 
         if (position == "top") {
-            html += "<div style='text-align:center;'>"
-                    "<img src='" + cheminImage +
-                    "' width='" + QString::number(newW) +
+            html += "<div style='text-align:center; margin-bottom:10px;'>"
+                    "<img src='" + cheminImage + "' width='" + QString::number(newW) +
                     "' height='" + QString::number(newH) +
                     "' style='display:block; margin:auto; border:0;'/>"
                     "</div>"
-                    "<div style='text-align:left; padding:0;'>" +
-                    texteTableau +
+                    "<div style='text-align:left; padding:0; margin-top:5px;'>"
+                    + texteTableau +
                     "</div>";
         } else { // bottom
-            html += "<div style='text-align:left; padding:0;'>" +
-                    texteTableau +
+            html += "<div style='text-align:left; padding:0; margin-bottom:5px;'>"
+                    + texteTableau +
                     "</div>"
-                    "<div style='text-align:center;'>"
-                    "<img src='" + cheminImage +
-                    "' width='" + QString::number(newW) +
+                    "<div style='text-align:center; margin-top:5px;margin-bottom:50px'>"
+                    "<img src='" + cheminImage + "' width='" + QString::number(newW) +
                     "' height='" + QString::number(newH) +
                     "' style='display:block; margin:auto; border:0;'/>"
                     "</div>";
         }
-
         html += "</div>";
     }
 
     return html;
 }
-
 
 /****************************************
 /*

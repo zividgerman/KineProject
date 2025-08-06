@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1163</width>
-    <height>42456</height>
+    <width>1169</width>
+    <height>42587</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19986,7 +19986,7 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>590</x>
@@ -24478,7 +24478,7 @@
       <x>30</x>
       <y>32780</y>
       <width>1091</width>
-      <height>2931</height>
+      <height>2971</height>
      </rect>
     </property>
     <widget class="QTextEdit" name="textEdit_interpretation_kine_bpf">
@@ -29596,7 +29596,7 @@
       <x>20</x>
       <y>39270</y>
       <width>901</width>
-      <height>3121</height>
+      <height>3211</height>
      </rect>
     </property>
     <widget class="QTextEdit" name="textEdit_interpretation_kine_bpcf">
@@ -30580,7 +30580,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1163</width>
+     <width>1169</width>
      <height>17</height>
     </rect>
    </property>
