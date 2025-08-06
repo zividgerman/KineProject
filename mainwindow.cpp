@@ -91,38 +91,26 @@ void MainWindow::testDb(){
 }
 
 //****************************************
-bool MainWindow::lancerCmdPdftk(QString pathFichierRapport, QString pathFichierAnnexes, QString pathFichierRes){
-
+bool MainWindow::lancerCmdPdftk(const QStringList& fichiersEntree, const QString& pathFichierRes) {
     bool estExecute = true;
-    //****************
-    // Methode 1 en appelant le batch
-    // QProcess::startDetached(getValue(PATH_CONFIG, "paths", "pdftk"));
-
-
-    //****************
-    // Methode 2 en allant chercher direct dans le dossier du projet le PDFTK
     QString pathDossierPdftk = QApplication::applicationDirPath() + "/PDFTK/";
 
-    QStringList arguments;
-    arguments
-        << pathFichierRapport
-        << pathFichierAnnexes
-        << "cat"
-        << "output"
-        << pathFichierRes;
+    QStringList arguments = fichiersEntree;
+    arguments << "cat" << "output" << pathFichierRes;
 
     QProcess proc;
     proc.start(pathDossierPdftk + "pdftk.exe", arguments);
     proc.waitForFinished();
 
-
-    if(proc.exitCode() !=0){
+    if (proc.exitCode() != 0) {
+        qDebug() << "PDFTK error output:" << proc.readAllStandardError();
+        qDebug() << "PDFTK stdout:" << proc.readAllStandardOutput();
+        qDebug() << "Arguments:" << arguments.join(" ");
         estExecute = false;
     }
 
     return estExecute;
 }
-
 
 //****************************************
 void MainWindow::genererRapportPdf(QString contenuHtml){
@@ -3082,7 +3070,7 @@ QString MainWindow::ecrireAmplitudesBpf(QList<QPair<QString, QMap<QString, QStri
     if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
 
         texteTableauCourant = texteTableauCourant + "<tr>"
-                                                    "<td rowspan=\"3\" style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Cheville</td>"
+                                                    "<td rowspan=\"3\" style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Cheville</td>"
                                                     "<th scope=\"row\">Flexion Plantaire (°)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionPlantaireG") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionPlantaireD") + "</td>";
@@ -3120,7 +3108,7 @@ QString MainWindow::ecrireAmplitudesBpf(QList<QPair<QString, QMap<QString, QStri
 
         texteTableauCourant = texteTableauCourant + "</tr>"
                                                     "<tr>"
-                                                    "<td rowspan=\"2\" style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Genou</td>"
+                                                    "<td rowspan=\"2\" style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Genou</td>"
                                                     "<th scope=\"row\">Flexion (°)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionGenouG") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionGenouD") + "</td>";
@@ -3146,7 +3134,7 @@ QString MainWindow::ecrireAmplitudesBpf(QList<QPair<QString, QMap<QString, QStri
 
         texteTableauCourant = texteTableauCourant + "</tr>"
                                                     "<tr>"
-                                                    "<td rowspan=\"7\" style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Hanche</td>"
+                                                    "<td rowspan=\"7\" style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Hanche</td>"
                                                     "<th scope=\"row\">Flexion (°)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionHancheG") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionHancheD") + "</td>";
@@ -3237,7 +3225,7 @@ QString MainWindow::ecrireAmplitudesBpf(QList<QPair<QString, QMap<QString, QStri
     if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
 
         texteTableauCourant = texteTableauCourant + "<tr>"
-                                                    "<td rowspan=\"8\" style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Epaule</td>"
+                                                    "<td rowspan=\"8\" style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Epaule</td>"
                                                     "<th scope=\"row\">Elevation antérieure (°)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("elevationAnterieureG") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("elevationAnterieureD") + "</td>";
@@ -3334,7 +3322,7 @@ QString MainWindow::ecrireAmplitudesBpf(QList<QPair<QString, QMap<QString, QStri
     if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
 
         texteTableauCourant = texteTableauCourant + "<tr>"
-                                                    "<td style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Rachis</td>"
+                                                    "<td style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Rachis</td>"
                                                     "<td colspan=\"3\">" + getMapListeRapport(listePairesRapport, "1").value("texteRachis") + "</td>"
                                                     "</tr>";
     }
@@ -3378,7 +3366,7 @@ QString MainWindow::ecrireAmplitudesBpcf(QList<QPair<QString, QMap<QString, QStr
     if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
 
         texteTableauCourant = texteTableauCourant + "<tr>"
-                                                    "<td rowspan=\"3\" style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Cheville</td>"
+                                                    "<td rowspan=\"3\" style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Cheville</td>"
                                                     "<th scope=\"row\">Flexion Plantaire (°)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionPlantaireG") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionPlantaireD") + "</td>";
@@ -3416,7 +3404,7 @@ QString MainWindow::ecrireAmplitudesBpcf(QList<QPair<QString, QMap<QString, QStr
 
         texteTableauCourant = texteTableauCourant + "</tr>"
                                                     "<tr>"
-                                                    "<td rowspan=\"2\" style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Genou</td>"
+                                                    "<td rowspan=\"2\" style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Genou</td>"
                                                     "<th scope=\"row\">Flexion (°)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionGenouG") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionGenouD") + "</td>";
@@ -3442,7 +3430,7 @@ QString MainWindow::ecrireAmplitudesBpcf(QList<QPair<QString, QMap<QString, QStr
 
         texteTableauCourant = texteTableauCourant + "</tr>"
                                                     "<tr>"
-                                                    "<td rowspan=\"7\" style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Hanche</td>"
+                                                    "<td rowspan=\"7\" style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Hanche</td>"
                                                     "<th scope=\"row\">Flexion (°)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionHancheG") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionHancheD") + "</td>";
@@ -3534,7 +3522,7 @@ QString MainWindow::ecrireAmplitudesBpcf(QList<QPair<QString, QMap<QString, QStr
 
         texteTableauCourant = texteTableauCourant + "</tr>"
                                                     "<tr>"
-                                                    "<td rowspan=\"2\" style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Poignet</td>"
+                                                    "<td rowspan=\"2\" style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Poignet</td>"
                                                     "<th scope=\"row\">Flexion (°)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionPoignetG") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionPoignetD") + "</td>";
@@ -3559,7 +3547,7 @@ QString MainWindow::ecrireAmplitudesBpcf(QList<QPair<QString, QMap<QString, QStr
     if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
 
         texteTableauCourant = texteTableauCourant + "<tr>"
-                                                    "<td rowspan=\"8\" style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Epaule</td>"
+                                                    "<td rowspan=\"8\" style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Epaule</td>"
                                                     "<th scope=\"row\">Elevation antérieure (°)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("elevationAnterieureG") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("elevationAnterieureD") + "</td>";
@@ -3656,7 +3644,7 @@ QString MainWindow::ecrireAmplitudesBpcf(QList<QPair<QString, QMap<QString, QStr
     if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
 
         texteTableauCourant = texteTableauCourant + "<tr>"
-                                                    "<td style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Rachis</td>"
+                                                    "<td style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Rachis</td>"
                                                     "<td colspan=\"3\">" + getMapListeRapport(listePairesRapport, "1").value("texteRachis") + "</td>"
                                                     "</tr>";
     }
@@ -3698,7 +3686,7 @@ QString MainWindow::ecrireAmplitudesBp(QList<QPair<QString, QMap<QString, QStrin
     if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
 
         texteTableauCourant = texteTableauCourant + "<tr>"
-                                                    "<td rowspan=\"3\" style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Cheville</td>"
+                                                    "<td rowspan=\"3\" style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Cheville</td>"
                                                     "<th scope=\"row\">Flexion Plantaire (°)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionPlantaireG") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionPlantaireD") + "</td>";
@@ -3736,7 +3724,7 @@ QString MainWindow::ecrireAmplitudesBp(QList<QPair<QString, QMap<QString, QStrin
 
         texteTableauCourant = texteTableauCourant + "</tr>"
                                                     "<tr>"
-                                                    "<td rowspan=\"2\" style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Genou</td>"
+                                                    "<td rowspan=\"2\" style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Genou</td>"
                                                     "<th scope=\"row\">Flexion (°)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionGenouG") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionGenouD") + "</td>";
@@ -3762,7 +3750,7 @@ QString MainWindow::ecrireAmplitudesBp(QList<QPair<QString, QMap<QString, QStrin
 
         texteTableauCourant = texteTableauCourant + "</tr>"
                                                     "<tr>"
-                                                    "<td rowspan=\"7\" style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Hanche</td>"
+                                                    "<td rowspan=\"7\" style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Hanche</td>"
                                                     "<th scope=\"row\">Flexion (°)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionHancheG") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport, "1").value("flexionHancheD") + "</td>";
@@ -3853,7 +3841,7 @@ QString MainWindow::ecrireAmplitudesBp(QList<QPair<QString, QMap<QString, QStrin
     if(doitEtreEcritAllTest(listeCaracteresCol, listePairesRapport)){
 
         texteTableauCourant = texteTableauCourant + "<tr>"
-                                                    "<td style=\"background-color: #f9e79f; font-weight: bold; vertical-align: middle;\">Rachis</td>"
+                                                    "<td style=\"background-color: #c0c0c0; font-weight: bold; vertical-align: middle;\">Rachis</td>"
                                                     "<td colspan=\"3\">" + getMapListeRapport(listePairesRapport, "1").value("texteRachis") + "</td>"
                                                     "</tr>";
     }
@@ -12893,34 +12881,35 @@ void MainWindow::on_pushButton_annulerEditionRapport_clicked(){
 }
 
 
-//****************************************
-/*
- *
- */
-void MainWindow::on_pushButton_validerRapport_clicked(){
+void MainWindow::on_pushButton_validerRapport_clicked() {
 
-    // Recuperer le chemin des fichiers pdf a recuperer pour le merge
+    // Récupérer le chemin du fichier annexes
     QString pathFichierAnnexes = ui->lineEdit_g_pathAnnexes->text();
+    QFileInfo fichierInfoAnnexes(pathFichierAnnexes);
 
+    // Récupérer les numéros de test
     QStringList listeNumerosTest;
-
-    for(int i = 0; i < ui->comboBox_dateBilan->currentText().toInt(); i++){
+    for (int i = 0; i < ui->comboBox_dateBilan->currentText().toInt(); ++i) {
         listeNumerosTest.append(ui->comboBox_dateBilan->itemText(i));
     }
 
-    // ecrire le QString html
+    // Générer le contenu HTML
     QString contenuHtml = remplirChaineHtmlGenou(listeNumerosTest);
-
-    // generer le PDF resultat et en garder une copie
     genererRapportPdf(contenuHtml);
 
+    // Vérifier que le fichier rapport existe
     QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
-
-    // verifier si les fichiers existent
     QFileInfo fichierInfoRapport(pathFichierPdf);
-    QFileInfo fichierInfoAnnexes(pathFichierAnnexes);
 
+    if (!fichierInfoRapport.isFile()) {
+        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n'existe pas ! : " + pathFichierPdf);
+        return;
+    }
 
+    // Construire le chemin vers la page de garde
+    QString pathPageGarde = QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "PageGardeGenou");
+
+    // Construire le nom final du fichier concaténé
     QString pathFichierRes = getValue(PATH_CONFIG, "paths", "dossierRapports")
                              + "/rapport_genou_"
                              + QString::number(listeNumerosTest.count())
@@ -12930,81 +12919,57 @@ void MainWindow::on_pushButton_validerRapport_clicked(){
                              + QDate::currentDate().toString("dd_MM_yyyy")
                              + ".pdf";
 
-    // Generer le pdf final avec annexes
-    if(fichierInfoRapport.isFile() ){
-
-        if(fichierInfoAnnexes.isFile()){
-
-            bool reussi = lancerCmdPdftk(pathFichierPdf, pathFichierAnnexes, pathFichierRes);
-            if (!reussi) {
-                QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                ecrireLog("La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                return;
-            }
-        }
-        else {
-            QFile fichierRapport(pathFichierPdf);
-
-            if (QFile::exists(pathFichierRes)) {
-                if (!QFile::remove(pathFichierRes)) {
-                    qDebug() << "Failed to remove existing file:" << pathFichierRes;
-                    ecrireLog("Failed to remove existing file:" +  pathFichierRes);
-                    return; // Exit or handle error
-                }
-            }
-
-            if (!fichierRapport.rename(pathFichierRes)) {
-                    qDebug() << "Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes;
-                    ecrireLog("Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes);
-                    return;
-            }
-        }
-
-        // garder une copie du fichier et l horodater
-        QFileInfo fichierInfoRes(pathFichierRes);
-        QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
-                                   + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz")
-                                   + ".pdf";
-
-        copyFile(pathFichierRes, pathFichierCopie);
-
-        QMessageBox::information(this, tr("Rapport genere "),
-                                 "Le rapport genou numero " + QString::number(listeNumerosTest.count())+
-                                     " pour le patient " + ui->comboBox_patient_courant->currentText() + " a ete enregistre !");
-
-        QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
-        bool opened = QDesktopServices::openUrl(pdfUrl);
-
-        if (!opened) {
-            QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement:"));
-        }
-
-        // Gerer interface
-        viderInfosRapport();
-
-        // On revient la ou on en etait
-        ui->scrollArea->takeWidget();
-        //set this property
-        ui->scrollArea->setWidgetResizable(false);
-        //reset widget
-        ui->scrollArea->setWidget(ui->widget_genou);
-
-        ui->pushButton_generer_rapport->setText("Generer le rapport");
-        ui->comboBox_dateBilan->setEnabled(true);
-        ui->comboBox_type_Bilan->setEnabled(true);
-        ui->comboBox_patient_courant->setEnabled(true);
-        ui->pushButton_rechercher->setEnabled(true);
-        ui->pushButton_editer_bilan->setEnabled(true);
-
-        ui->pushButton_annulerEditionRapport->setVisible(false);
-
-        this->mapCheminsImages.clear();
-
-        emit on_pushButton_rechercher_clicked();
+    // Liste des fichiers à concaténer
+    QStringList fichiersAConcatener;
+    fichiersAConcatener << pathPageGarde << pathFichierPdf;
+    if (fichierInfoAnnexes.isFile()) {
+        fichiersAConcatener << pathFichierAnnexes;
     }
-    else{
-        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n existe pas ! : " + pathFichierPdf);
+
+    // Fusion des PDF
+    bool reussi = lancerCmdPdftk(fichiersAConcatener, pathFichierRes);
+    if (!reussi) {
+        QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a échoué lors de la fusion finale.");
+        ecrireLog("La commande PDFTK a échoué : fichiers = " + fichiersAConcatener.join(" + ") + " => " + pathFichierRes);
+        return;
     }
+
+    // Créer une copie horodatée du fichier final
+    QFileInfo fichierInfoRes(pathFichierRes);
+    QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
+                               + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz") + ".pdf";
+    copyFile(pathFichierRes, pathFichierCopie);
+
+    // Message succès
+    QMessageBox::information(this, tr("Rapport généré"),
+                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
+                             " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
+
+    // Ouvrir le PDF
+    QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
+    if (!QDesktopServices::openUrl(pdfUrl)) {
+        QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement."));
+    }
+
+    // Remettre l'interface à l'état initial
+    viderInfosRapport();
+
+    ui->scrollArea->takeWidget();
+    ui->scrollArea->setWidgetResizable(false);
+    ui->scrollArea->setWidget(ui->widget_genou);
+
+    ui->pushButton_generer_rapport->setText("Generer le rapport");
+    ui->comboBox_dateBilan->setEnabled(true);
+    ui->comboBox_type_Bilan->setEnabled(true);
+    ui->comboBox_patient_courant->setEnabled(true);
+    ui->pushButton_rechercher->setEnabled(true);
+    ui->pushButton_editer_bilan->setEnabled(true);
+    ui->pushButton_annulerEditionRapport->setVisible(false);
+
+    this->mapCheminsImages.clear();
+
+    // Rafraîchir la liste
+    emit on_pushButton_rechercher_clicked();
 }
 
 
@@ -13029,13 +12994,21 @@ void MainWindow::on_pushButton_validerRapport_epaule_clicked(){
     // generer le PDF resultat et en garder une copie
     genererRapportPdf(contenuHtml);
 
-    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
-
-    // verifier si les fichiers existent
-    QFileInfo fichierInfoRapport(pathFichierPdf);
     QFileInfo fichierInfoAnnexes(pathFichierAnnexes);
 
+    // Vérifier que le fichier rapport existe
+    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
+    QFileInfo fichierInfoRapport(pathFichierPdf);
 
+    if (!fichierInfoRapport.isFile()) {
+        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n'existe pas ! : " + pathFichierPdf);
+        return;
+    }
+
+    // Construire le chemin vers la page de garde
+    QString pathPageGarde = QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "PageGardeEpaule");
+
+    // Construire le nom final du fichier concaténé
     QString pathFichierRes = getValue(PATH_CONFIG, "paths", "dossierRapports")
                              + "/rapport_epaule_"
                              + QString::number(listeNumerosTest.count())
@@ -13045,81 +13018,60 @@ void MainWindow::on_pushButton_validerRapport_epaule_clicked(){
                              + QDate::currentDate().toString("dd_MM_yyyy")
                              + ".pdf";
 
-    // Generer le pdf final avec annexes
-    if(fichierInfoRapport.isFile() ){
-
-        if(fichierInfoAnnexes.isFile()){
-
-            bool reussi = lancerCmdPdftk(pathFichierPdf, pathFichierAnnexes, pathFichierRes);
-            if (!reussi) {
-                QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                ecrireLog("La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                return;
-            }
-        }
-        else {
-            QFile fichierRapport(pathFichierPdf);
-
-            if (QFile::exists(pathFichierRes)) {
-                if (!QFile::remove(pathFichierRes)) {
-                    qDebug() << "Failed to remove existing file:" << pathFichierRes;
-                    ecrireLog("Failed to remove existing file:" +  pathFichierRes);
-                    return; // Exit or handle error
-                }
-            }
-
-            if (!fichierRapport.rename(pathFichierRes)) {
-                    qDebug() << "Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes;
-                    ecrireLog("Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes);
-                    return;
-            }
-        }
-
-        // garder une copie du fichier et l horodater
-        QFileInfo fichierInfoRes(pathFichierRes);
-        QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
-                                   + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz")
-                                   + ".pdf";
-
-        copyFile(pathFichierRes, pathFichierCopie);
-
-        QMessageBox::information(this, tr("Rapport genere "),
-                                 "Le rapport epaule numero " + QString::number(listeNumerosTest.count())+
-                                     " pour le patient " + ui->comboBox_patient_courant->currentText() + " a ete enregistre !");
-
-        QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
-        bool opened = QDesktopServices::openUrl(pdfUrl);
-
-        if (!opened) {
-            QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement:"));
-        }
-
-        // Gerer interface
-        viderInfosRapport();
-
-        // On revient la ou on en etait
-        ui->scrollArea->takeWidget();
-        //set this property
-        ui->scrollArea->setWidgetResizable(false);
-        //reset widget
-        ui->scrollArea->setWidget(ui->widget_epaule);
-
-        ui->pushButton_generer_rapport->setText("Generer le rapport");
-        ui->comboBox_dateBilan->setEnabled(true);
-        ui->comboBox_type_Bilan->setEnabled(true);
-        ui->comboBox_patient_courant->setEnabled(true);
-        ui->pushButton_rechercher->setEnabled(true);
-        ui->pushButton_editer_bilan->setEnabled(true);
-
-        ui->pushButton_annulerEditionRapport->setVisible(false);
-
-        this->mapCheminsImages.clear();
-
-        emit on_pushButton_rechercher_clicked();
+    // Liste des fichiers à concaténer
+    QStringList fichiersAConcatener;
+    fichiersAConcatener << pathPageGarde << pathFichierPdf;
+    if (fichierInfoAnnexes.isFile()) {
+        fichiersAConcatener << pathFichierAnnexes;
     }
-    else{
-        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n existe pas ! : " + pathFichierPdf);
+
+    // Fusion des PDF
+    bool reussi = lancerCmdPdftk(fichiersAConcatener, pathFichierRes);
+    if (!reussi) {
+        QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a échoué lors de la fusion finale.");
+        ecrireLog("La commande PDFTK a échoué : fichiers = " + fichiersAConcatener.join(" + ") + " => " + pathFichierRes);
+        return;
     }
+
+    // Créer une copie horodatée du fichier final
+    QFileInfo fichierInfoRes(pathFichierRes);
+    QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
+                               + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz") + ".pdf";
+    copyFile(pathFichierRes, pathFichierCopie);
+
+    // Message succès
+    QMessageBox::information(this, tr("Rapport généré"),
+                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
+                             " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
+
+    // Ouvrir le PDF
+    QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
+    if (!QDesktopServices::openUrl(pdfUrl)) {
+        QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement."));
+    }
+
+    // Gerer interface
+    viderInfosRapport();
+
+    // On revient la ou on en etait
+    ui->scrollArea->takeWidget();
+    //set this property
+    ui->scrollArea->setWidgetResizable(false);
+    //reset widget
+    ui->scrollArea->setWidget(ui->widget_epaule);
+
+    ui->pushButton_generer_rapport->setText("Generer le rapport");
+    ui->comboBox_dateBilan->setEnabled(true);
+    ui->comboBox_type_Bilan->setEnabled(true);
+    ui->comboBox_patient_courant->setEnabled(true);
+    ui->pushButton_rechercher->setEnabled(true);
+    ui->pushButton_editer_bilan->setEnabled(true);
+
+    ui->pushButton_annulerEditionRapport->setVisible(false);
+
+    this->mapCheminsImages.clear();
+
+    emit on_pushButton_rechercher_clicked();
 }
 
 //****************************************
@@ -13144,13 +13096,21 @@ void MainWindow::on_pushButton_validerRapport_hanche_clicked()
     // generer le PDF resultat et en garder une copie
     genererRapportPdf(contenuHtml);
 
-    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
-
-    // verifier si les fichiers existent
-    QFileInfo fichierInfoRapport(pathFichierPdf);
     QFileInfo fichierInfoAnnexes(pathFichierAnnexes);
 
+    // Vérifier que le fichier rapport existe
+    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
+    QFileInfo fichierInfoRapport(pathFichierPdf);
 
+    if (!fichierInfoRapport.isFile()) {
+        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n'existe pas ! : " + pathFichierPdf);
+        return;
+    }
+
+    // Construire le chemin vers la page de garde
+    QString pathPageGarde = QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "PageGardeHanche");
+
+    // Construire le nom final du fichier concaténé
     QString pathFichierRes = getValue(PATH_CONFIG, "paths", "dossierRapports")
                              + "/rapport_hanche_"
                              + QString::number(listeNumerosTest.count())
@@ -13160,81 +13120,60 @@ void MainWindow::on_pushButton_validerRapport_hanche_clicked()
                              + QDate::currentDate().toString("dd_MM_yyyy")
                              + ".pdf";
 
-    // Generer le pdf final avec annexes
-    if(fichierInfoRapport.isFile() ){
-
-        if(fichierInfoAnnexes.isFile()){
-
-            bool reussi = lancerCmdPdftk(pathFichierPdf, pathFichierAnnexes, pathFichierRes);
-            if (!reussi) {
-                QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                ecrireLog("La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                return;
-            }
-        }
-        else {
-            QFile fichierRapport(pathFichierPdf);
-
-            if (QFile::exists(pathFichierRes)) {
-                if (!QFile::remove(pathFichierRes)) {
-                    qDebug() << "Failed to remove existing file:" << pathFichierRes;
-                    ecrireLog("Failed to remove existing file:" +  pathFichierRes);
-                    return; // Exit or handle error
-                }
-            }
-
-            if (!fichierRapport.rename(pathFichierRes)) {
-                    qDebug() << "Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes;
-                    ecrireLog("Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes);
-                    return;
-            }
-        }
-
-        // garder une copie du fichier et l horodater
-        QFileInfo fichierInfoRes(pathFichierRes);
-        QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
-                                   + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz")
-                                   + ".pdf";
-
-        copyFile(pathFichierRes, pathFichierCopie);
-
-        QMessageBox::information(this, tr("Rapport genere "),
-                                 "Le rapport hanche numero " + QString::number(listeNumerosTest.count())+
-                                     " pour le patient " + ui->comboBox_patient_courant->currentText() + " a ete enregistre !");
-
-        QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
-        bool opened = QDesktopServices::openUrl(pdfUrl);
-
-        if (!opened) {
-            QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement:"));
-        }
-
-        // Gerer interface
-        viderInfosRapport();
-
-        // On revient la ou on en etait
-        ui->scrollArea->takeWidget();
-        //set this property
-        ui->scrollArea->setWidgetResizable(false);
-        //reset widget
-        ui->scrollArea->setWidget(ui->widget_hanche);
-
-        ui->pushButton_generer_rapport->setText("Generer le rapport");
-        ui->comboBox_dateBilan->setEnabled(true);
-        ui->comboBox_type_Bilan->setEnabled(true);
-        ui->comboBox_patient_courant->setEnabled(true);
-        ui->pushButton_rechercher->setEnabled(true);
-        ui->pushButton_editer_bilan->setEnabled(true);
-
-        ui->pushButton_annulerEditionRapport->setVisible(false);
-
-        this->mapCheminsImages.clear();
-
-        emit on_pushButton_rechercher_clicked();
+    // Liste des fichiers à concaténer
+    QStringList fichiersAConcatener;
+    fichiersAConcatener << pathPageGarde << pathFichierPdf;
+    if (fichierInfoAnnexes.isFile()) {
+        fichiersAConcatener << pathFichierAnnexes;
     }
-    else{
-        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n existe pas ! : " + pathFichierPdf);
+
+    // Fusion des PDF
+    bool reussi = lancerCmdPdftk(fichiersAConcatener, pathFichierRes);
+    if (!reussi) {
+        QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a échoué lors de la fusion finale.");
+        ecrireLog("La commande PDFTK a échoué : fichiers = " + fichiersAConcatener.join(" + ") + " => " + pathFichierRes);
+        return;
     }
+
+    // Créer une copie horodatée du fichier final
+    QFileInfo fichierInfoRes(pathFichierRes);
+    QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
+                               + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz") + ".pdf";
+    copyFile(pathFichierRes, pathFichierCopie);
+
+    // Message succès
+    QMessageBox::information(this, tr("Rapport généré"),
+                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
+                             " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
+
+    // Ouvrir le PDF
+    QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
+    if (!QDesktopServices::openUrl(pdfUrl)) {
+        QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement."));
+    }
+
+    // Gerer interface
+    viderInfosRapport();
+
+    // On revient la ou on en etait
+    ui->scrollArea->takeWidget();
+    //set this property
+    ui->scrollArea->setWidgetResizable(false);
+    //reset widget
+    ui->scrollArea->setWidget(ui->widget_hanche);
+
+    ui->pushButton_generer_rapport->setText("Generer le rapport");
+    ui->comboBox_dateBilan->setEnabled(true);
+    ui->comboBox_type_Bilan->setEnabled(true);
+    ui->comboBox_patient_courant->setEnabled(true);
+    ui->pushButton_rechercher->setEnabled(true);
+    ui->pushButton_editer_bilan->setEnabled(true);
+
+    ui->pushButton_annulerEditionRapport->setVisible(false);
+
+    this->mapCheminsImages.clear();
+
+    emit on_pushButton_rechercher_clicked();
 }
 
 //****************************************
@@ -13259,13 +13198,21 @@ void MainWindow::on_pushButton_validerRapport_cheville_clicked()
     // generer le PDF resultat et en garder une copie
     genererRapportPdf(contenuHtml);
 
-    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
-
-    // verifier si les fichiers existent
-    QFileInfo fichierInfoRapport(pathFichierPdf);
     QFileInfo fichierInfoAnnexes(pathFichierAnnexes);
 
+    // Vérifier que le fichier rapport existe
+    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
+    QFileInfo fichierInfoRapport(pathFichierPdf);
 
+    if (!fichierInfoRapport.isFile()) {
+        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n'existe pas ! : " + pathFichierPdf);
+        return;
+    }
+
+    // Construire le chemin vers la page de garde
+    QString pathPageGarde = QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "PageGardeCheville");
+
+    // Construire le nom final du fichier concaténé
     QString pathFichierRes = getValue(PATH_CONFIG, "paths", "dossierRapports")
                              + "/rapport_cheville_"
                              + QString::number(listeNumerosTest.count())
@@ -13275,81 +13222,60 @@ void MainWindow::on_pushButton_validerRapport_cheville_clicked()
                              + QDate::currentDate().toString("dd_MM_yyyy")
                              + ".pdf";
 
-    // Generer le pdf final avec annexes
-    if(fichierInfoRapport.isFile() ){
-
-        if(fichierInfoAnnexes.isFile()){
-
-            bool reussi = lancerCmdPdftk(pathFichierPdf, pathFichierAnnexes, pathFichierRes);
-            if (!reussi) {
-                QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                ecrireLog("La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                return;
-            }
-        }
-        else {
-            QFile fichierRapport(pathFichierPdf);
-
-            if (QFile::exists(pathFichierRes)) {
-                if (!QFile::remove(pathFichierRes)) {
-                    qDebug() << "Failed to remove existing file:" << pathFichierRes;
-                    ecrireLog("Failed to remove existing file:" +  pathFichierRes);
-                    return; // Exit or handle error
-                }
-            }
-
-            if (!fichierRapport.rename(pathFichierRes)) {
-                    qDebug() << "Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes;
-                    ecrireLog("Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes);
-                    return;
-            }
-        }
-
-        // garder une copie du fichier et l horodater
-        QFileInfo fichierInfoRes(pathFichierRes);
-        QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
-                                   + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz")
-                                   + ".pdf";
-
-        copyFile(pathFichierRes, pathFichierCopie);
-
-        QMessageBox::information(this, tr("Rapport genere "),
-                                 "Le rapport cheville numero " + QString::number(listeNumerosTest.count())+
-                                     " pour le patient " + ui->comboBox_patient_courant->currentText() + " a ete enregistre !");
-
-        QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
-        bool opened = QDesktopServices::openUrl(pdfUrl);
-
-        if (!opened) {
-            QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement:"));
-        }
-
-        // Gerer interface
-        viderInfosRapport();
-
-        // On revient la ou on en etait
-        ui->scrollArea->takeWidget();
-        //set this property
-        ui->scrollArea->setWidgetResizable(false);
-        //reset widget
-        ui->scrollArea->setWidget(ui->widget_cheville);
-
-        ui->pushButton_generer_rapport->setText("Generer le rapport");
-        ui->comboBox_dateBilan->setEnabled(true);
-        ui->comboBox_type_Bilan->setEnabled(true);
-        ui->comboBox_patient_courant->setEnabled(true);
-        ui->pushButton_rechercher->setEnabled(true);
-        ui->pushButton_editer_bilan->setEnabled(true);
-
-        ui->pushButton_annulerEditionRapport->setVisible(false);
-
-        this->mapCheminsImages.clear();
-
-        emit on_pushButton_rechercher_clicked();
+    // Liste des fichiers à concaténer
+    QStringList fichiersAConcatener;
+    fichiersAConcatener << pathPageGarde << pathFichierPdf;
+    if (fichierInfoAnnexes.isFile()) {
+        fichiersAConcatener << pathFichierAnnexes;
     }
-    else{
-        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n existe pas ! : " + pathFichierPdf);
+
+    // Fusion des PDF
+    bool reussi = lancerCmdPdftk(fichiersAConcatener, pathFichierRes);
+    if (!reussi) {
+        QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a échoué lors de la fusion finale.");
+        ecrireLog("La commande PDFTK a échoué : fichiers = " + fichiersAConcatener.join(" + ") + " => " + pathFichierRes);
+        return;
     }
+
+    // Créer une copie horodatée du fichier final
+    QFileInfo fichierInfoRes(pathFichierRes);
+    QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
+                               + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz") + ".pdf";
+    copyFile(pathFichierRes, pathFichierCopie);
+
+    // Message succès
+    QMessageBox::information(this, tr("Rapport généré"),
+                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
+                             " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
+
+    // Ouvrir le PDF
+    QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
+    if (!QDesktopServices::openUrl(pdfUrl)) {
+        QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement."));
+    }
+
+    // Gerer interface
+    viderInfosRapport();
+
+    // On revient la ou on en etait
+    ui->scrollArea->takeWidget();
+    //set this property
+    ui->scrollArea->setWidgetResizable(false);
+    //reset widget
+    ui->scrollArea->setWidget(ui->widget_cheville);
+
+    ui->pushButton_generer_rapport->setText("Generer le rapport");
+    ui->comboBox_dateBilan->setEnabled(true);
+    ui->comboBox_type_Bilan->setEnabled(true);
+    ui->comboBox_patient_courant->setEnabled(true);
+    ui->pushButton_rechercher->setEnabled(true);
+    ui->pushButton_editer_bilan->setEnabled(true);
+
+    ui->pushButton_annulerEditionRapport->setVisible(false);
+
+    this->mapCheminsImages.clear();
+
+    emit on_pushButton_rechercher_clicked();
 }
 
 
@@ -13375,12 +13301,21 @@ void MainWindow::on_pushButton_validerRapport_bpc_clicked()
     // generer le PDF resultat et en garder une copie
     genererRapportPdf(contenuHtml);
 
-    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
-
-    // verifier si les fichiers existent
-    QFileInfo fichierInfoRapport(pathFichierPdf);
     QFileInfo fichierInfoAnnexes(pathFichierAnnexes);
 
+    // Vérifier que le fichier rapport existe
+    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
+    QFileInfo fichierInfoRapport(pathFichierPdf);
+
+    if (!fichierInfoRapport.isFile()) {
+        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n'existe pas ! : " + pathFichierPdf);
+        return;
+    }
+
+    // Construire le chemin vers la page de garde
+    QString pathPageGarde = QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "PageGardeCourse");
+
+    // Construire le nom final du fichier concaténé
     QString pathFichierRes = getValue(PATH_CONFIG, "paths", "dossierRapports")
                              + "/rapport_course_"
                              + QString::number(listeNumerosTest.count())
@@ -13390,80 +13325,60 @@ void MainWindow::on_pushButton_validerRapport_bpc_clicked()
                              + QDate::currentDate().toString("dd_MM_yyyy")
                              + ".pdf";
 
-    // Generer le pdf final avec annexes
-    if(fichierInfoRapport.isFile() ){
-
-        if(fichierInfoAnnexes.isFile()){
-
-            bool reussi = lancerCmdPdftk(pathFichierPdf, pathFichierAnnexes, pathFichierRes);
-            if (!reussi) {
-                QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                ecrireLog("La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                return;
-            }
-        }
-        else {
-            QFile fichierRapport(pathFichierPdf);
-
-            if (QFile::exists(pathFichierRes)) {
-                if (!QFile::remove(pathFichierRes)) {
-                    qDebug() << "Failed to remove existing file:" << pathFichierRes;
-                    ecrireLog("Failed to remove existing file:" +  pathFichierRes);
-                    return; // Exit or handle error
-                }
-            }
-
-            if (!fichierRapport.rename(pathFichierRes)) {
-                    qDebug() << "Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes;
-                    ecrireLog("Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes);
-                    return;
-            }
-        }
-
-        // garder une copie du fichier et l horodater
-        QFileInfo fichierInfoRes(pathFichierRes);
-        QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
-                                   + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz")
-                                   + ".pdf";
-
-        copyFile(pathFichierRes, pathFichierCopie);
-
-        QMessageBox::information(this, tr("Rapport genere "),
-                                 "Le bilan de performance de course pour le patient " + ui->comboBox_patient_courant->currentText() + " a ete enregistre !");
-
-        QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
-        bool opened = QDesktopServices::openUrl(pdfUrl);
-
-        if (!opened) {
-            QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement:"));
-        }
-
-        // Gerer interface
-        viderInfosRapport();
-
-        // On revient la ou on en etait
-        ui->scrollArea->takeWidget();
-        //set this property
-        ui->scrollArea->setWidgetResizable(false);
-        //reset widget
-        ui->scrollArea->setWidget(ui->widget_bpc);
-
-        ui->pushButton_generer_rapport->setText("Generer le rapport");
-        ui->comboBox_dateBilan->setEnabled(true);
-        ui->comboBox_type_Bilan->setEnabled(true);
-        ui->comboBox_patient_courant->setEnabled(true);
-        ui->pushButton_rechercher->setEnabled(true);
-        ui->pushButton_editer_bilan->setEnabled(true);
-
-        ui->pushButton_annulerEditionRapport->setVisible(false);
-
-        this->mapCheminsImages.clear();
-
-        emit on_pushButton_rechercher_clicked();
+    // Liste des fichiers à concaténer
+    QStringList fichiersAConcatener;
+    fichiersAConcatener << pathPageGarde << pathFichierPdf;
+    if (fichierInfoAnnexes.isFile()) {
+        fichiersAConcatener << pathFichierAnnexes;
     }
-    else{
-        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n existe pas ! : " + pathFichierPdf);
+
+    // Fusion des PDF
+    bool reussi = lancerCmdPdftk(fichiersAConcatener, pathFichierRes);
+    if (!reussi) {
+        QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a échoué lors de la fusion finale.");
+        ecrireLog("La commande PDFTK a échoué : fichiers = " + fichiersAConcatener.join(" + ") + " => " + pathFichierRes);
+        return;
     }
+
+    // Créer une copie horodatée du fichier final
+    QFileInfo fichierInfoRes(pathFichierRes);
+    QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
+                               + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz") + ".pdf";
+    copyFile(pathFichierRes, pathFichierCopie);
+
+    // Message succès
+    QMessageBox::information(this, tr("Rapport généré"),
+                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
+                             " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
+
+    // Ouvrir le PDF
+    QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
+    if (!QDesktopServices::openUrl(pdfUrl)) {
+        QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement."));
+    }
+
+    // Gerer interface
+    viderInfosRapport();
+
+    // On revient la ou on en etait
+    ui->scrollArea->takeWidget();
+    //set this property
+    ui->scrollArea->setWidgetResizable(false);
+    //reset widget
+    ui->scrollArea->setWidget(ui->widget_bpc);
+
+    ui->pushButton_generer_rapport->setText("Generer le rapport");
+    ui->comboBox_dateBilan->setEnabled(true);
+    ui->comboBox_type_Bilan->setEnabled(true);
+    ui->comboBox_patient_courant->setEnabled(true);
+    ui->pushButton_rechercher->setEnabled(true);
+    ui->pushButton_editer_bilan->setEnabled(true);
+
+    ui->pushButton_annulerEditionRapport->setVisible(false);
+
+    this->mapCheminsImages.clear();
+
+    emit on_pushButton_rechercher_clicked();
 }
 
 
@@ -13488,14 +13403,23 @@ void MainWindow::on_pushButton_validerRapport_bpsc_clicked()
     // generer le PDF resultat et en garder une copie
     genererRapportPdf(contenuHtml);
 
-    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
-
-    // verifier si les fichiers existent
-    QFileInfo fichierInfoRapport(pathFichierPdf);
     QFileInfo fichierInfoAnnexes(pathFichierAnnexes);
 
+    // Vérifier que le fichier rapport existe
+    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
+    QFileInfo fichierInfoRapport(pathFichierPdf);
+
+    if (!fichierInfoRapport.isFile()) {
+        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n'existe pas ! : " + pathFichierPdf);
+        return;
+    }
+
+    // Construire le chemin vers la page de garde
+    QString pathPageGarde = QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "PageGardeCollectif");
+
+    // Construire le nom final du fichier concaténé
     QString pathFichierRes = getValue(PATH_CONFIG, "paths", "dossierRapports")
-                             + "/rapport_athlete_"
+                             + "/rapport_collectif_"
                              + QString::number(listeNumerosTest.count())
                              + "_"
                              + ui->comboBox_patient_courant->currentText().replace(" ", "_")
@@ -13503,80 +13427,60 @@ void MainWindow::on_pushButton_validerRapport_bpsc_clicked()
                              + QDate::currentDate().toString("dd_MM_yyyy")
                              + ".pdf";
 
-    // Generer le pdf final avec annexes
-    if(fichierInfoRapport.isFile() ){
-
-        if(fichierInfoAnnexes.isFile()){
-
-            bool reussi = lancerCmdPdftk(pathFichierPdf, pathFichierAnnexes, pathFichierRes);
-            if (!reussi) {
-                QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                ecrireLog("La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                return;
-            }
-        }
-        else {
-            QFile fichierRapport(pathFichierPdf);
-
-            if (QFile::exists(pathFichierRes)) {
-                if (!QFile::remove(pathFichierRes)) {
-                    qDebug() << "Failed to remove existing file:" << pathFichierRes;
-                    ecrireLog("Failed to remove existing file:" +  pathFichierRes);
-                    return; // Exit or handle error
-                }
-            }
-
-            if (!fichierRapport.rename(pathFichierRes)) {
-                    qDebug() << "Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes;
-                    ecrireLog("Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes);
-                    return;
-            }
-        }
-
-        // garder une copie du fichier et l horodater
-        QFileInfo fichierInfoRes(pathFichierRes);
-        QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
-                                   + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz")
-                                   + ".pdf";
-
-        copyFile(pathFichierRes, pathFichierCopie);
-
-        QMessageBox::information(this, tr("Rapport genere "),
-                                 "Le bilan de performance de sport collectif pour le patient " + ui->comboBox_patient_courant->currentText() + " a ete enregistre !");
-
-
-        QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
-        bool opened = QDesktopServices::openUrl(pdfUrl);
-
-        if (!opened) {
-            QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement:"));
-        }
-        // Gerer interface
-        viderInfosRapport();
-
-        // On revient la ou on en etait
-        ui->scrollArea->takeWidget();
-        //set this property
-        ui->scrollArea->setWidgetResizable(false);
-        //reset widget
-        ui->scrollArea->setWidget(ui->widget_bpsc);
-
-        ui->pushButton_generer_rapport->setText("Generer le rapport");
-        ui->comboBox_dateBilan->setEnabled(true);
-        ui->comboBox_type_Bilan->setEnabled(true);
-        ui->comboBox_patient_courant->setEnabled(true);
-        ui->pushButton_rechercher->setEnabled(true);
-        ui->pushButton_editer_bilan->setEnabled(true);
-
-        ui->pushButton_annulerEditionRapport->setVisible(false);
-
-        this->mapCheminsImages.clear();
-
-        emit on_pushButton_rechercher_clicked();
+    // Liste des fichiers à concaténer
+    QStringList fichiersAConcatener;
+    fichiersAConcatener << pathPageGarde << pathFichierPdf;
+    if (fichierInfoAnnexes.isFile()) {
+        fichiersAConcatener << pathFichierAnnexes;
     }
-    else{
-        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n existe pas ! : " + pathFichierPdf);
+
+    // Fusion des PDF
+    bool reussi = lancerCmdPdftk(fichiersAConcatener, pathFichierRes);
+    if (!reussi) {
+        QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a échoué lors de la fusion finale.");
+        ecrireLog("La commande PDFTK a échoué : fichiers = " + fichiersAConcatener.join(" + ") + " => " + pathFichierRes);
+        return;
     }
+
+    // Créer une copie horodatée du fichier final
+    QFileInfo fichierInfoRes(pathFichierRes);
+    QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
+                               + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz") + ".pdf";
+    copyFile(pathFichierRes, pathFichierCopie);
+
+    // Message succès
+    QMessageBox::information(this, tr("Rapport généré"),
+                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
+                             " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
+
+    // Ouvrir le PDF
+    QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
+    if (!QDesktopServices::openUrl(pdfUrl)) {
+        QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement."));
+    }
+
+    // Gerer interface
+    viderInfosRapport();
+
+    // On revient la ou on en etait
+    ui->scrollArea->takeWidget();
+    //set this property
+    ui->scrollArea->setWidgetResizable(false);
+    //reset widget
+    ui->scrollArea->setWidget(ui->widget_bpsc);
+
+    ui->pushButton_generer_rapport->setText("Generer le rapport");
+    ui->comboBox_dateBilan->setEnabled(true);
+    ui->comboBox_type_Bilan->setEnabled(true);
+    ui->comboBox_patient_courant->setEnabled(true);
+    ui->pushButton_rechercher->setEnabled(true);
+    ui->pushButton_editer_bilan->setEnabled(true);
+
+    ui->pushButton_annulerEditionRapport->setVisible(false);
+
+    this->mapCheminsImages.clear();
+
+    emit on_pushButton_rechercher_clicked();
 }
 
 //****************************************
@@ -13601,14 +13505,23 @@ void MainWindow::on_pushButton_validerRapport_bpf_clicked()
     // generer le PDF resultat et en garder une copie
     genererRapportPdf(contenuHtml);
 
-    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
-
-    // verifier si les fichiers existent
-    QFileInfo fichierInfoRapport(pathFichierPdf);
     QFileInfo fichierInfoAnnexes(pathFichierAnnexes);
 
+    // Vérifier que le fichier rapport existe
+    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
+    QFileInfo fichierInfoRapport(pathFichierPdf);
+
+    if (!fichierInfoRapport.isFile()) {
+        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n'existe pas ! : " + pathFichierPdf);
+        return;
+    }
+
+    // Construire le chemin vers la page de garde
+    QString pathPageGarde = QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "PageGardeCombat");
+
+    // Construire le nom final du fichier concaténé
     QString pathFichierRes = getValue(PATH_CONFIG, "paths", "dossierRapports")
-                             + "/rapport_combattant_"
+                             + "/rapport_combat_"
                              + QString::number(listeNumerosTest.count())
                              + "_"
                              + ui->comboBox_patient_courant->currentText().replace(" ", "_")
@@ -13616,80 +13529,60 @@ void MainWindow::on_pushButton_validerRapport_bpf_clicked()
                              + QDate::currentDate().toString("dd_MM_yyyy")
                              + ".pdf";
 
-    // Generer le pdf final avec annexes
-    if(fichierInfoRapport.isFile() ){
-
-        if(fichierInfoAnnexes.isFile()){
-
-            bool reussi = lancerCmdPdftk(pathFichierPdf, pathFichierAnnexes, pathFichierRes);
-            if (!reussi) {
-                QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                ecrireLog("La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                return;
-            }
-        }
-        else {
-            QFile fichierRapport(pathFichierPdf);
-
-            if (QFile::exists(pathFichierRes)) {
-                if (!QFile::remove(pathFichierRes)) {
-                    qDebug() << "Failed to remove existing file:" << pathFichierRes;
-                    ecrireLog("Failed to remove existing file:" +  pathFichierRes);
-                    return; // Exit or handle error
-                }
-            }
-
-            if (!fichierRapport.rename(pathFichierRes)) {
-                    qDebug() << "Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes;
-                    ecrireLog("Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes);
-                    return;
-            }
-        }
-
-        // garder une copie du fichier et l horodater
-        QFileInfo fichierInfoRes(pathFichierRes);
-        QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
-                                   + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz")
-                                   + ".pdf";
-
-        copyFile(pathFichierRes, pathFichierCopie);
-
-        QMessageBox::information(this, tr("Rapport genere "),
-                                 "Le bilan de performance de sport de combat pour le patient " + ui->comboBox_patient_courant->currentText() + " a ete enregistre !");
-
-
-        QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
-        bool opened = QDesktopServices::openUrl(pdfUrl);
-
-        if (!opened) {
-            QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement:"));
-        }
-        // Gerer interface
-        viderInfosRapport();
-
-        // On revient la ou on en etait
-        ui->scrollArea->takeWidget();
-        //set this property
-        ui->scrollArea->setWidgetResizable(false);
-        //reset widget
-        ui->scrollArea->setWidget(ui->widget_bpf);
-
-        ui->pushButton_generer_rapport->setText("Generer le rapport");
-        ui->comboBox_dateBilan->setEnabled(true);
-        ui->comboBox_type_Bilan->setEnabled(true);
-        ui->comboBox_patient_courant->setEnabled(true);
-        ui->pushButton_rechercher->setEnabled(true);
-        ui->pushButton_editer_bilan->setEnabled(true);
-
-        ui->pushButton_annulerEditionRapport->setVisible(false);
-
-        this->mapCheminsImages.clear();
-
-        emit on_pushButton_rechercher_clicked();
+    // Liste des fichiers à concaténer
+    QStringList fichiersAConcatener;
+    fichiersAConcatener << pathPageGarde << pathFichierPdf;
+    if (fichierInfoAnnexes.isFile()) {
+        fichiersAConcatener << pathFichierAnnexes;
     }
-    else{
-        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n existe pas ! : " + pathFichierPdf);
+
+    // Fusion des PDF
+    bool reussi = lancerCmdPdftk(fichiersAConcatener, pathFichierRes);
+    if (!reussi) {
+        QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a échoué lors de la fusion finale.");
+        ecrireLog("La commande PDFTK a échoué : fichiers = " + fichiersAConcatener.join(" + ") + " => " + pathFichierRes);
+        return;
     }
+
+    // Créer une copie horodatée du fichier final
+    QFileInfo fichierInfoRes(pathFichierRes);
+    QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
+                               + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz") + ".pdf";
+    copyFile(pathFichierRes, pathFichierCopie);
+
+    // Message succès
+    QMessageBox::information(this, tr("Rapport généré"),
+                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
+                             " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
+
+    // Ouvrir le PDF
+    QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
+    if (!QDesktopServices::openUrl(pdfUrl)) {
+        QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement."));
+    }
+
+    // Gerer interface
+    viderInfosRapport();
+
+    // On revient la ou on en etait
+    ui->scrollArea->takeWidget();
+    //set this property
+    ui->scrollArea->setWidgetResizable(false);
+    //reset widget
+    ui->scrollArea->setWidget(ui->widget_bpf);
+
+    ui->pushButton_generer_rapport->setText("Generer le rapport");
+    ui->comboBox_dateBilan->setEnabled(true);
+    ui->comboBox_type_Bilan->setEnabled(true);
+    ui->comboBox_patient_courant->setEnabled(true);
+    ui->pushButton_rechercher->setEnabled(true);
+    ui->pushButton_editer_bilan->setEnabled(true);
+
+    ui->pushButton_annulerEditionRapport->setVisible(false);
+
+    this->mapCheminsImages.clear();
+
+    emit on_pushButton_rechercher_clicked();
 }
 
 void MainWindow::on_pushButton_validerRapport_bpcf_clicked()
@@ -13709,12 +13602,21 @@ void MainWindow::on_pushButton_validerRapport_bpcf_clicked()
     // generer le PDF resultat et en garder une copie
     genererRapportPdf(contenuHtml);
 
-    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
-
-    // verifier si les fichiers existent
-    QFileInfo fichierInfoRapport(pathFichierPdf);
     QFileInfo fichierInfoAnnexes(pathFichierAnnexes);
 
+    // Vérifier que le fichier rapport existe
+    QString pathFichierPdf = getValue(PATH_CONFIG, "paths", "pdfRes");
+    QFileInfo fichierInfoRapport(pathFichierPdf);
+
+    if (!fichierInfoRapport.isFile()) {
+        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n'existe pas ! : " + pathFichierPdf);
+        return;
+    }
+
+    // Construire le chemin vers la page de garde
+    QString pathPageGarde = QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "PageGardeCrossfit");
+
+    // Construire le nom final du fichier concaténé
     QString pathFichierRes = getValue(PATH_CONFIG, "paths", "dossierRapports")
                              + "/rapport_crossfit_"
                              + QString::number(listeNumerosTest.count())
@@ -13724,80 +13626,60 @@ void MainWindow::on_pushButton_validerRapport_bpcf_clicked()
                              + QDate::currentDate().toString("dd_MM_yyyy")
                              + ".pdf";
 
-    // Generer le pdf final avec annexes
-    if(fichierInfoRapport.isFile() ){
-
-        if(fichierInfoAnnexes.isFile()){
-
-            bool reussi = lancerCmdPdftk(pathFichierPdf, pathFichierAnnexes, pathFichierRes);
-            if (!reussi) {
-                QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                ecrireLog("La commande PDFTK a echoue - " + pathFichierPdf + " + " + pathFichierAnnexes + " = " + pathFichierRes);
-                return;
-            }
-        }
-        else {
-            QFile fichierRapport(pathFichierPdf);
-
-            if (QFile::exists(pathFichierRes)) {
-                if (!QFile::remove(pathFichierRes)) {
-                    qDebug() << "Failed to remove existing file:" << pathFichierRes;
-                    ecrireLog("Failed to remove existing file:" +  pathFichierRes);
-                    return; // Exit or handle error
-                }
-            }
-
-            if (!fichierRapport.rename(pathFichierRes)) {
-                    qDebug() << "Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes;
-                    ecrireLog("Failed to rename file :" + pathFichierPdf + " --> " + pathFichierRes);
-                    return;
-            }
-        }
-
-        // garder une copie du fichier et l horodater
-        QFileInfo fichierInfoRes(pathFichierRes);
-        QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
-                                   + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz")
-                                   + ".pdf";
-
-        copyFile(pathFichierRes, pathFichierCopie);
-
-        QMessageBox::information(this, tr("Rapport genere "),
-                                 "Le bilan de performance de sport de combat pour le patient " + ui->comboBox_patient_courant->currentText() + " a ete enregistre !");
-
-
-        QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
-        bool opened = QDesktopServices::openUrl(pdfUrl);
-
-        if (!opened) {
-            QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement:"));
-        }
-        // Gerer interface
-        viderInfosRapport();
-
-        // On revient la ou on en etait
-        ui->scrollArea->takeWidget();
-        //set this property
-        ui->scrollArea->setWidgetResizable(false);
-        //reset widget
-        ui->scrollArea->setWidget(ui->widget_bpcf);
-
-        ui->pushButton_generer_rapport->setText("Generer le rapport");
-        ui->comboBox_dateBilan->setEnabled(true);
-        ui->comboBox_type_Bilan->setEnabled(true);
-        ui->comboBox_patient_courant->setEnabled(true);
-        ui->pushButton_rechercher->setEnabled(true);
-        ui->pushButton_editer_bilan->setEnabled(true);
-
-        ui->pushButton_annulerEditionRapport->setVisible(false);
-
-        this->mapCheminsImages.clear();
-
-        emit on_pushButton_rechercher_clicked();
+    // Liste des fichiers à concaténer
+    QStringList fichiersAConcatener;
+    fichiersAConcatener << pathPageGarde << pathFichierPdf;
+    if (fichierInfoAnnexes.isFile()) {
+        fichiersAConcatener << pathFichierAnnexes;
     }
-    else{
-        QMessageBox::information(this, tr("Erreur fichiers inexistants"), "Le fichier rapport n existe pas ! : " + pathFichierPdf);
+
+    // Fusion des PDF
+    bool reussi = lancerCmdPdftk(fichiersAConcatener, pathFichierRes);
+    if (!reussi) {
+        QMessageBox::information(this, tr("Erreur PDFTK"), "La commande PDFTK a échoué lors de la fusion finale.");
+        ecrireLog("La commande PDFTK a échoué : fichiers = " + fichiersAConcatener.join(" + ") + " => " + pathFichierRes);
+        return;
     }
+
+    // Créer une copie horodatée du fichier final
+    QFileInfo fichierInfoRes(pathFichierRes);
+    QString pathFichierCopie = getValue(PATH_CONFIG, "paths", "dossierBackupRapports") + "/" + fichierInfoRes.baseName()
+                               + "_" + QDateTime::currentDateTime().toString("ddMMyyyy_hhmmsszzz") + ".pdf";
+    copyFile(pathFichierRes, pathFichierCopie);
+
+    // Message succès
+    QMessageBox::information(this, tr("Rapport généré"),
+                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
+                             " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
+
+    // Ouvrir le PDF
+    QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
+    if (!QDesktopServices::openUrl(pdfUrl)) {
+        QMessageBox::warning(this, tr("Erreur"), tr("Impossible d'ouvrir le fichier PDF automatiquement."));
+    }
+
+    // Gerer interface
+    viderInfosRapport();
+
+    // On revient la ou on en etait
+    ui->scrollArea->takeWidget();
+    //set this property
+    ui->scrollArea->setWidgetResizable(false);
+    //reset widget
+    ui->scrollArea->setWidget(ui->widget_bpcf);
+
+    ui->pushButton_generer_rapport->setText("Generer le rapport");
+    ui->comboBox_dateBilan->setEnabled(true);
+    ui->comboBox_type_Bilan->setEnabled(true);
+    ui->comboBox_patient_courant->setEnabled(true);
+    ui->pushButton_rechercher->setEnabled(true);
+    ui->pushButton_editer_bilan->setEnabled(true);
+
+    ui->pushButton_annulerEditionRapport->setVisible(false);
+
+    this->mapCheminsImages.clear();
+
+    emit on_pushButton_rechercher_clicked();
 }
 
 
@@ -14407,22 +14289,6 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
 
     res.append("<body>");
 
-    res += genererPageCouvertureBF(
-                mapInfosPatient.value("nomFamille") + " " + mapInfosPatient.value("prenom"),
-                QDate::currentDate().toString("dd/MM/yyyy"),
-                QUrl::fromLocalFile(QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "pageGardeSprint")).toString(),
-                QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "nomFichierLogo"),
-                "GENOU"
-            );
-
-    qDebug() << QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "pageGardeSprint");
-    qDebug() << res;
-
-
-    // res = res + "<img src=\"" + QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "nomFichierLogo") +
-    //       "\" width=\"175\" height=\"125\">"
-    //       "<p style=\"text-align: center;margin-left: 5px;font-weight:bold;font-size:350px;margin-bottom:200px;margin-top:110px;\">BILAN FONCTIONNEL DU GENOU</p>";
-
     // //-----------------
     // // ecrire le tableau des donnees du patient
     // //-----------------
@@ -14704,10 +14570,6 @@ QString MainWindow::remplirChaineHtmlEpaule(QStringList listeNumerosTest){
 
     res.append("<body>");
 
-    res = res + "<img src=\"" + QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "nomFichierLogo") +
-          "\" width=\"175\" height=\"125\">"
-          "<p style=\"text-align: center;margin-left: 5px;font-weight:bold;font-size:350px;margin-bottom:200px;margin-top:110px;\">BILAN FONCTIONNEL ÉPAULE</p>";
-
     //-----------------
     // ecrire le tableau des donnees du patient
     //-----------------
@@ -14973,9 +14835,6 @@ QString MainWindow::remplirChaineHtmlHanche(QStringList listeNumerosTest){
 
     res.append("<body>");
 
-    res = res + "<img src=\"" + QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "nomFichierLogo") +
-          "\" width=\"175\" height=\"125\">"
-          "<p style=\"text-align: center;margin-left: 5px;font-weight:bold;font-size:350px;margin-bottom:200px;margin-top:110px;\">BILAN FONCTIONNEL DE LA HANCHE</p>";
 
     //-----------------
     // ecrire le tableau des donnees du patient
@@ -15248,10 +15107,6 @@ QString MainWindow::remplirChaineHtmlCheville(QStringList listeNumerosTest){
     }
 
     res.append("<body>");
-
-    res = res + "<img src=\"" + QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "nomFichierLogo") +
-          "\" width=\"175\" height=\"125\">"
-          "<p style=\"text-align: center;margin-left: 5px;font-weight:bold;font-size:350px;margin-bottom:200px;margin-top:110px;\">BILAN FONCTIONNEL DE LA CHEVILLE</p>";
 
     //-----------------
     // ecrire le tableau des donnees du patient
@@ -15534,10 +15389,6 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
 
     res.append("<body>");
 
-    res = res + "<img src=\"" + QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "nomFichierLogo") +
-          "\" width=\"175\" height=\"125\">"
-          "<p style=\"text-align: center;margin-left: 5px;font-weight:bold;font-size:350px;margin-bottom:200px;margin-top:110px;\">BILAN PERFORMANCE COURSE A PIED</p>";
-
     //-----------------
     // ecrire le tableau des donnees du patient
     //-----------------
@@ -15806,10 +15657,6 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
     }
 
     res.append("<body>");
-
-    res = res + "<img src=\"" + QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "nomFichierLogo") +
-          "\" width=\"175\" height=\"125\">"
-          "<p style=\"text-align: center;margin-left: 5px;font-weight:bold;font-size:350px;margin-bottom:200px;margin-top:110px;\">BILAN PERFORMANCE ATHLETE</p>";
 
     //-----------------
     // ecrire le tableau des donnees du patient
@@ -16086,10 +15933,6 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
 
     res.append("<body>");
 
-    res = res + "<img src=\"" + QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "nomFichierLogo") +
-          "\" width=\"175\" height=\"125\">"
-          "<p style=\"text-align: center;margin-left: 5px;font-weight:bold;font-size:350px;margin-bottom:200px;margin-top:110px;\">BILAN PERFORMANCE COMBAT</p>";
-
     //-----------------
     // ecrire le tableau des donnees du patient
     //-----------------
@@ -16338,10 +16181,6 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
     }
 
     res.append("<body>");
-
-    res = res + "<img src=\"" + QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "nomFichierLogo") +
-          "\" width=\"175\" height=\"125\">"
-          "<p style=\"text-align: center;margin-left: 5px;font-weight:bold;font-size:350px;margin-bottom:200px;margin-top:110px;\">BILAN PERFORMANCE CROSSFIT</p>";
 
     //-----------------
     // ecrire le tableau des donnees du patient

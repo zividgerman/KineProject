@@ -337,7 +337,7 @@ private:
     bool doitEtreEcritAllTest(QStringList listecaractereCles, QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
 
     QStringList determinerTestsRemplis(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QStringList listeTestFaitsTableau, QString caractereCle);
-    bool lancerCmdPdftk(QString pathFichierRapport, QString pathFichierAnnexes, QString pathFichierRes);
+    bool lancerCmdPdftk(const QStringList& fichiersEntree, const QString& pathFichierRes);
     void copyFile(const QString& sourceFilePath, const QString& destinationFilePath);
 
     QString remplirChaineHtmlGenou(QStringList listeNumerosTest);
