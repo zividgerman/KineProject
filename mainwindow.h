@@ -154,6 +154,9 @@ private slots:
 
     void on_pushButton_bpf_photos_forceMaximale_clicked();
 
+
+    void on_toolButton_bpcf_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -211,8 +214,9 @@ private:
     QPair<QString, QString> getPaireAsymetrie(bool inversion,double nonOpere, double opere);
     QPair<QString, QString> getPaireKstart(double kStart);
     QPair<QString, QString> calculerProgression(QString unite, double valeurAvant, double valeurApres);
+    QPair<QString, QString> calculerProgressionEntier(QString unite, double valeurAvant, double valeurApres, bool inversionLogiqueCouleur);
     QPair<QString, QString> getProgressionPourcentage(bool inversion, double valeurAvant, double valeurApres);
-    QString getCouleurPourcentageForce(double forceSain, double forceNO);
+    QPair<QPair<QString, QString>, QPair<QString, QString>> getPourcentageEtCouleurRepartition(double forceG, double forceD);
 
     QString getCouleurReRiR1(double ratio);
     QString getCouleurReRiR2(double ratio);
@@ -242,7 +246,7 @@ private:
     QString ecrireRatioA(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireRatioREHanche(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
     QString ecrireIP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
-    QString ecrirePointsReceptionUnipodale(QList<QPair<QString, QMap<QString, QString> > > listePairesRapport);
+    QString ecrirePointsReceptionUnipodale(QList<QPair<QString, QMap<QString, QString> > > listePairesRapport, QString contexte);
 
     QString ecrireCmjBipodal(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString sexe, QString labelBlessure);
     QString ecrireCmjUnipodal(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure);
@@ -310,6 +314,7 @@ private:
     QString ecrireHeelRiseBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireTestIYTBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireTestGripBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
+    QString ecrireRatioREHancheBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
 
     QString ecrireMTT(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireNordicCurl(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
@@ -359,7 +364,7 @@ private:
     QString ecrireInterpretation(QString texteInterpretation, QString titreInterpretation);
     QString encadrerTableauEtImage(const QString& texteTableau, const QString& cheminImage, int maxWidth, int maxHeight);
     QString encadrerTableauEtImageFlexible(const QString& texteTableau, const QString& cheminImage, const QString& position,int maxWidth,int maxHeight);
-
+    QString ecrireImage(const QString& cheminImage, const QString& position, int maxWidth, int maxHeight);
 
     void redimensionnerImages();
     void initialiserDatabase();

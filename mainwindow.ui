@@ -147,7 +147,7 @@
       <x>20</x>
       <y>220</y>
       <width>1121</width>
-      <height>631</height>
+      <height>471</height>
      </rect>
     </property>
     <property name="verticalScrollBarPolicy">
@@ -380,7 +380,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>1950</y>
+       <y>1980</y>
        <width>239</width>
        <height>75</height>
       </rect>
@@ -640,7 +640,7 @@
       <rect>
        <x>640</x>
        <y>340</y>
-       <width>311</width>
+       <width>349</width>
        <height>110</height>
       </rect>
      </property>
@@ -788,7 +788,7 @@
      <property name="geometry">
       <rect>
        <x>310</x>
-       <y>2040</y>
+       <y>2070</y>
        <width>311</width>
        <height>51</height>
       </rect>
@@ -950,7 +950,7 @@
      <property name="geometry">
       <rect>
        <x>490</x>
-       <y>1180</y>
+       <y>1190</y>
        <width>423</width>
        <height>154</height>
       </rect>
@@ -1152,8 +1152,8 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>570</x>
-       <y>930</y>
+       <x>620</x>
+       <y>970</y>
        <width>355</width>
        <height>66</height>
       </rect>
@@ -1248,7 +1248,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>620</y>
+       <y>480</y>
        <width>465</width>
        <height>110</height>
       </rect>
@@ -1393,180 +1393,11 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="layoutWidget_33">
-     <property name="geometry">
-      <rect>
-       <x>320</x>
-       <y>1860</y>
-       <width>282</width>
-       <height>58</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_15">
-      <property name="spacing">
-       <number>15</number>
-      </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_test_sjB_7">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Hop Test</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::TextFormat::PlainText</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="label_opere_28">
-        <property name="text">
-         <string>Opere</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="label_non_opere_27">
-        <property name="text">
-         <string>Sain</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_hauteur_saut_sj_7">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Distance saut (cm)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_g_distanceSLHO">
-        <property name="cursor">
-         <cursorShape>ArrowCursor</cursorShape>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
-        </property>
-        <property name="accelerated">
-         <bool>true</bool>
-        </property>
-        <property name="decimals">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <double>100000.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_g_distanceSLHNO">
-        <property name="cursor">
-         <cursorShape>ArrowCursor</cursorShape>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
-        </property>
-        <property name="accelerated">
-         <bool>true</bool>
-        </property>
-        <property name="decimals">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <double>100000.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="layoutWidget_34">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>1860</y>
-       <width>188</width>
-       <height>58</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_16">
-      <property name="spacing">
-       <number>15</number>
-      </property>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_hauteur_saut_sj_8">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Distance saut (cm)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_g_distanceBroadJump">
-        <property name="cursor">
-         <cursorShape>ArrowCursor</cursorShape>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
-        </property>
-        <property name="accelerated">
-         <bool>true</bool>
-        </property>
-        <property name="decimals">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <double>100000.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" colspan="2">
-       <widget class="QLabel" name="label_test_sjB_8">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Broad Jump Test</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::TextFormat::PlainText</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
     <widget class="QGroupBox" name="groupBox_controleGenou_g">
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>1450</y>
+       <y>1560</y>
        <width>461</width>
        <height>191</height>
       </rect>
@@ -1672,7 +1503,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>1670</y>
+       <y>1780</y>
        <width>511</width>
        <height>151</height>
       </rect>
@@ -1743,7 +1574,7 @@
      <property name="geometry">
       <rect>
        <x>540</x>
-       <y>1450</y>
+       <y>1560</y>
        <width>351</width>
        <height>111</height>
       </rect>
@@ -1787,8 +1618,8 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>930</y>
+       <x>40</x>
+       <y>970</y>
        <width>517</width>
        <height>138</height>
       </rect>
@@ -1945,8 +1776,8 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>1167</y>
+       <x>40</x>
+       <y>1177</y>
        <width>412</width>
        <height>178</height>
       </rect>
@@ -2142,7 +1973,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>770</y>
+       <y>810</y>
        <width>463</width>
        <height>98</height>
       </rect>
@@ -2269,7 +2100,7 @@
       <rect>
        <x>40</x>
        <y>250</y>
-       <width>176</width>
+       <width>180</width>
        <height>27</height>
       </rect>
      </property>
@@ -2350,7 +2181,7 @@
      <property name="geometry">
       <rect>
        <x>300</x>
-       <y>740</y>
+       <y>750</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -2363,20 +2194,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>590</y>
-       <width>311</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Orientation::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="Line" name="line_42">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>1390</y>
+       <y>610</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -2389,7 +2207,7 @@
      <property name="geometry">
       <rect>
        <x>320</x>
-       <y>1830</y>
+       <y>1960</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -2402,7 +2220,7 @@
      <property name="geometry">
       <rect>
        <x>300</x>
-       <y>1930</y>
+       <y>1510</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -2415,8 +2233,8 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>480</y>
-       <width>381</width>
+       <y>630</y>
+       <width>430</width>
        <height>110</height>
       </rect>
      </property>
@@ -2622,9 +2440,9 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>1420</y>
+       <y>1525</y>
        <width>251</width>
-       <height>16</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -2645,6 +2463,217 @@
      </property>
      <property name="textFormat">
       <enum>Qt::TextFormat::PlainText</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_amplitude_articulaire_74">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>770</y>
+       <width>251</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <bold>true</bold>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="text">
+      <string>Tests de Puissance</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::PlainText</enum>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_34">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>1410</y>
+       <width>188</width>
+       <height>58</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_16">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_hauteur_saut_sj_8">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Distance saut (cm)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_g_distanceBroadJump">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLabel" name="label_test_sjB_8">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Broad Jump Test</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::TextFormat::PlainText</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_33">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>1410</y>
+       <width>282</width>
+       <height>58</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_15">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_test_sjB_7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Hop Test</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::TextFormat::PlainText</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_opere_28">
+        <property name="text">
+         <string>Opere</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_non_opere_27">
+        <property name="text">
+         <string>Sain</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_hauteur_saut_sj_7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Distance saut (cm)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_g_distanceSLHO">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_g_distanceSLHNO">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="Line" name="line_42">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>1140</y>
+       <width>311</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
    </widget>
@@ -5557,7 +5586,7 @@
       <x>20</x>
       <y>8770</y>
       <width>1101</width>
-      <height>2291</height>
+      <height>2261</height>
      </rect>
     </property>
     <widget class="QWidget" name="layoutWidget_2">
@@ -5770,7 +5799,7 @@
      <property name="geometry">
       <rect>
        <x>500</x>
-       <y>460</y>
+       <y>490</y>
        <width>411</width>
        <height>110</height>
       </rect>
@@ -5925,7 +5954,7 @@
      <property name="geometry">
       <rect>
        <x>310</x>
-       <y>2130</y>
+       <y>2170</y>
        <width>311</width>
        <height>51</height>
       </rect>
@@ -5938,7 +5967,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>460</y>
+       <y>490</y>
        <width>457</width>
        <height>110</height>
       </rect>
@@ -6093,7 +6122,7 @@
      <property name="geometry">
       <rect>
        <x>470</x>
-       <y>1230</y>
+       <y>1260</y>
        <width>423</width>
        <height>154</height>
       </rect>
@@ -6295,8 +6324,8 @@
     <widget class="QWidget" name="layoutWidget_28">
      <property name="geometry">
       <rect>
-       <x>570</x>
-       <y>1030</y>
+       <x>580</x>
+       <y>1070</y>
        <width>341</width>
        <height>66</height>
       </rect>
@@ -6399,7 +6428,7 @@
        <x>20</x>
        <y>60</y>
        <width>407</width>
-       <height>330</height>
+       <height>351</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_10">
@@ -6804,7 +6833,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>2040</y>
+       <y>2070</y>
        <width>311</width>
        <height>58</height>
       </rect>
@@ -6905,7 +6934,7 @@
      <property name="geometry">
       <rect>
        <x>470</x>
-       <y>2040</y>
+       <y>2070</y>
        <width>308</width>
        <height>58</height>
       </rect>
@@ -7006,7 +7035,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1500</y>
+       <y>1630</y>
        <width>461</width>
        <height>191</height>
       </rect>
@@ -7112,7 +7141,7 @@
      <property name="geometry">
       <rect>
        <x>530</x>
-       <y>1500</y>
+       <y>1630</y>
        <width>351</width>
        <height>111</height>
       </rect>
@@ -7157,7 +7186,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1710</y>
+       <y>1840</y>
        <width>511</width>
        <height>151</height>
       </rect>
@@ -7228,7 +7257,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>890</y>
+       <y>920</y>
        <width>499</width>
        <height>98</height>
       </rect>
@@ -7360,7 +7389,7 @@
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>1031</y>
+       <y>1061</y>
        <width>520</width>
        <height>138</height>
       </rect>
@@ -7524,7 +7553,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>1230</y>
+       <y>1260</y>
        <width>412</width>
        <height>178</height>
       </rect>
@@ -7720,7 +7749,7 @@
      <property name="geometry">
       <rect>
        <x>300</x>
-       <y>410</y>
+       <y>430</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -7732,8 +7761,8 @@
     <widget class="Line" name="line_54">
      <property name="geometry">
       <rect>
-       <x>290</x>
-       <y>800</y>
+       <x>280</x>
+       <y>850</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -7759,7 +7788,7 @@
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>1970</y>
+       <y>2000</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -7772,7 +7801,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>740</y>
+       <y>770</y>
        <width>285</width>
        <height>49</height>
       </rect>
@@ -7872,8 +7901,8 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>600</y>
-       <width>381</width>
+       <y>630</y>
+       <width>430</width>
        <height>110</height>
       </rect>
      </property>
@@ -8050,7 +8079,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>840</y>
+       <y>450</y>
        <width>251</width>
        <height>16</height>
       </rect>
@@ -8079,9 +8108,9 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1470</y>
+       <y>1595</y>
        <width>251</width>
-       <height>16</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -8108,7 +8137,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>2000</y>
+       <y>2030</y>
        <width>251</width>
        <height>16</height>
       </rect>
@@ -8133,11 +8162,40 @@
       <enum>Qt::TextFormat::PlainText</enum>
      </property>
     </widget>
+    <widget class="QLabel" name="label_amplitude_articulaire_73">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>880</y>
+       <width>251</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <bold>true</bold>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="text">
+      <string>Tests de Puissance</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::PlainText</enum>
+     </property>
+    </widget>
     <widget class="QWidget" name="layoutWidget_111">
      <property name="geometry">
       <rect>
        <x>480</x>
-       <y>1890</y>
+       <y>1480</y>
        <width>282</width>
        <height>58</height>
       </rect>
@@ -8238,7 +8296,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>1890</y>
+       <y>1480</y>
        <width>231</width>
        <height>58</height>
       </rect>
@@ -8301,6 +8359,19 @@
        </widget>
       </item>
      </layout>
+    </widget>
+    <widget class="Line" name="line_84">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>1580</y>
+       <width>311</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="widget_generation_rapport_hanche" native="true">
@@ -8634,14 +8705,14 @@
       <x>20</x>
       <y>13080</y>
       <width>1101</width>
-      <height>2691</height>
+      <height>2861</height>
      </rect>
     </property>
     <widget class="QWidget" name="layoutWidget_35">
      <property name="geometry">
       <rect>
        <x>512</x>
-       <y>940</y>
+       <y>1110</y>
        <width>361</width>
        <height>154</height>
       </rect>
@@ -8837,8 +8908,8 @@
     <widget class="QWidget" name="layoutWidget_36">
      <property name="geometry">
       <rect>
-       <x>550</x>
-       <y>740</y>
+       <x>610</x>
+       <y>920</y>
        <width>341</width>
        <height>66</height>
       </rect>
@@ -8933,7 +9004,7 @@
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>2620</y>
+       <y>2790</y>
        <width>311</width>
        <height>51</height>
       </rect>
@@ -9113,7 +9184,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1420</y>
+       <y>1700</y>
        <width>461</width>
        <height>191</height>
       </rect>
@@ -9437,7 +9508,7 @@
      <property name="geometry">
       <rect>
        <x>520</x>
-       <y>1420</y>
+       <y>1700</y>
        <width>351</width>
        <height>111</height>
       </rect>
@@ -9482,7 +9553,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1640</y>
+       <y>1920</y>
        <width>511</width>
        <height>151</height>
       </rect>
@@ -9553,7 +9624,7 @@
      <property name="geometry">
       <rect>
        <x>460</x>
-       <y>1950</y>
+       <y>2130</y>
        <width>308</width>
        <height>58</height>
       </rect>
@@ -9648,7 +9719,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1950</y>
+       <y>2130</y>
        <width>308</width>
        <height>58</height>
       </rect>
@@ -9743,8 +9814,8 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>2030</y>
-       <width>374</width>
+       <y>2230</y>
+       <width>381</width>
        <height>58</height>
       </rect>
      </property>
@@ -9838,7 +9909,7 @@
      <property name="geometry">
       <rect>
        <x>460</x>
-       <y>2030</y>
+       <y>2230</y>
        <width>354</width>
        <height>58</height>
       </rect>
@@ -9933,7 +10004,7 @@
      <property name="geometry">
       <rect>
        <x>490</x>
-       <y>380</y>
+       <y>540</y>
        <width>334</width>
        <height>138</height>
       </rect>
@@ -10097,8 +10168,8 @@
      <property name="geometry">
       <rect>
        <x>18</x>
-       <y>380</y>
-       <width>279</width>
+       <y>540</y>
+       <width>287</width>
        <height>58</height>
       </rect>
      </property>
@@ -10207,8 +10278,8 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>450</y>
-       <width>270</width>
+       <y>620</y>
+       <width>276</width>
        <height>58</height>
       </rect>
      </property>
@@ -10360,7 +10431,7 @@
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>560</y>
+       <y>760</y>
        <width>499</width>
        <height>98</height>
       </rect>
@@ -10492,8 +10563,8 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>720</y>
-       <width>511</width>
+       <y>910</y>
+       <width>553</width>
        <height>138</height>
       </rect>
      </property>
@@ -10650,7 +10721,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>940</y>
+       <y>1110</y>
        <width>445</width>
        <height>178</height>
       </rect>
@@ -10840,7 +10911,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1180</y>
+       <y>1330</y>
        <width>461</width>
        <height>178</height>
       </rect>
@@ -11011,7 +11082,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>520</y>
+       <y>700</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -11024,20 +11095,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>690</y>
-       <width>311</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Orientation::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="Line" name="line_62">
-     <property name="geometry">
-      <rect>
-       <x>290</x>
-       <y>890</y>
+       <y>880</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -11050,7 +11108,7 @@
      <property name="geometry">
       <rect>
        <x>300</x>
-       <y>1130</y>
+       <y>1300</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -11063,7 +11121,7 @@
      <property name="geometry">
       <rect>
        <x>300</x>
-       <y>1370</y>
+       <y>1520</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -11076,7 +11134,7 @@
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>1900</y>
+       <y>2080</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -11089,7 +11147,7 @@
      <property name="geometry">
       <rect>
        <x>260</x>
-       <y>2560</y>
+       <y>2740</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -11102,7 +11160,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>2120</y>
+       <y>2320</y>
        <width>354</width>
        <height>58</height>
       </rect>
@@ -11196,8 +11254,8 @@
     <widget class="QTextEdit" name="textEdit_schemaYBT_2">
      <property name="geometry">
       <rect>
-       <x>500</x>
-       <y>2250</y>
+       <x>550</x>
+       <y>2430</y>
        <width>181</width>
        <height>251</height>
       </rect>
@@ -11213,7 +11271,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>2290</y>
+       <y>2470</y>
        <width>440</width>
        <height>154</height>
       </rect>
@@ -11413,7 +11471,7 @@
      <property name="geometry">
       <rect>
        <x>280</x>
-       <y>2210</y>
+       <y>2400</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -11422,55 +11480,11 @@
       <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_c_longueurMI">
-     <property name="geometry">
-      <rect>
-       <x>300</x>
-       <y>2510</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="cursor">
-      <cursorShape>ArrowCursor</cursorShape>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
-     </property>
-     <property name="accelerated">
-      <bool>true</bool>
-     </property>
-     <property name="decimals">
-      <number>1</number>
-     </property>
-     <property name="maximum">
-      <double>100000.000000000000000</double>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_distanceM_4">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>2510</y>
-       <width>255</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Longueur du membre inférieur (distance EIAS - malléole interne)</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>10</y>
+       <y>20</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -11488,7 +11502,7 @@
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>10</y>
+       <y>20</y>
        <width>71</width>
        <height>21</height>
       </rect>
@@ -11566,9 +11580,9 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1390</y>
+       <y>1665</y>
        <width>251</width>
-       <height>16</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -11595,7 +11609,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1910</y>
+       <y>2100</y>
        <width>251</width>
        <height>16</height>
       </rect>
@@ -11620,11 +11634,40 @@
       <enum>Qt::TextFormat::PlainText</enum>
      </property>
     </widget>
+    <widget class="QLabel" name="label_amplitude_articulaire_72">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>720</y>
+       <width>251</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <bold>true</bold>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="text">
+      <string>Tests de Puissance</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::PlainText</enum>
+     </property>
+    </widget>
     <widget class="QWidget" name="layoutWidget_45">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1820</y>
+       <y>1560</y>
        <width>188</width>
        <height>58</height>
       </rect>
@@ -11686,7 +11729,7 @@
      <property name="geometry">
       <rect>
        <x>460</x>
-       <y>1820</y>
+       <y>1560</y>
        <width>282</width>
        <height>58</height>
       </rect>
@@ -11777,12 +11820,367 @@
       </item>
      </layout>
     </widget>
+    <widget class="QWidget" name="layoutWidget_114">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>380</y>
+       <width>381</width>
+       <height>110</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_ratioIJ_12">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item row="2" column="2">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_fmaxQuadriNO">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_non_opere_87">
+        <property name="text">
+         <string>Sain</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_fmaxIschioO">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="showGroupSeparator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_opere_89">
+        <property name="text">
+         <string>Opere</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_ration_ij_quadri_16">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Ratio Ischios Jambiers / Quadriceps :</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::TextFormat::PlainText</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_fmax_ij_15">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>FMax Ischio (N)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_fmaxIschioNO">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_fmax_quadri_9">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>FMax Quadriceps (N)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_fmaxQuadriO">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_115">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>380</y>
+       <width>349</width>
+       <height>110</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_rationAA_7">
+      <property name="sizeConstraint">
+       <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+      </property>
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_fmax_abducteurs_11">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>FMax Abducteurs (N)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_opere_90">
+        <property name="text">
+         <string>Opere</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_ration_add_abb_8">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Ratio Adducteurs / Abducteurs</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::TextFormat::PlainText</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_non_opere_88">
+        <property name="text">
+         <string>Sain</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_fmax_adducteurs_8">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>FMax Adducteurs (N)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_fmaxAdducteursO">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_fmaxAdducteursNO">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_fmaxAbducteursO">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_fmaxAbducteursNO">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="Line" name="line_92">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>1640</y>
+       <width>311</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>2690</y>
+       <width>541</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_100">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_distanceM_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Longueur du membre inférieur (distance EIAS - malléole interne)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_longueurMI">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget_generation_rapport_cheville" native="true">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>15880</y>
+      <y>15970</y>
       <width>901</width>
       <height>1581</height>
      </rect>
@@ -12122,7 +12520,7 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>1840</y>
+      <y>1880</y>
       <width>311</width>
       <height>20</height>
      </rect>
@@ -12135,18 +12533,18 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>17690</y>
+      <y>17570</y>
       <width>1091</width>
-      <height>2481</height>
+      <height>2751</height>
      </rect>
     </property>
     <widget class="QWidget" name="grid_bp_course" native="true">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>60</y>
+       <y>40</y>
        <width>361</width>
-       <height>451</height>
+       <height>551</height>
       </rect>
      </property>
      <property name="font">
@@ -12913,8 +13311,8 @@
     <widget class="QLabel" name="label_amplitude_articulaire_11">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>560</y>
+       <x>20</x>
+       <y>650</y>
        <width>251</width>
        <height>16</height>
       </rect>
@@ -12942,8 +13340,8 @@
     <widget class="QWidget" name="layoutWidget_24">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>600</y>
+       <x>20</x>
+       <y>690</y>
        <width>334</width>
        <height>138</height>
       </rect>
@@ -13106,9 +13504,9 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>600</y>
-       <width>279</width>
+       <x>420</x>
+       <y>690</y>
+       <width>287</width>
        <height>98</height>
       </rect>
      </property>
@@ -13263,7 +13661,7 @@
      <property name="geometry">
       <rect>
        <x>460</x>
-       <y>800</y>
+       <y>870</y>
        <width>349</width>
        <height>110</height>
       </rect>
@@ -13411,8 +13809,8 @@
     <widget class="QWidget" name="layoutWidget_29">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>800</y>
+       <x>20</x>
+       <y>870</y>
        <width>378</width>
        <height>110</height>
       </rect>
@@ -13561,7 +13959,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1130</y>
+       <y>1340</y>
        <width>251</width>
        <height>16</height>
       </rect>
@@ -13589,8 +13987,8 @@
     <widget class="QWidget" name="layoutWidget_40">
      <property name="geometry">
       <rect>
-       <x>610</x>
-       <y>1300</y>
+       <x>650</x>
+       <y>1560</y>
        <width>290</width>
        <height>66</height>
       </rect>
@@ -13685,7 +14083,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1300</y>
+       <y>1510</y>
        <width>553</width>
        <height>138</height>
       </rect>
@@ -13843,7 +14241,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1690</y>
+       <y>1890</y>
        <width>473</width>
        <height>178</height>
       </rect>
@@ -14000,8 +14398,8 @@
     <widget class="QWidget" name="layoutWidget_43">
      <property name="geometry">
       <rect>
-       <x>15</x>
-       <y>1170</y>
+       <x>20</x>
+       <y>1380</y>
        <width>499</width>
        <height>98</height>
       </rect>
@@ -14133,7 +14531,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1470</y>
+       <y>1680</y>
        <width>445</width>
        <height>178</height>
       </rect>
@@ -14352,7 +14750,7 @@
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>1890</y>
+       <y>2090</y>
        <width>271</width>
        <height>16</height>
       </rect>
@@ -14365,7 +14763,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>2200</y>
+       <y>2460</y>
        <width>151</width>
        <height>16</height>
       </rect>
@@ -14394,7 +14792,7 @@
      <property name="geometry">
       <rect>
        <x>170</x>
-       <y>2170</y>
+       <y>2430</y>
        <width>271</width>
        <height>16</height>
       </rect>
@@ -14407,7 +14805,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>2320</y>
+       <y>2580</y>
        <width>308</width>
        <height>58</height>
       </rect>
@@ -14502,7 +14900,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>2230</y>
+       <y>2490</y>
        <width>308</width>
        <height>58</height>
       </rect>
@@ -14597,7 +14995,7 @@
      <property name="geometry">
       <rect>
        <x>410</x>
-       <y>2320</y>
+       <y>2580</y>
        <width>354</width>
        <height>58</height>
       </rect>
@@ -14688,106 +15086,11 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="layoutWidget_53">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>2080</y>
-       <width>282</width>
-       <height>58</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_49">
-      <property name="spacing">
-       <number>15</number>
-      </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_test_sjB_21">
-        <property name="font">
-         <font>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Hop Test</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::TextFormat::PlainText</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="label_opere_50">
-        <property name="text">
-         <string>Gauche</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="label_non_opere_49">
-        <property name="text">
-         <string>Droit</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_hauteur_saut_sj_21">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Distance saut (cm)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_distanceSLHG">
-        <property name="cursor">
-         <cursorShape>ArrowCursor</cursorShape>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
-        </property>
-        <property name="accelerated">
-         <bool>true</bool>
-        </property>
-        <property name="decimals">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <double>100000.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_distanceSLHD">
-        <property name="cursor">
-         <cursorShape>ArrowCursor</cursorShape>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
-        </property>
-        <property name="accelerated">
-         <bool>true</bool>
-        </property>
-        <property name="decimals">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <double>100000.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
     <widget class="QWidget" name="layoutWidget_55">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>970</y>
+       <x>20</x>
+       <y>1040</y>
        <width>361</width>
        <height>110</height>
       </rect>
@@ -14932,73 +15235,11 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="layoutWidget_56">
-     <property name="geometry">
-      <rect>
-       <x>350</x>
-       <y>2080</y>
-       <width>188</width>
-       <height>58</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_50">
-      <property name="spacing">
-       <number>15</number>
-      </property>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_hauteur_saut_sj_22">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Distance saut (cm)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_distanceBroadJump">
-        <property name="cursor">
-         <cursorShape>ArrowCursor</cursorShape>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
-        </property>
-        <property name="accelerated">
-         <bool>true</bool>
-        </property>
-        <property name="decimals">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <double>100000.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" colspan="2">
-       <widget class="QLabel" name="label_test_sjB_22">
-        <property name="font">
-         <font>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Broad Jump Test</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::TextFormat::PlainText</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1930</y>
+       <y>2270</y>
        <width>182</width>
        <height>138</height>
       </rect>
@@ -15130,7 +15371,7 @@
      <property name="geometry">
       <rect>
        <x>460</x>
-       <y>960</y>
+       <y>1030</y>
        <width>285</width>
        <height>49</height>
       </rect>
@@ -15230,7 +15471,7 @@
      <property name="geometry">
       <rect>
        <x>240</x>
-       <y>2420</y>
+       <y>2680</y>
        <width>311</width>
        <height>51</height>
       </rect>
@@ -15243,7 +15484,7 @@
      <property name="geometry">
       <rect>
        <x>520</x>
-       <y>1520</y>
+       <y>1730</y>
        <width>323</width>
        <height>58</height>
       </rect>
@@ -15334,14 +15575,388 @@
       </item>
      </layout>
     </widget>
+    <widget class="Line" name="line_85">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>610</y>
+       <width>311</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_86">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>1310</y>
+       <width>311</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_amplitude_articulaire_71">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>2240</y>
+       <width>251</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <bold>true</bold>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="text">
+      <string>Tests de force maximale</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::PlainText</enum>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_53">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>2130</y>
+       <width>282</width>
+       <height>58</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_49">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_test_sjB_21">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Hop Test</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::TextFormat::PlainText</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_opere_50">
+        <property name="text">
+         <string>Gauche</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_non_opere_49">
+        <property name="text">
+         <string>Droit</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_hauteur_saut_sj_21">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Distance saut (cm)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_distanceSLHG">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_distanceSLHD">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_56">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>2130</y>
+       <width>188</width>
+       <height>58</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_50">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_hauteur_saut_sj_22">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Distance saut (cm)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_distanceBroadJump">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLabel" name="label_test_sjB_22">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Broad Jump Test</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::TextFormat::PlainText</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="Line" name="line_87">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>2210</y>
+       <width>271</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_117">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>1180</y>
+       <width>430</width>
+       <height>110</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_ratioIJ_14">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item row="2" column="2">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_fmaxREAllongeD">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_non_opere_90">
+        <property name="text">
+         <string>Sain</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_fmaxREAssisG">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="showGroupSeparator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_opere_92">
+        <property name="text">
+         <string>Opere</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_ration_ij_quadri_18">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Rotateurs Externes</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::TextFormat::PlainText</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_fmax_ij_17">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>FMax Rotateurs externes de hanche (Assis)  (N)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_fmaxREAssisD">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_fmax_quadri_11">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>FMax rotateurs externes de hanche (allongé) (N)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_fmaxREAllongeG">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget_generation_rapport_bpc" native="true">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>20220</y>
+      <y>20340</y>
       <width>901</width>
-      <height>2861</height>
+      <height>2781</height>
      </rect>
     </property>
     <widget class="QTextEdit" name="textEdit_interpretation_kine_bpc">
@@ -15383,7 +15998,7 @@
      <property name="geometry">
       <rect>
        <x>220</x>
-       <y>2780</y>
+       <y>2680</y>
        <width>201</width>
        <height>51</height>
       </rect>
@@ -15396,7 +16011,7 @@
      <property name="geometry">
       <rect>
        <x>510</x>
-       <y>2710</y>
+       <y>2610</y>
        <width>61</width>
        <height>26</height>
       </rect>
@@ -15409,7 +16024,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>2710</y>
+       <y>2610</y>
        <width>441</width>
        <height>26</height>
       </rect>
@@ -15422,9 +16037,9 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>1710</y>
+       <y>1500</y>
        <width>691</width>
-       <height>944</height>
+       <height>1021</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_axesAmeliorer_5">
@@ -16037,7 +16652,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>2670</y>
+       <y>2570</y>
        <width>151</width>
        <height>31</height>
       </rect>
@@ -16128,18 +16743,18 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>23100</y>
+      <y>23140</y>
       <width>1091</width>
-      <height>2961</height>
+      <height>3271</height>
      </rect>
     </property>
     <widget class="QWidget" name="grid_bp_course_2" native="true">
      <property name="geometry">
       <rect>
        <x>50</x>
-       <y>80</y>
-       <width>361</width>
-       <height>471</height>
+       <y>60</y>
+       <width>491</width>
+       <height>581</height>
       </rect>
      </property>
      <property name="font">
@@ -16878,7 +17493,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>50</y>
+       <y>20</y>
        <width>251</width>
        <height>16</height>
       </rect>
@@ -16906,8 +17521,8 @@
     <widget class="QLabel" name="label_amplitude_articulaire_17">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>560</y>
+       <x>20</x>
+       <y>720</y>
        <width>251</width>
        <height>16</height>
       </rect>
@@ -16935,8 +17550,8 @@
     <widget class="QWidget" name="layoutWidget_57">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>600</y>
+       <x>20</x>
+       <y>770</y>
        <width>334</width>
        <height>138</height>
       </rect>
@@ -17099,9 +17714,9 @@
     <widget class="QWidget" name="layoutWidget_58">
      <property name="geometry">
       <rect>
-       <x>13</x>
-       <y>770</y>
-       <width>279</width>
+       <x>460</x>
+       <y>780</y>
+       <width>287</width>
        <height>98</height>
       </rect>
      </property>
@@ -17256,7 +17871,7 @@
      <property name="geometry">
       <rect>
        <x>460</x>
-       <y>870</y>
+       <y>960</y>
        <width>349</width>
        <height>110</height>
       </rect>
@@ -17404,8 +18019,8 @@
     <widget class="QWidget" name="layoutWidget_60">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>870</y>
+       <x>17</x>
+       <y>960</y>
        <width>378</width>
        <height>110</height>
       </rect>
@@ -17554,9 +18169,9 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1170</y>
-       <width>251</width>
-       <height>16</height>
+       <y>1450</y>
+       <width>351</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -17582,8 +18197,8 @@
     <widget class="QWidget" name="layoutWidget_61">
      <property name="geometry">
       <rect>
-       <x>590</x>
-       <y>1360</y>
+       <x>650</x>
+       <y>1640</y>
        <width>311</width>
        <height>66</height>
       </rect>
@@ -17678,7 +18293,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1340</y>
+       <y>1620</y>
        <width>571</width>
        <height>138</height>
       </rect>
@@ -17836,7 +18451,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1730</y>
+       <y>2010</y>
        <width>473</width>
        <height>178</height>
       </rect>
@@ -17993,8 +18608,8 @@
     <widget class="QWidget" name="layoutWidget_65">
      <property name="geometry">
       <rect>
-       <x>15</x>
-       <y>1200</y>
+       <x>20</x>
+       <y>1490</y>
        <width>499</width>
        <height>98</height>
       </rect>
@@ -18126,7 +18741,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1510</y>
+       <y>1790</y>
        <width>445</width>
        <height>178</height>
       </rect>
@@ -18345,7 +18960,7 @@
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>2030</y>
+       <y>2320</y>
        <width>271</width>
        <height>16</height>
       </rect>
@@ -18358,8 +18973,8 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>2280</y>
-       <width>151</width>
+       <y>2580</y>
+       <width>341</width>
        <height>16</height>
       </rect>
      </property>
@@ -18387,7 +19002,7 @@
      <property name="geometry">
       <rect>
        <x>170</x>
-       <y>2260</y>
+       <y>2550</y>
        <width>271</width>
        <height>16</height>
       </rect>
@@ -18399,8 +19014,8 @@
     <widget class="QWidget" name="layoutWidget_67">
      <property name="geometry">
       <rect>
-       <x>440</x>
-       <y>2400</y>
+       <x>30</x>
+       <y>2710</y>
        <width>308</width>
        <height>58</height>
       </rect>
@@ -18494,8 +19109,8 @@
     <widget class="QWidget" name="layoutWidget_68">
      <property name="geometry">
       <rect>
-       <x>440</x>
-       <y>2310</y>
+       <x>30</x>
+       <y>2620</y>
        <width>308</width>
        <height>58</height>
       </rect>
@@ -18590,7 +19205,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1950</y>
+       <y>2230</y>
        <width>282</width>
        <height>58</height>
       </rect>
@@ -18684,8 +19299,8 @@
     <widget class="QWidget" name="layoutWidget_71">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>1010</y>
+       <x>17</x>
+       <y>1120</y>
        <width>351</width>
        <height>110</height>
       </rect>
@@ -18834,7 +19449,7 @@
      <property name="geometry">
       <rect>
        <x>350</x>
-       <y>1950</y>
+       <y>2230</y>
        <width>188</width>
        <height>58</height>
       </rect>
@@ -18895,8 +19510,8 @@
     <widget class="QWidget" name="layoutWidget_74">
      <property name="geometry">
       <rect>
-       <x>390</x>
-       <y>1050</y>
+       <x>460</x>
+       <y>1140</y>
        <width>285</width>
        <height>49</height>
       </rect>
@@ -18996,7 +19611,7 @@
      <property name="geometry">
       <rect>
        <x>240</x>
-       <y>2870</y>
+       <y>3210</y>
        <width>311</width>
        <height>51</height>
       </rect>
@@ -19009,8 +19624,8 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>2500</y>
-       <width>151</width>
+       <y>2840</y>
+       <width>451</width>
        <height>16</height>
       </rect>
      </property>
@@ -19038,7 +19653,7 @@
      <property name="geometry">
       <rect>
        <x>170</x>
-       <y>2480</y>
+       <y>2800</y>
        <width>271</width>
        <height>16</height>
       </rect>
@@ -19051,7 +19666,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>2760</y>
+       <y>3100</y>
        <width>205</width>
        <height>81</height>
       </rect>
@@ -19140,7 +19755,7 @@
      <property name="geometry">
       <rect>
        <x>340</x>
-       <y>2540</y>
+       <y>2880</y>
        <width>168</width>
        <height>185</height>
       </rect>
@@ -19298,7 +19913,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>2541</y>
+       <y>2881</y>
        <width>261</width>
        <height>138</height>
       </rect>
@@ -19423,8 +20038,8 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>530</x>
-       <y>1560</y>
+       <x>650</x>
+       <y>1840</y>
        <width>323</width>
        <height>58</height>
       </rect>
@@ -19518,8 +20133,8 @@
     <widget class="QWidget" name="layoutWidget_112">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>2400</y>
+       <x>420</x>
+       <y>2620</y>
        <width>354</width>
        <height>58</height>
       </rect>
@@ -19613,10 +20228,10 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>2320</y>
-       <width>191</width>
-       <height>50</height>
+       <x>520</x>
+       <y>2410</y>
+       <width>211</width>
+       <height>58</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_98">
@@ -19676,8 +20291,8 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>2050</y>
-       <width>151</width>
+       <y>2340</y>
+       <width>371</width>
        <height>16</height>
       </rect>
      </property>
@@ -19705,9 +20320,9 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>2090</y>
-       <width>301</width>
-       <height>122</height>
+       <y>2380</y>
+       <width>342</width>
+       <height>138</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_66">
@@ -19990,9 +20605,9 @@
      <property name="geometry">
       <rect>
        <x>590</x>
-       <y>2540</y>
-       <width>139</width>
-       <height>86</height>
+       <y>2880</y>
+       <width>170</width>
+       <height>98</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_99">
@@ -20068,6 +20683,181 @@
       </item>
       <item row="2" column="1">
        <widget class="QDoubleSpinBox" name="doubleSpinBox_bpsc_distanceThirtyMeters">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="Line" name="line_88">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>1410</y>
+       <width>271</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_89">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>680</y>
+       <width>271</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_116">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>1270</y>
+       <width>430</width>
+       <height>110</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_ratioIJ_13">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item row="2" column="2">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpsc_fmaxREAllongeD">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_non_opere_89">
+        <property name="text">
+         <string>Sain</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpsc_fmaxREAssisG">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="showGroupSeparator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_opere_91">
+        <property name="text">
+         <string>Opere</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_ration_ij_quadri_17">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Rotateurs Externes</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::TextFormat::PlainText</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_fmax_ij_16">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>FMax Rotateurs externes de hanche (Assis)  (N)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpsc_fmaxREAssisD">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_fmax_quadri_10">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>FMax rotateurs externes de hanche (allongé) (N)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpsc_fmaxREAllongeG">
         <property name="cursor">
          <cursorShape>ArrowCursor</cursorShape>
         </property>
@@ -20198,7 +20988,7 @@
       <rect>
        <x>30</x>
        <y>1640</y>
-       <width>771</width>
+       <width>867</width>
        <height>1151</height>
       </rect>
      </property>
@@ -22762,10 +23552,10 @@
     <widget class="QLabel" name="label_amplitude_articulaire_28">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>1619</y>
+       <x>10</x>
+       <y>1614</y>
        <width>251</width>
-       <height>16</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -23347,9 +24137,9 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>2130</y>
-       <width>151</width>
-       <height>16</height>
+       <y>2125</y>
+       <width>411</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -23701,7 +24491,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Tirage Planche</string>
+         <string>Seal Row</string>
         </property>
        </widget>
       </item>
@@ -24384,9 +25174,9 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>2440</y>
-       <width>151</width>
-       <height>16</height>
+       <y>2435</y>
+       <width>501</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -24583,7 +25373,7 @@
        <x>30</x>
        <y>1600</y>
        <width>691</width>
-       <height>1181</height>
+       <height>1208</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_axesAmeliorer_8">
@@ -24856,7 +25646,7 @@
       <rect>
        <x>30</x>
        <y>1030</y>
-       <width>251</width>
+       <width>321</width>
        <height>21</height>
       </rect>
      </property>
@@ -25034,7 +25824,7 @@
       <rect>
        <x>40</x>
        <y>270</y>
-       <width>381</width>
+       <width>471</width>
        <height>21</height>
       </rect>
      </property>
@@ -25076,7 +25866,7 @@
       <rect>
        <x>40</x>
        <y>20</y>
-       <width>251</width>
+       <width>341</width>
        <height>21</height>
       </rect>
      </property>
@@ -25268,7 +26058,7 @@
       <rect>
        <x>40</x>
        <y>480</y>
-       <width>381</width>
+       <width>511</width>
        <height>21</height>
       </rect>
      </property>
@@ -25297,7 +26087,7 @@
       <rect>
        <x>30</x>
        <y>1270</y>
-       <width>291</width>
+       <width>391</width>
        <height>21</height>
       </rect>
      </property>
@@ -25326,7 +26116,7 @@
       <rect>
        <x>30</x>
        <y>790</y>
-       <width>251</width>
+       <width>381</width>
        <height>21</height>
       </rect>
      </property>
@@ -25440,7 +26230,7 @@
       <x>30</x>
       <y>35770</y>
       <width>1091</width>
-      <height>3491</height>
+      <height>3541</height>
      </rect>
     </property>
     <widget class="QWidget" name="grid_bp_course_4" native="true">
@@ -25449,7 +26239,7 @@
        <x>20</x>
        <y>90</y>
        <width>421</width>
-       <height>961</height>
+       <height>971</height>
       </rect>
      </property>
      <property name="font">
@@ -26912,9 +27702,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>1070</y>
+       <y>1100</y>
        <width>251</width>
-       <height>16</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -26941,7 +27731,7 @@
      <property name="geometry">
       <rect>
        <x>460</x>
-       <y>1520</y>
+       <y>1550</y>
        <width>349</width>
        <height>110</height>
       </rect>
@@ -27090,7 +27880,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>1520</y>
+       <y>1550</y>
        <width>378</width>
        <height>110</height>
       </rect>
@@ -27239,7 +28029,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1660</y>
+       <y>1720</y>
        <width>251</width>
        <height>16</height>
       </rect>
@@ -27268,7 +28058,7 @@
      <property name="geometry">
       <rect>
        <x>610</x>
-       <y>1859</y>
+       <y>1910</y>
        <width>290</width>
        <height>66</height>
       </rect>
@@ -27363,7 +28153,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1839</y>
+       <y>1890</y>
        <width>553</width>
        <height>138</height>
       </rect>
@@ -27521,7 +28311,7 @@
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>1699</y>
+       <y>1759</y>
        <width>499</width>
        <height>98</height>
       </rect>
@@ -27653,7 +28443,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>2480</y>
+       <y>2500</y>
        <width>282</width>
        <height>58</height>
       </rect>
@@ -27748,7 +28538,7 @@
      <property name="geometry">
       <rect>
        <x>350</x>
-       <y>2480</y>
+       <y>2500</y>
        <width>188</width>
        <height>58</height>
       </rect>
@@ -27824,7 +28614,7 @@
       <rect>
        <x>30</x>
        <y>2600</y>
-       <width>151</width>
+       <width>361</width>
        <height>16</height>
       </rect>
      </property>
@@ -27852,7 +28642,7 @@
      <property name="geometry">
       <rect>
        <x>170</x>
-       <y>2570</y>
+       <y>2580</y>
        <width>271</width>
        <height>16</height>
       </rect>
@@ -28213,7 +29003,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Tirage Planche</string>
+         <string>Seal Row</string>
         </property>
        </widget>
       </item>
@@ -28589,7 +29379,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1320</y>
+       <y>1350</y>
        <width>349</width>
        <height>154</height>
       </rect>
@@ -28786,7 +29576,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1180</y>
+       <y>1210</y>
        <width>436</width>
        <height>110</height>
       </rect>
@@ -28935,7 +29725,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>1100</y>
+       <y>1130</y>
        <width>297</width>
        <height>58</height>
       </rect>
@@ -29033,7 +29823,7 @@
      <property name="geometry">
       <rect>
        <x>170</x>
-       <y>2430</y>
+       <y>2470</y>
        <width>271</width>
        <height>16</height>
       </rect>
@@ -29046,7 +29836,7 @@
      <property name="geometry">
       <rect>
        <x>170</x>
-       <y>2820</y>
+       <y>2840</y>
        <width>271</width>
        <height>16</height>
       </rect>
@@ -29060,7 +29850,7 @@
       <rect>
        <x>20</x>
        <y>2860</y>
-       <width>151</width>
+       <width>451</width>
        <height>16</height>
       </rect>
      </property>
@@ -29088,7 +29878,7 @@
      <property name="geometry">
       <rect>
        <x>590</x>
-       <y>2480</y>
+       <y>2500</y>
        <width>201</width>
        <height>58</height>
       </rect>
@@ -29150,7 +29940,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>2000</y>
+       <y>2060</y>
        <width>445</width>
        <height>178</height>
       </rect>
@@ -29340,7 +30130,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>2220</y>
+       <y>2270</y>
        <width>473</width>
        <height>178</height>
       </rect>
@@ -29498,7 +30288,7 @@
      <property name="geometry">
       <rect>
        <x>520</x>
-       <y>2060</y>
+       <y>2120</y>
        <width>323</width>
        <height>58</height>
       </rect>
@@ -29589,12 +30379,38 @@
       </item>
      </layout>
     </widget>
+    <widget class="Line" name="line_90">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>1070</y>
+       <width>271</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_91">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>1680</y>
+       <width>271</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget_generation_rapport_bpcf" native="true">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>39270</y>
+      <y>39330</y>
       <width>901</width>
       <height>3211</height>
      </rect>
@@ -30009,7 +30825,7 @@
       <rect>
        <x>30</x>
        <y>1020</y>
-       <width>251</width>
+       <width>291</width>
        <height>21</height>
       </rect>
      </property>
@@ -30187,7 +31003,7 @@
       <rect>
        <x>40</x>
        <y>270</y>
-       <width>381</width>
+       <width>551</width>
        <height>21</height>
       </rect>
      </property>
@@ -30229,7 +31045,7 @@
       <rect>
        <x>40</x>
        <y>20</y>
-       <width>251</width>
+       <width>381</width>
        <height>21</height>
       </rect>
      </property>
@@ -30421,7 +31237,7 @@
       <rect>
        <x>40</x>
        <y>480</y>
-       <width>381</width>
+       <width>511</width>
        <height>21</height>
       </rect>
      </property>
@@ -30450,7 +31266,7 @@
       <rect>
        <x>30</x>
        <y>1230</y>
-       <width>291</width>
+       <width>381</width>
        <height>21</height>
       </rect>
      </property>
@@ -30500,7 +31316,7 @@
       <rect>
        <x>30</x>
        <y>790</y>
-       <width>251</width>
+       <width>321</width>
        <height>21</height>
       </rect>
      </property>

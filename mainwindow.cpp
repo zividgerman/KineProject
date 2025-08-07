@@ -150,8 +150,8 @@ void MainWindow::initialiserFenetre(){
     QSqlQuery requete;
 
     // Mettre le panneau dans une partie deroulante
-    this->resize(1200,900);
-    this->setFixedSize(1200,900);
+    this->resize(1200,775);
+    this->setFixedSize(1200,775);
 
     ui->scrollArea->setFrameShape(QFrame::NoFrame);
     //remove the widget in area;
@@ -1982,27 +1982,35 @@ QPair<QString, QString> MainWindow::getProgressionPourcentage(bool inversion, do
     return paireRes;
 }
 
-//****************************************
-QString MainWindow::getCouleurPourcentageForce(double forceSain, double forceNO){
+QPair<QPair<QString, QString>, QPair<QString, QString>> MainWindow::getPourcentageEtCouleurRepartition(double forceG, double forceD) {
+    QPair<QPair<QString, QString>, QPair<QString, QString>> resultat;
 
-    QString res = "#169d53"; // Vert par défaut
+    double total = forceG + forceD;
 
-        // Si l’un dépasse 60 % ou l’autre est < 40 % → Rouge
-        if (forceSain > 60 || forceNO > 60 ||
-            forceSain < 40 || forceNO < 40) {
-            res = "#9f3f36"; // Rouge
-        }
-        // Sinon si l’un dépasse 55 % ou est < 45 % → Orange
-        else if ((forceSain > 55 || forceSain < 45) ||
-                 (forceNO > 55 || forceNO < 45)) {
-            res = "#ff9929"; // Orange
-        }
-        // Sinon → Vert
-        else {
-            res = "#169d53"; // Vert
-        }
+    // Éviter la division par zéro
+    if (total == 0.0) {
+        resultat.first  = qMakePair(QString("0%"), QString("#9f3f36"));
+        resultat.second = qMakePair(QString("0%"), QString("#9f3f36"));
+        return resultat;
+    }
 
-        return res;
+    double pctG = (forceG / total) * 100.0;
+    double pctD = (forceD / total) * 100.0;
+
+    // Fonction lambda pour attribuer une couleur selon le % (entre 0 et 100)
+    auto getCouleur = [](double pct) -> QString {
+        if (pct < 40.0 || pct > 60.0)
+            return "#9f3f36";  // Rouge
+        else if (pct < 45.0 || pct > 55.0)
+            return "#ff9929";  // Orange
+        else
+            return "#169d53";  // Vert
+    };
+
+    resultat.first  = qMakePair(QString::number(static_cast<int>(pctG)) + "%", getCouleur(pctG));
+    resultat.second = qMakePair(QString::number(static_cast<int>(pctD)) + "%", getCouleur(pctD));
+
+    return resultat;
 }
 
 //****************************************
@@ -3884,10 +3892,17 @@ QString MainWindow::ecrirePerimetres(QList<QPair<QString, QMap<QString, QString>
         return "";
     }
 
-    // Ecrire liste des colonnes du tableau
-    texteTableauCourant.append("<table><tr>");
+    //Titre du tableau
+    texteTableauCourant += "<font color='#0056b3' size='35' style=\"text-align: left; margin-bottom: 30px;font-weight: bold\">"
+                           "<b>PÉRIMÈTRES</b></font>";
 
-    listeColonnesTab << "Périmetres";
+    texteTableauCourant.append("<p style=\"margin-bottom:35px\"></p>");
+
+
+    // Ecrire liste des colonnes du tableau
+    texteTableauCourant.append("<table ><tr>");
+
+    listeColonnesTab << "";
 
     foreach (QString numeroTestFait, listeTestFaits) {
         listeColonnesTab << "Membre sain T" + numeroTestFait;
@@ -4664,7 +4679,7 @@ QString MainWindow::ecrireIP(QList<QPair<QString, QMap<QString, QString>>> liste
         //Membre sain T1 - Membre opere T1
         texteTableauCourant = texteTableauCourant + "</tr>"
                                                     "<tr>"
-                                                    "<th scope=\"row\">FMax Ischios (N)</th>"
+                                                    "<th scope=\"row\">FMax (N)</th>"
                                                     "<td>" + getMapListeRapport(listePairesRapport,listeTestFaits.first()).value("fmaxIllioNO") + "</td>"
                                                     "<td>" + getMapListeRapport(listePairesRapport,listeTestFaits.first()).value("fmaxIllioO") + "</td>";
         if(tailleListeFaits > 1){
@@ -5114,6 +5129,90 @@ QString MainWindow::ecrireRatioREHanche(QList<QPair<QString, QMap<QString, QStri
     return texteTableauCourant;
 }
 
+
+//****************************************
+QString MainWindow::ecrireRatioREHancheBP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport){
+    QString texteTableauCourant;
+    QString couleurCourante;
+    QStringList listeColonnesTab;
+
+    QStringList listeTestFaits;
+    QStringList listeCaracteresCol;
+    listeCaracteresCol << "fmaxREA";
+
+    for (int i = 0; i < listePairesRapport.count(); ++i) {
+
+        if(doitEtreEcrit(listeCaracteresCol, getMapListeRapport(listePairesRapport, QString::number(i+1)))){
+            listeTestFaits.append(QString::number(i+1));
+        }
+    }
+
+    int tailleListeFaits = listeTestFaits.count();
+
+    if(tailleListeFaits == 0){
+        return "";
+    }
+
+    // Ecrire liste des colonnes du tableau
+    texteTableauCourant.append("<table><tr>");
+
+    listeColonnesTab << "Rotateurs Externes de Hanche (REH)";
+
+    foreach (QString numeroTestFait, listeTestFaits) {
+        listeColonnesTab << "Membre G" + numeroTestFait;
+        listeColonnesTab << "Membre D" + numeroTestFait;
+    }
+
+    listeColonnesTab << "Asymétrie T" + listeTestFaits.last();
+
+    // Ecrire les colonnes associees
+    for (int i = 0; i < listeColonnesTab.count(); ++i) {
+
+        if(i == 0){
+            texteTableauCourant = texteTableauCourant + " <th scope=\"col\" style=\"background-color: white; color:#002e40; border: 1px solid #023448;\">"
+                                  + listeColonnesTab.at(i) +"</th>";
+        }
+        else{
+            texteTableauCourant= texteTableauCourant + " <th scope=\"col\">" + listeColonnesTab.at(i) +"</th>";
+        }
+    }
+    // Recuperer dernier T et avant dernier T => Seront toujours dernier et avant dernier de la liste listeTestFaits
+    QString dernierTest = listeTestFaits.last();
+
+    // 1ere row - FMax Adducteurs (N)
+    //Membre sain T1 - Membre opere T1
+    texteTableauCourant = texteTableauCourant + "</tr>"
+                                                "<tr>"
+                                                "<th scope=\"row\">FMax REH Assis (N)</th>"
+                                                "<td>" + getMapListeRapport(listePairesRapport,listeTestFaits.first()).value("fmaxREAssisG") + "</td>"
+                                                "<td>" + getMapListeRapport(listePairesRapport,listeTestFaits.first()).value("fmaxREAssisD") + "</td>";
+
+    // Asymetrie TLast
+    QPair<QString, QString> paireCourante = getPaireAsymetrie(false, getMapListeRapport(listePairesRapport, dernierTest).value("fmaxREAssisG").toDouble(),
+                                      getMapListeRapport(listePairesRapport, dernierTest).value("fmaxREAssisD").toDouble());
+
+    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + paireCourante.first + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
+                          + paireCourante.second+ "</td></tr>";
+
+    // 2e row - FMax Abducteurs (N)
+    texteTableauCourant = texteTableauCourant + "</tr>"
+                                                "<tr>"
+                                                "<th scope=\"row\">FMax REH Allongé (N)</th>"
+                                                "<td>" + getMapListeRapport(listePairesRapport,listeTestFaits.first()).value("fmaxREAllongeG") + "</td>"
+                                                "<td>" + getMapListeRapport(listePairesRapport,listeTestFaits.first()).value("fmaxREAllongeD") + "</td>";
+
+    // Asymetrie TLast
+    paireCourante = getPaireAsymetrie(false, getMapListeRapport(listePairesRapport, dernierTest).value("fmaxREAllongeG").toDouble(),
+                                    getMapListeRapport(listePairesRapport, dernierTest).value("fmaxREAllongeD").toDouble());
+
+    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + paireCourante.first + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
+                          + paireCourante.second+ "</td></tr>";
+
+    texteTableauCourant.append("</table>");
+    return texteTableauCourant;
+}
+
+
 //****************************************
 QString MainWindow::ecrireRatioAABP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport){
     QString texteTableauCourant;
@@ -5272,7 +5371,7 @@ QString MainWindow::ecrireAclRsi(QList<QPair<QString, QMap<QString, QString>>> l
 /*
  *
  */
-QString MainWindow::ecrirePointsReceptionUnipodale(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport){
+QString MainWindow::ecrirePointsReceptionUnipodale(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString contexte){
     QString pointCourant;
     QString couleurPoint;
 
@@ -5282,7 +5381,12 @@ QString MainWindow::ecrirePointsReceptionUnipodale(QList<QPair<QString, QMap<QSt
 
     QStringList listeCaractereCles;
 
-    QMap<QString, QString> mapDernierTest = getMapListeRapport(listePairesRapport, QString::number(listePairesRapport.count()));
+    QMap<QString, QString> mapDernierTest;
+
+    if(contexte == "Genou")
+        mapDernierTest = getMapListeRapport(listePairesRapport,"1");
+    else
+        mapDernierTest = getMapListeRapport(listePairesRapport, QString::number(listePairesRapport.count()));
 
     // On regarde si des valeurs pour les points de reception unipodal ont ete remplies sinon on ecrit pas
     if(doitEtreEcrit(listeCaractereCles, mapDernierTest) == false){
@@ -5305,7 +5409,7 @@ QString MainWindow::ecrirePointsReceptionUnipodale(QList<QPair<QString, QMap<QSt
     }
     texteRes = texteRes + "</tr>"
                           "<tr>"
-                          "<th width=\"20%\" scope=\"col\" style=\"text-align:left;\">Controle du tronc/bassin :</th>";
+                          "<th width=\"20%\" scope=\"col\" style=\"text-align:left;background-color: #c0c0c0;\">Controle du tronc/bassin :</th>";
 
     texteRes = texteRes + "<td width=\"42%\" style=\"background-color:" + couleurPoint + "; text-align:left;color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
                + pointCourant + "</td>";
@@ -5321,7 +5425,7 @@ QString MainWindow::ecrirePointsReceptionUnipodale(QList<QPair<QString, QMap<QSt
     }
     texteRes = texteRes + "</tr>"
                           "<tr>"
-                          "<th scope=\"col\" style=\"text-align:left;\">1er controle du genou :</th>";
+                          "<th scope=\"col\" style=\"text-align:left;background-color: #c0c0c0;\">1er controle du genou :</th>";
 
     texteRes = texteRes + "<td style=\"background-color:" + couleurPoint + "; text-align:left;color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
                + pointCourant + "</td>";
@@ -5337,7 +5441,7 @@ QString MainWindow::ecrirePointsReceptionUnipodale(QList<QPair<QString, QMap<QSt
     }
     texteRes = texteRes + "</tr>"
                           "<tr>"
-                          "<th scope=\"col\" style=\"text-align:left;\">2e controle du genou :</th>";
+                          "<th scope=\"col\" style=\"text-align:left;background-color: #c0c0c0;\">2e controle du genou :</th>";
 
     texteRes = texteRes + "<td style=\"background-color:" + couleurPoint + "; text-align:left;color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
                + pointCourant + "</td>";
@@ -5345,7 +5449,7 @@ QString MainWindow::ecrirePointsReceptionUnipodale(QList<QPair<QString, QMap<QSt
     // Repartitions charge checkBox
     QString texteRepartitionCharges = "</tr>"
                                       "<tr>"
-                                      "<th scope=\"col\" style=\"text-align:left;\">Repartition de la charge au niveau du pied</th>";
+                                      "<th scope=\"col\" style=\"text-align:left;background-color: #c0c0c0;\">Repartition de la charge au niveau du pied</th>";
 
     bool estPremier = true;
     if(mapDernierTest.value("receptionMedioPied").contains("1")){
@@ -6200,7 +6304,7 @@ QString MainWindow::ecrireDjUnipodal(QList<QPair<QString, QMap<QString, QString>
 
     QString dernierTest = listeTestFaits.last();
 
-    // 1ere row - Hauteur de saut (cm)
+    // 1e row - Hauteur de saut (cm)
     texteTableauCourant = texteTableauCourant + "</tr>"
                                                 "<tr>"
                                                 "<th scope=\"row\">Hauteur de saut (cm)</th>"
@@ -6242,6 +6346,95 @@ QString MainWindow::ecrireDjUnipodal(QList<QPair<QString, QMap<QString, QString>
 
     texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + paireCourante.first + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
                           + paireCourante.second+ "</td></tr>";
+
+    // 2e row - Hauteur de saut (cm)
+    texteTableauCourant = texteTableauCourant + "</tr>"
+                                                "<tr>"
+                                                "<th scope=\"row\">RFDmax (N.s)</th>"
+                                                "<td>" + getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("rfdmaxDjNO") + "</td>"
+                                                "<td>" + getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("rfdmaxDjO") + "</td>";
+    if(tailleListeFaits > 1){
+
+        QString avantDernierTest = listeTestFaits.at(listeTestFaits.indexOf(listeTestFaits.last()) - 1);
+
+        if(tailleListeFaits == 3){
+
+            //Membre sain T2
+            texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, avantDernierTest).value("rfdmaxDjNO")+ "</td>" ;
+
+            // Membre opéré T2
+            texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, avantDernierTest).value("rfdmaxDjO")+ "</td>" ;
+        }
+
+        //Membre sain Tlast
+        QPair<QString, QString> prog = getProgressionPourcentage(false ,getMapListeRapport(listePairesRapport, avantDernierTest).value("rfdmaxDjNO").toDouble(),
+                                                           getMapListeRapport(listePairesRapport, dernierTest).value("rfdmaxDjNO").toDouble());
+
+        QString texteEvolution = "<span style=\"color:" + prog.second+ ";\"> " + prog.first + "</span>";
+        texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, dernierTest).value("rfdmaxDjNO")
+                              + texteEvolution + "</td>" ;
+
+        // Membre opéré Tlast
+        prog = getProgressionPourcentage(false ,getMapListeRapport(listePairesRapport, avantDernierTest).value("rfdmaxDjO").toDouble(),
+                                   getMapListeRapport(listePairesRapport, dernierTest).value("rfdmaxDjO").toDouble());
+
+        texteEvolution = "<span style=\"color:" + prog.second+ ";\"> " + prog.first + "</span>";
+        texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, dernierTest).value("rfdmaxDjO")
+                              + texteEvolution + "</td>" ;
+    }
+
+    //Asymetrie
+     paireCourante = getPaireAsymetrie(false, getMapListeRapport(listePairesRapport, dernierTest).value("rfdmaxDjNO").toDouble(),
+                                                              getMapListeRapport(listePairesRapport, dernierTest).value("rfdmaxDjO").toDouble());
+
+    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + paireCourante.first + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
+                          + paireCourante.second+ "</td></tr>";
+
+
+    // 3e row - Hauteur de saut (cm)
+    texteTableauCourant = texteTableauCourant + "</tr>"
+                                                "<tr>"
+                                                "<th scope=\"row\">Temps contact (ms)</th>"
+                                                "<td>" + getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("tempsContactDjNO") + "</td>"
+                                                "<td>" + getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("tempsContactDjO") + "</td>";
+    if(tailleListeFaits > 1){
+
+        QString avantDernierTest = listeTestFaits.at(listeTestFaits.indexOf(listeTestFaits.last()) - 1);
+
+        if(tailleListeFaits == 3){
+
+            //Membre sain T2
+            texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, avantDernierTest).value("tempsContactDjNO")+ "</td>" ;
+
+            // Membre opéré T2
+            texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, avantDernierTest).value("tempsContactDjO")+ "</td>" ;
+        }
+
+        //Membre sain Tlast
+        QPair<QString, QString> prog = getProgressionPourcentage (true ,getMapListeRapport(listePairesRapport, avantDernierTest).value("tempsContactDjNO").toDouble(),
+                                                           getMapListeRapport(listePairesRapport, dernierTest).value("tempsContactDjNO").toDouble());
+
+        QString texteEvolution = "<span style=\"color:" + prog.second+ ";\"> " + prog.first + "</span>";
+        texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, dernierTest).value("tempsContactDjNO")
+                              + texteEvolution + "</td>" ;
+
+        // Membre opéré Tlast
+        prog = getProgressionPourcentage (true ,getMapListeRapport(listePairesRapport, avantDernierTest).value("tempsContactDjO").toDouble(),
+                                   getMapListeRapport(listePairesRapport, dernierTest).value("tempsContactDjO").toDouble());
+
+        texteEvolution = "<span style=\"color:" + prog.second+ ";\"> " + prog.first + "</span>";
+        texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, dernierTest).value("tempsContactDjO")
+                              + texteEvolution + "</td>" ;
+    }
+
+    //Asymetrie
+    paireCourante = getPaireAsymetrie(false, getMapListeRapport(listePairesRapport, dernierTest).value("tempsContactDjNO").toDouble(),
+                                                              getMapListeRapport(listePairesRapport, dernierTest).value("tempsContactDjO").toDouble());
+
+    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + paireCourante.first + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
+                          + paireCourante.second+ "</td></tr>";
+
+
 
     texteTableauCourant.append("</table>");
 
@@ -9795,17 +9988,16 @@ QString MainWindow::ecrireSautsRepetes(QList<QPair<QString, QMap<QString, QStrin
     texteTableauCourant= texteTableauCourant + " <th scope=\"col\">sain</th>";
     texteTableauCourant= texteTableauCourant + " <th scope=\"col\">"+ labelBlessure+ "</th>";
 
-    QString couleurPourcentage = getCouleurPourcentageForce(getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("forceMoyenneSRNO").toDouble(),
+    auto result = getPourcentageEtCouleurRepartition(getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("forceMoyenneSRNO").toDouble(),
                                                             getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("forceMoyenneSRO").toDouble());
 
     texteTableauCourant = texteTableauCourant + "</tr>"
                                                 "<tr>";
 
-    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + couleurPourcentage + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
-                                getMapListeRapport(listePairesRapport,listeTestFaits.first()).value("forceMoyenneSRNO") + "%</td>";
+    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + result.first.second + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +result.first.first + "</td>";
 
-    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + couleurPourcentage + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
-                                getMapListeRapport(listePairesRapport,listeTestFaits.first()).value("forceMoyenneSRO") + "%</td>";
+    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + result.second.second + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
+                                result.second.first + "</td>";
 
     texteTableauCourant.append("</tr></table></td>");
 
@@ -9821,8 +10013,7 @@ QString MainWindow::ecrireSautsRepetes(QList<QPair<QString, QMap<QString, QStrin
             texteTableauCourant = texteTableauCourant + "</tr>"
                                                         "<tr>"
                                                         "<th scope=\"row\" style=\"background-color:#d7dbdd;color:#002e40;border:1px solid #023448;\">T" + avantDernierTest+"</th>"
-                                                         "<td>" + getMapListeRapport(listePairesRapport, avantDernierTest).value("hauteurMoyenneSR") + "</td>"
-                                                         "<td>" + getMapListeRapport(listePairesRapport, avantDernierTest).value("pMoyenneSR") + "</td>";
+                                                         "<td>" + getMapListeRapport(listePairesRapport, avantDernierTest).value("hauteurMoyenneSR") + "</td>";
 
             QString couleurRsi = getCouleurSautsRepetesRsi(getMapListeRapport(listePairesRapport, avantDernierTest).value("rsiMoyenSR").toDouble());
 
@@ -9836,17 +10027,16 @@ QString MainWindow::ecrireSautsRepetes(QList<QPair<QString, QMap<QString, QStrin
             texteTableauCourant= texteTableauCourant + " <th scope=\"col\">sain</th>";
             texteTableauCourant= texteTableauCourant + " <th scope=\"col\">"+ labelBlessure+ "</th>";
 
-            QString couleurPourcentage = getCouleurPourcentageForce(getMapListeRapport(listePairesRapport, avantDernierTest).value("forceMoyenneSRNO").toDouble(),
+            auto result = getPourcentageEtCouleurRepartition(getMapListeRapport(listePairesRapport, avantDernierTest).value("forceMoyenneSRNO").toDouble(),
                                                                     getMapListeRapport(listePairesRapport, avantDernierTest).value("forceMoyenneSRO").toDouble());
 
             texteTableauCourant = texteTableauCourant + "</tr>"
                                                         "<tr>";
 
-            texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + couleurPourcentage + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
-                                        getMapListeRapport(listePairesRapport, avantDernierTest).value("forceMoyenneSRNO") + "%</td>";
+            texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + result.first.second + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +result.first.first + "</td>";
 
-            texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + couleurPourcentage + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
-                                        getMapListeRapport(listePairesRapport, avantDernierTest).value("forceMoyenneSRO") + "%</td>";
+            texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + result.second.second + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
+                                        result.second.first + "</td>";
 
             texteTableauCourant.append("</tr></table></td>");
         }
@@ -9862,13 +10052,6 @@ QString MainWindow::ecrireSautsRepetes(QList<QPair<QString, QMap<QString, QStrin
         QString texteEvolution = "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
         texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, dernierTest).value("hauteurMoyenneSR")
                               + texteEvolution + "</td>" ;
-        // pMoyenneSR sain
-        prog = getProgressionPourcentage(false,getMapListeRapport(listePairesRapport, avantDernierTest).value("pMoyenneSR").toDouble(),
-                                         getMapListeRapport(listePairesRapport, dernierTest).value("pMoyenneSR").toDouble());
-
-        texteEvolution = "<span style=\"color:" + prog.second+ ";\"> " + prog.first + "</span>";
-        texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, dernierTest).value("pMoyenneSR")
-                              + texteEvolution + "</td>" ;
 
         // RSI
         QString couleurRsi = getCouleurSautsRepetesRsi(getMapListeRapport(listePairesRapport,dernierTest).value("rsiMoyenSR").toDouble());
@@ -9882,17 +10065,15 @@ QString MainWindow::ecrireSautsRepetes(QList<QPair<QString, QMap<QString, QStrin
 
         texteTableauCourant= texteTableauCourant + " <th scope=\"col\">sain</th>";
         texteTableauCourant= texteTableauCourant + " <th scope=\"col\">"+ labelBlessure+ "</th>";
-        QString couleurPourcentage = getCouleurPourcentageForce(getMapListeRapport(listePairesRapport, dernierTest).value("forceMoyenneSRNO").toDouble(),
+
+        auto result = getPourcentageEtCouleurRepartition(getMapListeRapport(listePairesRapport, dernierTest).value("forceMoyenneSRNO").toDouble(),
                                                                 getMapListeRapport(listePairesRapport, dernierTest).value("forceMoyenneSRO").toDouble());
 
         texteTableauCourant = texteTableauCourant + "</tr>"
                                                     "<tr>";
 
-        texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + couleurPourcentage + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
-                                    getMapListeRapport(listePairesRapport, dernierTest).value("forceMoyenneSRNO") + "%</td>";
-
-        texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + couleurPourcentage + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
-                                    getMapListeRapport(listePairesRapport, dernierTest).value("forceMoyenneSRO") + "%</td>";
+        texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + result.first.second + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +result.first.first + "</td>";
+        texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + result.second.second + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" + result.second.first + "</td>";
 
         texteTableauCourant.append("</tr></table></td>");
     }
@@ -9957,17 +10138,16 @@ QString MainWindow::ecrireSautsRepetesBP(QList<QPair<QString, QMap<QString, QStr
     texteTableauCourant= texteTableauCourant + " <th scope=\"col\">G</th>";
     texteTableauCourant= texteTableauCourant + " <th scope=\"col\">D</th>";
 
-    QString couleurPourcentage = getCouleurPourcentageForce(mapCourante.value("forceMoyenneSRG").toDouble(),
+    auto result = getPourcentageEtCouleurRepartition(mapCourante.value("forceMoyenneSRG").toDouble(),
                                                             mapCourante.value("forceMoyenneSRD").toDouble());
 
     texteTableauCourant = texteTableauCourant + "</tr>"
                                                 "<tr>";
 
-    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + couleurPourcentage + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
-                                mapCourante.value("forceMoyenneSRG") + "%</td>";
+    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + result.first.second + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +result.first.first + "</td>";
 
-    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + couleurPourcentage + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
-                                mapCourante.value("forceMoyenneSRD") + "%</td>";
+    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + result.second.second + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
+                                result.second.first + "</td>";
 
     texteTableauCourant.append("</tr></table></td>");
 
@@ -10288,8 +10468,8 @@ QString MainWindow::ecrireFootLift(QList<QPair<QString, QMap<QString, QString>>>
         }
 
         //Membre sain TLast
-        QPair<QString, QString> prog = calculerProgression("",getMapListeRapport(listePairesRapport, avantDernierTest).value("nombreErreurFLNO").toDouble(),
-                                                           getMapListeRapport(listePairesRapport, dernierTest).value("nombreErreurFLNO").toDouble());
+        QPair<QString, QString> prog = calculerProgressionEntier("",getMapListeRapport(listePairesRapport, avantDernierTest).value("nombreErreurFLNO").toDouble(),
+                                                           getMapListeRapport(listePairesRapport, dernierTest).value("nombreErreurFLNO").toDouble(), true);
 
 
         QString texteEvolution = "<span style=\"color:" + prog.second+ ";\"> " + prog.first + "</span>";
@@ -10297,8 +10477,8 @@ QString MainWindow::ecrireFootLift(QList<QPair<QString, QMap<QString, QString>>>
                               + texteEvolution + "</td>" ;
 
         // Membre opéré TLast
-        prog = calculerProgression("",getMapListeRapport(listePairesRapport, avantDernierTest).value("nombreErreurFLO").toDouble(),
-                                   getMapListeRapport(listePairesRapport, dernierTest).value("nombreErreurFLO").toDouble());
+        prog = calculerProgressionEntier("",getMapListeRapport(listePairesRapport, avantDernierTest).value("nombreErreurFLO").toDouble(),
+                                   getMapListeRapport(listePairesRapport, dernierTest).value("nombreErreurFLO").toDouble(), true);
 
 
         texteEvolution = "<span style=\"color:" + prog.second+ ";\"> " + prog.first + "</span>";
@@ -10316,6 +10496,45 @@ QString MainWindow::ecrireFootLift(QList<QPair<QString, QMap<QString, QString>>>
     texteTableauCourant.append("</table>");
 
     return texteTableauCourant;
+}
+
+//****************************************
+QPair<QString, QString> MainWindow::calculerProgressionEntier(QString unite, double valeurAvant, double valeurApres, bool inversionLogiqueCouleur)
+{
+    QPair<QString, QString> paireRes;
+
+    double prog = valeurApres - valeurAvant;
+
+    bool progressionPositive = prog > 0;
+
+    // Inverser la logique des couleurs si demandé (ex: pour un temps)
+    if (inversionLogiqueCouleur) {
+        progressionPositive = !progressionPositive;
+    }
+
+    if (prog != 0) {
+        // Appliquer la couleur selon le sens corrigé
+        paireRes.second = progressionPositive ? "#1e8449" : "#e74c3c";
+
+        QString fleche = (prog > 0) ? "&uarr;" : "&darr;";
+        double valeurAbsolue = qAbs(prog);
+
+        if (unite == "N" || unite == "") {
+            paireRes.first = "(" + fleche + QString::number(valeurAbsolue) + unite + ")";
+        }
+        else if (unite != "cm") {
+            paireRes.first = "(" + fleche + QString::number(valeurAbsolue, 'f', 1) + unite + ")";
+        }
+        else {
+            paireRes.first = "<br>(" + fleche + QString::number(valeurAbsolue) + unite + ")</br>";
+        }
+    }
+    else {
+        paireRes.second = "#fdfefe";
+        paireRes.first = "0" + unite;
+    }
+
+    return paireRes;
 }
 
 //****************************************
@@ -10426,7 +10645,7 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
         QString texteCellule = valeur;
 
         // Progression (si pas le premier test)
-        if(i > 0){
+        if(i == listeTestFaits.size() - 1 && listeTestFaits.size() > 1){
             QPair<QString, QString> prog = calculerProgression("cm",
                 getValeur(listeTestFaits.at(i-1), "distanceANO").toDouble(),
                 valeur.toDouble()
@@ -10442,7 +10661,7 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
         QString valeur = getValeur(test, "distanceAO");
         QString texteCellule = valeur;
 
-        if(i > 0){
+        if(i == listeTestFaits.size() - 1 && listeTestFaits.size() > 1){
             QPair<QString, QString> prog = calculerProgression("cm",
                 getValeur(listeTestFaits.at(i-1), "distanceAO").toDouble(),
                 valeur.toDouble()
@@ -10474,7 +10693,7 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
         QString valeur = getValeur(test, "distancePMNO");
         QString texteCellule = valeur;
 
-        if(i > 0){
+        if(i == listeTestFaits.size() - 1 && listeTestFaits.size() > 1){
             QPair<QString, QString> prog = calculerProgression("cm",
                 getValeur(listeTestFaits.at(i-1), "distancePMNO").toDouble(),
                 valeur.toDouble()
@@ -10489,7 +10708,7 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
         QString valeur = getValeur(test, "distancePMO");
         QString texteCellule = valeur;
 
-        if(i > 0){
+        if(i == listeTestFaits.size() - 1 && listeTestFaits.size() > 1){
             QPair<QString, QString> prog = calculerProgression("cm",
                 getValeur(listeTestFaits.at(i-1), "distancePMO").toDouble(),
                 valeur.toDouble()
@@ -10521,7 +10740,7 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
         QString valeur = getValeur(test, "distancePLNO");
         QString texteCellule = valeur;
 
-        if(i > 0){
+        if(i == listeTestFaits.size() - 1 && listeTestFaits.size() > 1){
             QPair<QString, QString> prog = calculerProgression("cm",
                 getValeur(listeTestFaits.at(i-1), "distancePLNO").toDouble(),
                 valeur.toDouble()
@@ -10536,7 +10755,7 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
         QString valeur = getValeur(test, "distancePLO");
         QString texteCellule = valeur;
 
-        if(i > 0){
+        if(i == listeTestFaits.size() - 1 && listeTestFaits.size() > 1){
             QPair<QString, QString> prog = calculerProgression("cm",
                 getValeur(listeTestFaits.at(i-1), "distancePLO").toDouble(),
                 valeur.toDouble()
@@ -10729,6 +10948,7 @@ QString MainWindow::ecrireFmaxBS(QList<QPair<QString, QMap<QString, QString>>> l
         texteTableauCourant = texteTableauCourant + "</tr>"
                             "<tr>"
                             "<th scope=\"row\">Ratio 1RM/Poids</th>";
+
         QString  valeurCourante = QString::number( mapCourante.value("unRMBS", "-").toFloat() / poids.toFloat(), 'f', 2);
         texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + getCouleurScoreBS(mapCourante.value("unRMBS", "-").toFloat() / poids.toFloat(), poids.toInt()) + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
                               + valeurCourante + "</td></tr>";
@@ -10743,13 +10963,12 @@ QString MainWindow::ecrireFmaxBS(QList<QPair<QString, QMap<QString, QString>>> l
 
     // //Display
     QString cheminImageScore =  QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "BS");
-    cheminImageScore = redimensionnerImage(cheminImageScore, 400);
 
     // On génère une version HD pour éviter la pixellisation
     cheminImageScore = redimensionnerImage(cheminImageScore, 1000);
 
     // Image à droite du tableau
-    texteTableauCourant += encadrerTableauEtImageFlexible(texteTableauCourant,
+    texteTableauCourant = encadrerTableauEtImageFlexible(texteTableauCourant,
                                                          cheminImageScore,
                                                          "right", 400, 300);
     return texteTableauCourant;
@@ -11150,14 +11369,8 @@ QString MainWindow::ecrireProfilFVV(QList<QPair<QString, QMap<QString, QString>>
     //Courbe FVV
     if(mapCheminsImages.values().contains("PFVV")){
 
-    QString cheminImageVV = redimensionnerImage(mapCheminsImages.key("PFVV"), 250);
-    texteTableauCourant += "<table><tr>"
-                           "<td colspan=\"2\" style=\"padding: 10px; border:0px; text-align: center; vertical-align: middle;\">"
-                           "<p align=\"center\">"
-                           "<img src=\"" + cheminImageVV + "\" />"
-                           "</p>"
-                           "</td>"
-                           "</tr></table>";
+        QString cheminImageVV = redimensionnerImage(mapCheminsImages.key("PFVV"), 1000);
+        texteTableauCourant  += ecrireImage(cheminImageVV, "bottom", 400, 300);
     }
     return texteTableauCourant;
 }
@@ -12582,11 +12795,22 @@ void MainWindow::on_pushButton_modifier_bilan_clicked(){
 
         if(ui->comboBox_dateBilan->currentText() != "1"){
 
+            //Reception unipodale
+            ui->groupBox_repartitionCharge_g->setEnabled(false);
+            ui->groupBox_controleGenou_g->setEnabled(false);
+            ui->groupBox_troncBassin_g->setEnabled(false);
+
             // Test Hop
             ui->doubleSpinBox_g_distanceSLHNO->setEnabled(false);
             ui->doubleSpinBox_g_distanceSLHO->setEnabled(false);
         }
         else{
+
+            //Reception unipodale
+            ui->groupBox_repartitionCharge_g->setEnabled(true);
+            ui->groupBox_controleGenou_g->setEnabled(true);
+            ui->groupBox_troncBassin_g->setEnabled(true);
+
             // Test Hop
             ui->doubleSpinBox_g_distanceSLHNO->setEnabled(true);
             ui->doubleSpinBox_g_distanceSLHO->setEnabled(true);
@@ -12616,21 +12840,10 @@ void MainWindow::on_pushButton_modifier_bilan_clicked(){
         ui->pushButton_valider_bilan_hanche->setVisible(true);
     }
     else if(ui->comboBox_type_Bilan->currentText() == "Cheville"){
+
         ui->scrollArea->setWidget(ui->widget_cheville);
         ui->widget_cheville->setEnabled(true);
         ui->pushButton_valider_bilan_cheville->setVisible(true);
-
-        // Si le test n est ni pas un test 1 alors le reception unipodal est desactive
-        if(ui->comboBox_dateBilan->count() > 0){
-            ui->groupBox_repartitionCharge_c->setEnabled(false);
-            ui->groupBox_controleGenou_c->setEnabled(false);
-            ui->groupBox_troncBassin_c->setEnabled(false);
-        }
-        else{
-            ui->groupBox_repartitionCharge_c->setEnabled(true);
-            ui->groupBox_controleGenou_c->setEnabled(true);
-            ui->groupBox_troncBassin_c->setEnabled(true);
-        }
 
         if(ui->comboBox_dateBilan->currentText() != "1"){
             ui->doubleSpinBox_c_longueurMI->setEnabled(false);
@@ -12752,18 +12965,6 @@ void MainWindow::on_pushButton_editer_bilan_clicked(){
         ui->scrollArea->setWidget(ui->widget_cheville);
         ui->widget_cheville->setEnabled(true);
         ui->pushButton_valider_bilan_cheville->setVisible(true);
-
-        // Si le test n est ni pas un test 1 alors le reception unipodal est desactive
-        if(ui->comboBox_dateBilan->count() > 0){
-            ui->groupBox_repartitionCharge_c->setEnabled(false);
-            ui->groupBox_controleGenou_c->setEnabled(false);
-            ui->groupBox_troncBassin_c->setEnabled(false);
-        }
-        else{
-            ui->groupBox_repartitionCharge_c->setEnabled(true);
-            ui->groupBox_controleGenou_c->setEnabled(true);
-            ui->groupBox_troncBassin_c->setEnabled(true);
-        }
 
         if(ui->comboBox_dateBilan->currentText() != "1"){
             ui->doubleSpinBox_c_longueurMI->setEnabled(false);
@@ -13041,7 +13242,7 @@ void MainWindow::on_pushButton_validerRapport_epaule_clicked(){
 
     // Message succès
     QMessageBox::information(this, tr("Rapport généré"),
-                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
+                             "Le rapport epaule numéro " + QString::number(listeNumerosTest.count()) +
                              " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
 
     // Ouvrir le PDF
@@ -13143,7 +13344,7 @@ void MainWindow::on_pushButton_validerRapport_hanche_clicked()
 
     // Message succès
     QMessageBox::information(this, tr("Rapport généré"),
-                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
+                             "Le rapport hanche numéro " + QString::number(listeNumerosTest.count()) +
                              " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
 
     // Ouvrir le PDF
@@ -13245,7 +13446,7 @@ void MainWindow::on_pushButton_validerRapport_cheville_clicked()
 
     // Message succès
     QMessageBox::information(this, tr("Rapport généré"),
-                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
+                             "Le rapport cheville numéro " + QString::number(listeNumerosTest.count()) +
                              " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
 
     // Ouvrir le PDF
@@ -13318,8 +13519,6 @@ void MainWindow::on_pushButton_validerRapport_bpc_clicked()
     // Construire le nom final du fichier concaténé
     QString pathFichierRes = getValue(PATH_CONFIG, "paths", "dossierRapports")
                              + "/rapport_course_"
-                             + QString::number(listeNumerosTest.count())
-                             + "_"
                              + ui->comboBox_patient_courant->currentText().replace(" ", "_")
                              + "_"
                              + QDate::currentDate().toString("dd_MM_yyyy")
@@ -13348,8 +13547,7 @@ void MainWindow::on_pushButton_validerRapport_bpc_clicked()
 
     // Message succès
     QMessageBox::information(this, tr("Rapport généré"),
-                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
-                             " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
+                             "Le rapport Course pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
 
     // Ouvrir le PDF
     QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
@@ -13420,8 +13618,6 @@ void MainWindow::on_pushButton_validerRapport_bpsc_clicked()
     // Construire le nom final du fichier concaténé
     QString pathFichierRes = getValue(PATH_CONFIG, "paths", "dossierRapports")
                              + "/rapport_collectif_"
-                             + QString::number(listeNumerosTest.count())
-                             + "_"
                              + ui->comboBox_patient_courant->currentText().replace(" ", "_")
                              + "_"
                              + QDate::currentDate().toString("dd_MM_yyyy")
@@ -13450,8 +13646,7 @@ void MainWindow::on_pushButton_validerRapport_bpsc_clicked()
 
     // Message succès
     QMessageBox::information(this, tr("Rapport généré"),
-                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
-                             " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
+                             "Le rapport collectif numéro pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
 
     // Ouvrir le PDF
     QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
@@ -13521,9 +13716,7 @@ void MainWindow::on_pushButton_validerRapport_bpf_clicked()
 
     // Construire le nom final du fichier concaténé
     QString pathFichierRes = getValue(PATH_CONFIG, "paths", "dossierRapports")
-                             + "/rapport_combat_"
-                             + QString::number(listeNumerosTest.count())
-                             + "_"
+                             + "/rapport_combattant_"
                              + ui->comboBox_patient_courant->currentText().replace(" ", "_")
                              + "_"
                              + QDate::currentDate().toString("dd_MM_yyyy")
@@ -13552,8 +13745,7 @@ void MainWindow::on_pushButton_validerRapport_bpf_clicked()
 
     // Message succès
     QMessageBox::information(this, tr("Rapport généré"),
-                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
-                             " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
+                             "Le rapport combattant numéro pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
 
     // Ouvrir le PDF
     QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
@@ -13619,8 +13811,6 @@ void MainWindow::on_pushButton_validerRapport_bpcf_clicked()
     // Construire le nom final du fichier concaténé
     QString pathFichierRes = getValue(PATH_CONFIG, "paths", "dossierRapports")
                              + "/rapport_crossfit_"
-                             + QString::number(listeNumerosTest.count())
-                             + "_"
                              + ui->comboBox_patient_courant->currentText().replace(" ", "_")
                              + "_"
                              + QDate::currentDate().toString("dd_MM_yyyy")
@@ -13649,8 +13839,7 @@ void MainWindow::on_pushButton_validerRapport_bpcf_clicked()
 
     // Message succès
     QMessageBox::information(this, tr("Rapport généré"),
-                             "Le rapport genou numéro " + QString::number(listeNumerosTest.count()) +
-                             " pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
+                             "Le rapport crossfit numéro pour le patient " + ui->comboBox_patient_courant->currentText() + " a été enregistré !");
 
     // Ouvrir le PDF
     QUrl pdfUrl = QUrl::fromLocalFile(pathFichierRes);
@@ -13826,6 +14015,22 @@ void MainWindow::on_toolButton_bpf_clicked()
         ui->lineEdit_bpf_pathAnnexes->setText(fileName);
 }
 
+void MainWindow::on_toolButton_bpcf_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setNameFilter(tr("*.jpg"));
+    dialog.setViewMode(QFileDialog::Detail);
+
+    QString fileName  = QFileDialog::getOpenFileName(this,tr("Selectionnez les annexes"), "/home", tr("*.pdf"));
+
+    QRegularExpression regex("[!@#$%^&*(),?\"¨+^{¤}|<>]");
+
+    if(fileName.contains(regex))
+        QMessageBox::warning(this, tr("Nom du fichier non pris en charge"), "Veuillez renommer le fichier sans "
+                                                                            "caracteres speciaux, le plus simple possible !");
+    else
+        ui->lineEdit_bpcf_pathAnnexes->setText(fileName);
+}
 
 //****************************************
 /*
@@ -14293,10 +14498,9 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
     // // ecrire le tableau des donnees du patient
     // //-----------------
 
-    // // Si le patient a eu une intervention chirurgicale
-    // QString texteInfosOperation;
+    QString texteInfosOperation;
     QString texteInfosCoteLese;
-    // QString marginBottom;
+    QString marginBottom;
     QString labelBlessure;
     QString typeBlessure;
 
@@ -14304,71 +14508,91 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
         texteInfosCoteLese = "Côté lésé";
         labelBlessure = "lésé";
         typeBlessure = "Type de lésion";
+        marginBottom = "40px";
     }
     else{
         texteInfosCoteLese = "Côté opéré";
         labelBlessure = "opéré";
         typeBlessure = "Type d'intervention chirurgicale";
+        marginBottom = "20px";
     }
 
-    // // Texte operation
-    // if(mapInfosPatient.value("estOpere") == "Non"){
-    //     marginBottom = "115px";
-    // }
-    // else{
-    //     texteInfosOperation = texteInfosOperation +
-    //             "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Date de l'operation : </td>"
-    //             "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("dateOperation") +  "</td></tr>";
+    // ====== TITRE DANS UNE CASE ======
+    res += "<table align='center' cellspacing='15' style='width:85%;margin:20px auto 0 auto;border-collapse:collapse;'>"
+           "<tr>"
+           "<td style='border:3px solid #023448;padding:40px;font-size:350px;font-weight:bold;"
+           "text-align:center;color:#023448;background-color:#f0f0f0;'>"
+           "Fiche d'identité"
+           "</td>"
+           "</tr>"
+           "</table>";
 
-    //     marginBottom = "50px";
-    // }
-    // texteInfosOperation = texteInfosOperation +
-    //         "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\">" + typeBlessure + " : </td>"
-    //         "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("typeOperation") +  "</td></tr>";
 
-    // // Informations
-    // res = res + "<table style=\"border: none; margin-top:75px;margin-bottom:" + marginBottom + ";text-align:left;padding:10px 10px;\">"
-    //                 "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding: 10px 10px;\">Nom et prénom : </td>"
-    //                 "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("nomFamille") + " " + mapInfosPatient.value("prenom") + "</td></tr>"
-    //                 "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Date de naissance : </td>"
-    //                 "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("dateNaissance") +  "</td></tr>"
-    //                 "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Sexe : </td>"
-    //                 "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("sexe") +  "</td></tr>"
-    //                 "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Taille : </td>"
-    //                 "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("taille") +  "cm</td></tr>"
-    //                 "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Poids : </td>"
-    //                 "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("poids") +  "kg</td></tr>"
-    //                 "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\">" + texteInfosCoteLese + " : </td>"
-    //                 "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("coteBlesse") + "</td></tr>"
-    //                 + texteInfosOperation +
-    //             "</table>";
+    // ====== TABLEAU PRINCIPAL ======
+    res += "<table cellpadding='20' cellspacing='15' align='center' "
+           "style='width:85%;margin:60px auto " + marginBottom + " auto;border-collapse:separate;"
+           "border-spacing:40px;'>"
 
-    // res = res +  "<p>Date du rapport : " + QDate::currentDate().toString("dd/MM/yyyy") + "</p>< /br>< /br>";
+           "<tr>"
+           "<td style='border:2px solid #023448;padding:30px;font-size:150px;font-weight:bold;width:50%;'>"
+           "Nom et prénom: " + mapInfosPatient.value("nomFamille") + " " + mapInfosPatient.value("prenom") + "</td>"
+           "<td style='border:2px solid #023448;padding:30px;font-size:150px;width:50%;font-weight:bold'>"
+           "Date naissance: " + mapInfosPatient.value("dateNaissance") + "</td>"
+           "</tr>"
 
-    // foreach (QString numeroTest, listeNumerosTest) {
+           "<tr>"
+           "<td style='border:2px solid #023448;padding:30px;font-size:150px;font-weight:bold;width:50%;'>"
+           "Sexe: " + mapInfosPatient.value("sexe") + "</td>"
+           "<td style='border:2px solid #023448;padding:30px;font-size:150px;width:50%;font-weight:bold'>"
+           "Taille: " + mapInfosPatient.value("taille") + " cm</td>"
+           "</tr>"
 
-    //     QString dateCourante = "Date du test numero T" + numeroTest + " : ";
-    //     dateCourante = dateCourante + getMapListeRapport(listePairesRapport, numeroTest).value("dateBilan");
-    //     res = res +  "<p>" + dateCourante + "</p>";
-    // }
+           "<tr>"
+           "<td style='border:2px solid #023448;padding:30px;font-size:150px;font-weight:bold;width:50%;'>"
+           "Poids: " + mapInfosPatient.value("poids") + " kg</td>"
+           "<td style='border:2px solid #023448;padding:30px;font-size:150px;width:50%;font-weight:bold'>"
+           + texteInfosCoteLese + ": " + mapInfosPatient.value("coteBlesse") + "</td>"
+           "</tr>";
 
-    // // Ecrire les infos du cabinet de Jordan
-    // res = res + "<table style=\"margin-top:45px; width: 300px;text-align:center;\">"
-    //             "<tr>"
-    //             "<th scope=\"col\" style=\"background-color:transparent;font-weight:normal;color:#002e40;\">"
-    //             "<p>Cabinet Kinesithérapie SCP 9 bis   -   9 bis Route de Launaguet, 31200 Toulouse</p>"
-    //             "<p>scp9bis@gmail.com - 05 61 57 13 13</p></th>"
-    //             "</tr>"
-    //             "</table>";
+    // Ajouter infos opération uniquement si Oui
+    if (mapInfosPatient.value("estOpere") == "Oui") {
+        res += "<tr>"
+               "<td style='border:2px solid #023448;padding:30px;font-size:150px;font-weight:bold;width:50%;'>"
+               "Date opération: " + mapInfosPatient.value("dateOperation") + "</td>"
+               "<td style='border:2px solid #023448;padding:30px;font-size:150px;width:50%;font-weight:bold'>"
+               + typeBlessure + ": " + mapInfosPatient.value("typeOperation") + "</td>"
+               "</tr>";
+    }
 
-    // // Ecrire les infos du cabinet d antho
-    // res = res + "<table style=\"margin-top:45px; width: 300px;text-align:center;\">"
-    //             "<tr>"
-    //             "<th scope=\"col\" style=\"background-color:transparent;font-weight:normal;color:#002e40;\">"
-    //             "<p>Cabinet Kiné Sport Rochois  - 21a chemin du Lycée, 74800 La Roche sur Foron</p>"
-    //             "<p>kinesportrochois@gmail.com - 04 50 25 65 49</p></th>"
-    //             "</tr>"
-    //             "</table>";
+    res += "</table>";
+
+    // ====== DATE DU RAPPORT ======
+    res += "<div style='width:100%;text-align:left;margin-top:50px;'>"
+           "<span style='font-size:200px;font-weight:bold;'>Date du rapport : "
+           + QDate::currentDate().toString("dd/MM/yyyy") +
+           "</span></div>";
+
+    // ====== DATES DES TESTS ======
+    res += "<div style='width:100%;text-align:left;margin-top:50px;font-size:180px;'>";
+
+    foreach (QString numeroTest, listeNumerosTest) {
+        QString dateCourante = "Date du test numéro T" + numeroTest + " : " +
+                               getMapListeRapport(listePairesRapport, numeroTest).value("dateBilan");
+        res += dateCourante + "<br>";
+    }
+
+    res += "</div>";
+
+    // ====== INFOS CABINET ======
+    res += "<table align='center' style='margin-top:30px;width:90%;text-align:center;border:none;'>"
+           "<tr><td style='font-size:150px;color:#002e40;border:none;'>"
+           "Cabinet Kinésithérapie SCP 9 bis – 9 bis Route de Launaguet, 31200 Toulouse<br>"
+           "scp9bis@gmail.com – 05 61 57 13 13"
+           "</td></tr></table>";
+
+    res += "<div style='border:2pt solid black;border-radius:10pt;padding:10pt;margin:10pt 0;font-size:50pt;'>"
+           "Encadré avec des bords arrondis en pt"
+           "</div>";
 
     res = res +  "<DIV STYLE=\"page-break-before:always\"></DIV>";
 
@@ -14437,7 +14661,7 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
     res.append("<h1 style=\"text-align:center;\">Tests fonctionnels</h1>");
 
     // ecrire les points de reception unipodale
-    res.append(ecrirePointsReceptionUnipodale(listePairesRapport));
+    res.append(ecrirePointsReceptionUnipodale(listePairesRapport, "Genou"));
 
     //Ecrire tests Hop
     res.append(ecrireBroadJump(listePairesRapport, "genou"));
@@ -14458,7 +14682,7 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
 
     QString texteInterpretation = ui->textEdit_interpretationKine->toPlainText();
 
-    if(texteInterpretation != ""){
+    if(!texteInterpretation.isEmpty()){
         presenceInfos = true;
         texteInterpretation.replace("\n","<br/>");
         texteInterpretation.replace("[", "<span style=\"font-weight: bold;\">");
@@ -14470,9 +14694,9 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
                        "<th scope=\"col\" style=\"background-color:#f0f3f4; font-weight:normal;color:#002e40; border:0.5px solid #023448;\">"
                        "<p style=\" font-size: 200px;font-weight: bold; text-align:left;\"> Interprétation du kinésithérapeute :<p>< br¨/>"
                        "<p style=\"text-align:left;\"><br>" + texteInterpretation +"</p></br>"
-                                             "</th>"
-                                             "</tr>"
-                                             "</table>";
+                         "</th>"
+                         "</tr>"
+                         "</table>";
     }
 
     // Recuperer les libelles des checkBox coches
@@ -14585,71 +14809,80 @@ QString MainWindow::remplirChaineHtmlEpaule(QStringList listeNumerosTest){
         texteInfosCoteLese = "Côté lésé";
         labelBlessure = "lésé";
         typeBlessure = "Type de lésion";
+        marginBottom = "90px";
     }
     else{
         texteInfosCoteLese = "Côté opéré";
         labelBlessure = "opéré";
         typeBlessure = "Type d'intervention chirurgicale";
-    }
-
-    // Texte operation
-    if(mapInfosPatient.value("estOpere") == "Non"){
-        marginBottom = "90px";
-    }
-    else{
-        texteInfosOperation = texteInfosOperation +
-                "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Date de l'operation : </td>"
-                "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("dateOperation") +  "</td></tr>";
-
         marginBottom = "50px";
     }
-    texteInfosOperation = texteInfosOperation +
-            "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\">" + typeBlessure + " : </td>"
-            "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("typeOperation") +  "</td></tr>";
 
-    // Informations
-    res = res + "<table style=\"border: none; margin-top:75px;margin-bottom:" + marginBottom + ";text-align:left;padding:10px 10px;\">"
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding: 10px 10px;\">Nom et prénom : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("nomFamille") + " " + mapInfosPatient.value("prenom") + "</td></tr>"
+    // ====== TITRE DANS UNE CASE ======
+    res += "<div style='width:100%;text-align:center;margin-top:100px;'>"
+           "<span style='display:inline-block;font-size:350px;font-weight:bold;color:#023448;"
+           "background-color:#f0f0f0;padding:60px;border:4px solid #023448;border-radius:25px;'>"
+           "Fiche d'identité</span>"
+           "</div>";
 
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Date de naissance : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("dateNaissance") +  "</td></tr>"
+    // ====== TABLEAU PRINCIPAL ======
+    res += "<table cellpadding='20' cellspacing='15' align='center' "
+           "style='width:85%;margin:200px auto " + marginBottom + " auto;border-collapse:separate;"
+           "border-spacing:40px;'>"
 
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Sexe : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("sexe") +  "</td></tr>"
+           "<tr>"
+           "<td style='border:3px solid #023448;padding:30px;font-size:150px;font-weight:bold;width:50%;'>"
+           "Nom et prénom: " + mapInfosPatient.value("nomFamille") + " " + mapInfosPatient.value("prenom") + "</td>"
+           "<td style='border:3px solid #023448;padding:30px;font-size:150px;width:50%;'>"
+           "Date naissance: " + mapInfosPatient.value("dateNaissance") + "</td>"
+           "</tr>"
 
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Taille : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("taille") +  "cm</td></tr>"
+           "<tr>"
+           "<td style='border:3px solid #023448;padding:30px;font-size:150px;font-weight:bold;width:50%;'>"
+           "Sexe: " + mapInfosPatient.value("sexe") + "</td>"
+           "<td style='border:3px solid #023448;padding:30px;font-size:150px;width:50%;'>"
+           "Taille: " + mapInfosPatient.value("taille") + " cm</td>"
+           "</tr>"
 
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Poids : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("poids") +  "kg</td></tr>"
+           "<tr>"
+           "<td style='border:3px solid #023448;padding:30px;font-size:150px;font-weight:bold;width:50%;'>"
+           "Poids: " + mapInfosPatient.value("poids") + " kg</td>"
+           "<td style='border:3px solid #023448;padding:30px;font-size:150px;width:50%;'>"
+           + texteInfosCoteLese + ": " + mapInfosPatient.value("coteBlesse") + "</td>"
+           "</tr>";
 
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\"> Main dominante : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + getMapListeRapport(listePairesRapport,"1").value("mainDominante") + " </td></tr>"
-
-                    "<tr><td style=\"font-size: 200px;font-weight:bold;border: none; text-align:left;padding:10px 10px;\">" + texteInfosCoteLese + " : </td>"
-                    "<td style=\"font-size: 200px;border: none; text-align:left;padding:10px 10px;\">" + mapInfosPatient.value("coteBlesse") + "</td></tr>"
-
-                    + texteInfosOperation +
-                "</table>";
-
-    res = res +  "<p>Date du rapport : " + QDate::currentDate().toString("dd/MM/yyyy") + "</p>< /br>< /br>";
-
-    foreach (QString numeroTest, listeNumerosTest) {
-
-        QString dateCourante = "Date du test numero T" + numeroTest + " : ";
-        dateCourante = dateCourante + getMapListeRapport(listePairesRapport, numeroTest).value("dateBilan");
-        res = res +  "<p>" + dateCourante + "</p>";
+    // Ajouter infos opération uniquement si Oui
+    if (mapInfosPatient.value("estOpere") == "Oui") {
+        res += "<tr>"
+               "<td style='border:3px solid #023448;padding:30px;font-size:150px;font-weight:bold;width:50%;'>"
+               "Date opération: " + mapInfosPatient.value("dateOperation") + "</td>"
+               "<td style='border:3px solid #023448;padding:30px;font-size:150px;width:50%;'>"
+               + typeBlessure + ": " + mapInfosPatient.value("typeOperation") + "</td>"
+               "</tr>";
     }
 
-    // Ecrire les infos du cabinet
-    res = res + "<table style=\"margin-top:35px; width: 300px;text-align:center;\">"
-                "<tr>"
-                "<th scope=\"col\" style=\"background-color:transparent;font-weight:normal;color:#002e40;\">"
-                "<p>Cabinet Kinesithérapie SCP 9 bis   -   9 bis Route de Launaguet, 31200 Toulouse</p>"
-                "<p>scp9bis@gmail.com - 05 61 57 13 13</p></th>"
-                "</tr>"
-                "</table>";
+    res += "</table>";
+
+    // ====== DATE DU RAPPORT ======
+    res += "<div style='width:100%;text-align:center;margin-top:150px;'>"
+           "<span style='font-size:200px;font-weight:bold;'>Date du rapport : "
+           + QDate::currentDate().toString("dd/MM/yyyy") +
+           "</span></div>";
+
+    // ====== DATES DES TESTS ======
+    foreach (QString numeroTest, listeNumerosTest) {
+        QString dateCourante = "Date du test numéro T" + numeroTest + " : " +
+                               getMapListeRapport(listePairesRapport, numeroTest).value("dateBilan");
+        res += "<div style='width:100%;text-align:center;margin-top:50px;'>"
+               "<span style='font-size:180px;'>" + dateCourante + "</span></div>";
+    }
+
+    // ====== INFOS CABINET ======
+    res += "<table align='center' style='margin-top:200px;width:90%;text-align:center;border:none;'>"
+           "<tr><td style='font-size:150px;color:#002e40;border:none;'>"
+           "Cabinet Kinésithérapie SCP 9 bis – 9 bis Route de Launaguet, 31200 Toulouse<br>"
+           "scp9bis@gmail.com – 05 61 57 13 13"
+           "</td></tr></table>";
 
     res = res +  "<DIV STYLE=\"page-break-before:always\"></DIV>";
 
@@ -14724,7 +14957,7 @@ QString MainWindow::remplirChaineHtmlEpaule(QStringList listeNumerosTest){
 
     QString texteInterpretation = ui->textEdit_interpretationKine_2->toPlainText();
 
-    if(texteInterpretation != ""){
+    if(!texteInterpretation.isEmpty()){
         presenceInfos = true;
         texteInterpretation.replace("\n","<br/>");
         texteInterpretation.replace("[", "<span style=\"font-weight: bold;\">");
@@ -14968,7 +15201,7 @@ QString MainWindow::remplirChaineHtmlHanche(QStringList listeNumerosTest){
     res.append("<h1 style=\"text-align:center;\">Tests fonctionnels</h1>");
 
     // ecrire les points de reception unipodale
-    res.append(ecrirePointsReceptionUnipodale(listePairesRapport));
+    res.append(ecrirePointsReceptionUnipodale(listePairesRapport, "Hanche"));
 
     //Ecrire test Hop
     res.append(ecrireBroadJump(listePairesRapport, "hanche"));
@@ -14989,7 +15222,7 @@ QString MainWindow::remplirChaineHtmlHanche(QStringList listeNumerosTest){
 
     QString texteInterpretation = ui->textEdit_interpretationKine_hanche->toPlainText();
 
-    if(texteInterpretation != ""){
+    if(!texteInterpretation.isEmpty()){
         presenceInfos = true;
         texteInterpretation.replace("\n","<br/>");
         texteInterpretation.replace("[", "<span style=\"font-weight: bold;\">");
@@ -15201,6 +15434,10 @@ QString MainWindow::remplirChaineHtmlCheville(QStringList listeNumerosTest){
 
     res.append("<h1 style=\"text-align:center;\">Tests et ratios de force isométrique</h1>");
 
+    res.append(ecrireRatioIJ(listePairesRapport, labelBlessure));
+
+    res.append(ecrireRatioA(listePairesRapport, labelBlessure));
+
     // ecrire le releveurs
     res.append(ecrireFmaxReleveursCheville(listePairesRapport, labelBlessure));
 
@@ -15245,7 +15482,7 @@ QString MainWindow::remplirChaineHtmlCheville(QStringList listeNumerosTest){
     res.append("<h1 style=\"text-align:center;\">Tests fonctionnels</h1>");
 
     // ecrire les points de reception unipodale
-    res.append(ecrirePointsReceptionUnipodale(listePairesRapport));
+    res.append(ecrirePointsReceptionUnipodale(listePairesRapport, "Cheville"));
 
     //Ecrire test Hop
     res.append(ecrireBroadJump(listePairesRapport, "cheville"));
@@ -15270,7 +15507,7 @@ QString MainWindow::remplirChaineHtmlCheville(QStringList listeNumerosTest){
 
     QString texteInterpretation = ui->textEdit_interpretationKine_cheville->toPlainText();
 
-    if(texteInterpretation != ""){
+    if(!texteInterpretation.isEmpty()){
         presenceInfos = true;
         texteInterpretation.replace("\n","<br/>");
         texteInterpretation.replace("[", "<span style=\"font-weight: bold;\">");
@@ -15453,17 +15690,17 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
     // ecrire le tableau des amplitudes articulaires
     res.append(ecrireAmplitudesBp(listePairesRapport));
 
-    if(mapCheminsImages.values().contains("APS")){
+    if (mapCheminsImages.values().contains("APS") && !ui->textEdit_bpc_analysePosturaleStatique->toPlainText().isEmpty()) {
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpc_analysePosturaleStatique->toPlainText(),
-               "Analyse Posturale Statique", "", 350, 250));
+               "Analyse Posturale Statique", "APS", 350, 250));
     }
 
-    if(mapCheminsImages.values().contains("APD")){
+    if(mapCheminsImages.values().contains("APD") && !ui->textEdit_bpc_analysePosturaleDynamique->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpc_analysePosturaleDynamique->toPlainText(),
                    "Analyse Posturale Dynamique", "APD", 350, 250));
     }
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / Dynamomètre</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / dynamomètre</h1>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     res.append(ecrireRatioVerseursBP(listePairesRapport));
@@ -15483,11 +15720,13 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
     // ecrireIPBP
     res.append(ecrireIPBP(listePairesRapport));
 
+    res.append(ecrireRatioREHancheBP(listePairesRapport));
+
     // //Nouvelle page si T3 ou T2
     // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
     //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de puissance (PLATEFORME DE FORCE)</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de puissance (plateforme de force)</h1>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du squatJump bipodal
@@ -15515,11 +15754,8 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
     res.append("<div style=\"height: 30px;\"></div>");
 
     //DISPLAY Image Back Squat
-    if(mapCheminsImages.values().contains("AGBS"))
-    {
-        QString cheminImageBS=  mapCheminsImages.key("AGBS");
-        cheminImageBS = redimensionnerImage(cheminImageBS, 250);
-        res.append( "<div style=\"text-align: center;\"><img src=" + cheminImageBS  + "></div>");
+    if(mapCheminsImages.values().contains("AGBS")){
+        res.append(ecrireAnalyseGenerique(mapCheminsImages, "", "", "AGBS", 350, 250));
     }
 
     res.append(ecrireFmaxBS(listePairesRapport, mapInfosPatient.value("poids")));
@@ -15533,7 +15769,7 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
     res.append(ecrireCrossOverHopBP(listePairesRapport));
     res.append(ecrireHeelRiseBP(listePairesRapport));
 
-    if(mapCheminsImages.values().contains("AG")){
+    if(mapCheminsImages.values().contains("AG") && !ui->textEdit_bpc_analyseGestuelle->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpc_analyseGestuelle->toPlainText(),"Analyse Gestuelle Course a Pied", "AG", 350, 250));
     }
 
@@ -15543,17 +15779,17 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
 
     QString texteInfos;
 
-    QString texteInterpretation = ui->textEdit_interpretation_kine_bpc->toPlainText();
+    QString texteInterpretation = ui->textEdit_bpc_conseilsChaussures->toPlainText();
 
-    if(texteInterpretation != ""){
-        presenceInfos = true;
-        texteInfos = ecrireInterpretation(texteInterpretation, "Interprétation du kinésithérapeute :");
+    if(!texteInterpretation.isEmpty()){
+        texteInfos = ecrireInterpretation(texteInterpretation, "Conseils Chaussures:");
     }
 
-    texteInterpretation = ui->textEdit_bpc_conseilsChaussures->toPlainText();
+    texteInterpretation = ui->textEdit_interpretation_kine_bpc->toPlainText();
 
-    if(texteInterpretation != ""){
-        texteInfos = ecrireInterpretation(texteInterpretation, "Conseils Chaussures:");
+    if(!texteInterpretation.isEmpty()){
+        presenceInfos = true;
+        texteInfos += ecrireInterpretation(texteInterpretation, "Interprétation du kinésithérapeute :");
     }
 
     // Recuperer les libelles des checkBox coches
@@ -15721,17 +15957,17 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
     // ecrire le tableau des amplitudes articulaires
     res.append(ecrireAmplitudesBp(listePairesRapport));
 
-    if(mapCheminsImages.values().contains("APS")){
+    if(mapCheminsImages.values().contains("APS") && !ui->textEdit_bpsc_analysePosturaleStatique->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpsc_analysePosturaleStatique->toPlainText(),
                "Analyse Posturale Statique", "APS", 350, 250));
     }
 
-    if(mapCheminsImages.values().contains("APD")){
+    if(mapCheminsImages.values().contains("APD") && !ui->textEdit_bpsc_analysePosturaleDynamique->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpsc_analysePosturaleDynamique->toPlainText(),
                    "Analyse Posturale Dynamique", "APD", 350, 250));
     }
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / Dynamomètre</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / dynamomètre</h1>");
     res.append("<div style=\"height: 30px;\"></div>");
     res.append(ecrireRatioVerseursBP(listePairesRapport));
 
@@ -15750,7 +15986,9 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
     // ecrireIPBP
     res.append(ecrireIPBP(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:left;\">Tests de puissance (PLATEFORME DE FORCE)</h1>");
+    res.append(ecrireRatioREHancheBP(listePairesRapport));
+
+    res.append("<h1 style=\"text-align:left;\">Tests de puissance (plateforme de force)</h1>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du squatJump bipodal
@@ -15779,18 +16017,19 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
     res.append("<div style=\"height: 30px;\"></div>");
 
     //DISPLAY Image Back Squat
-    if(mapCheminsImages.values().contains("AGBS"))
-    {
-         res.append(ecrireAnalyseGenerique(mapCheminsImages, "", "", "AGBS", 350, 250));
+    //DISPLAY Image Back Squat
+    if(mapCheminsImages.values().contains("AGBS")){
+        res.append(ecrireAnalyseGenerique(mapCheminsImages, "", "", "AGBS", 350, 250));
     }
 
     res.append(ecrireFmaxPL(listePairesRapport, mapInfosPatient.value("poids")));
+
+    res.append(ecrireNordicCurl(listePairesRapport));
 
     res.append("<h1 style=\"text-align:left;\">Tests fonctionnels</h1>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     //Ecrire test Hop
-    res.append(ecrireNordicCurl(listePairesRapport));
     res.append(ecrireTripleHopBP(listePairesRapport));
     res.append(ecrireCrossOverHopBP(listePairesRapport));
 
@@ -15802,8 +16041,7 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
 
     res.append(ecrireProfilFVH(listePairesRapport));
 
-    if(mapCheminsImages.values().contains("AGSprint"))
-    {
+    if(mapCheminsImages.values().contains("AGSprint") && !ui->textEdit_bpsc_analyseGestuelleSprint->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpsc_analyseGestuelleSprint->toPlainText(),
                        "Analyse Gestuelle Sprint", "AGSprint", 350, 250));
     }
@@ -15812,8 +16050,7 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
     res.append("<div style=\"height: 30px;\"></div>");
     res.append(ecrireProfilVM(listePairesRapport, mapInfosPatient.value("sexe")));
 
-    if(mapCheminsImages.values().contains("AGVM"))
-    {
+    if(mapCheminsImages.values().contains("AGVM") && !ui->textEdit_bpsc_analyseGestuelleVM->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpsc_analyseGestuelleVM->toPlainText(),
                    "Analyse Gestuelle", "AGVM", 350, 250));
     }
@@ -15826,7 +16063,7 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
 
     QString texteInterpretation = ui->textEdit_interpretation_kine_bpsc->toPlainText();
 
-    if(texteInterpretation != ""){
+    if(!texteInterpretation.isEmpty()){
         presenceInfos = true;
         texteInfos = ecrireInterpretation(texteInterpretation, "Interprétation du kinésithérapeute :");
     }
@@ -15995,22 +16232,22 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
     // ecrire le tableau des amplitudes articulaires
     res.append(ecrireAmplitudesBpf(listePairesRapport));
 
-    if(mapCheminsImages.values().contains("APS")){
+    if(mapCheminsImages.values().contains("APS") && !ui->textEdit_bpf_analysePosturaleStatique->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpf_analysePosturaleStatique->toPlainText(),
                    "Analyse Posturale Statique", "APS", 350, 250));
     }
 
-    if(mapCheminsImages.values().contains("APDMI")){
+    if(mapCheminsImages.values().contains("APDMI") && !ui->textEdit_bpf_analysePosturaleDynamiqueMI->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpf_analysePosturaleDynamiqueMI->toPlainText(),
                        "Analyse Posturale Dynamique Membre Inferieur", "APDMI", 350, 250));
     }
 
-    if(mapCheminsImages.values().contains("APDMS")){
+    if(mapCheminsImages.values().contains("APDMS") && !ui->textEdit_bpf_analysePosturaleDynamiqueMS->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpf_analysePosturaleDynamiqueMS->toPlainText(),
                        "Analyse Posturale Dynamique Membre Superieur", "APDMS", 350, 250));
     }
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / Dynamomètre</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / dynamomètre</h1>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du test de grip
@@ -16030,7 +16267,7 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
     // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
     //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align:left;\">Tests de puissance (PLATEFORME DE FORCE)</h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de puissance (plateforme de force)</h1>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du squatJump bipodal
@@ -16057,12 +16294,12 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
 
     res.append(ecrireTestFmaxBPF(listePairesRapport, mapInfosPatient.value("poids")));
 
-    if(ui->textEdit_bpf_analyseForceMaximale->toPlainText() != ""){
+    if(mapCheminsImages.values().contains("ATFM") && !ui->textEdit_bpf_analyseForceMaximale->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpf_analyseForceMaximale->toPlainText(),
-               "Analyse Ratio 1RM / Poids du corps", "ATFM",350, 250));
+               "Analyse Ratio 1RM / Poids du corps", "ATFM", 350, 250));
     }
 
-    if(mapCheminsImages.values().contains("AG")){
+    if(mapCheminsImages.values().contains("AG") && !ui->textEdit_bpf_analyseGestuelle->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpf_analyseGestuelle->toPlainText(),
                    "Analyse Gestuelle", "AG",350, 250));
     }
@@ -16075,7 +16312,7 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
 
     QString texteInterpretation = ui->textEdit_interpretation_kine_bpf->toPlainText();
 
-    if(texteInterpretation != ""){
+    if(!texteInterpretation.isEmpty()){
         presenceInfos = true;
         texteInfos = ecrireInterpretation(texteInterpretation, "Interprétation du kinésithérapeute :");
     }
@@ -16243,21 +16480,21 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
     res.append("<div style=\"height: 30px;\"></div>");// ecrire le tableau des amplitudes articulaires
     res.append(ecrireAmplitudesBpcf(listePairesRapport));
 
-    if(mapCheminsImages.values().contains("APS")){
+    if(mapCheminsImages.values().contains("APS") && !ui->textEdit_bpcf_analysePosturaleStatique->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpcf_analysePosturaleStatique->toPlainText(),
                "Analyse Posturale Statique", "APS", 350, 250));
     }
 
-    if(mapCheminsImages.values().contains("APDMI")){
+    if(mapCheminsImages.values().contains("APDMI") && !ui->textEdit_bpcf_analysePosturaleDynamiqueMI->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpcf_analysePosturaleDynamiqueMI->toPlainText(),
                    "Analyse Posturale Dynamique Membre Inferieur", "APDMI", 350, 250));
     }
 
-    if(mapCheminsImages.values().contains("APDMS")){
+    if(mapCheminsImages.values().contains("APDMS") && !ui->textEdit_bpcf_analysePosturaleDynamiqueMS->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpcf_analysePosturaleDynamiqueMS->toPlainText(),
                    "Analyse Posturale Dynamique Membre Superieur", "APDMS", 350, 250));
     }
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / Dynamomètre</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / dynamomètre</h1>");
     res.append("<div style=\"height: 30px;\"></div>");
     // ecrire le tableau du test de grip
     res.append(ecrireTestGripBP(listePairesRapport));
@@ -16276,7 +16513,7 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
     // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
     //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align:left;\">Tests de puissance (PLATEFORME DE FORCE)</h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de puissance (plateforme de force)</h1>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du squatJump bipodal
@@ -16311,12 +16548,12 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
 
     res.append(ecrireTestFmaxBPCF(listePairesRapport, mapInfosPatient.value("poids")));
 
-    if(ui->textEdit_bpcf_analyseForceMaximale->toPlainText() != ""){
+    if(mapCheminsImages.values().contains("ATFM") && !ui->textEdit_bpcf_analyseForceMaximale->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpcf_analyseForceMaximale->toPlainText(),
                "Analyse Ratio 1RM / Poids du corps", "ATFM", 350, 250));
     }
 
-    if(mapCheminsImages.values().contains("AG")){
+    if(mapCheminsImages.values().contains("AG") && !ui->textEdit_bpcf_analyseGestuelle->toPlainText().isEmpty()){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpcf_analyseGestuelle->toPlainText(),
                    "Analyse Gestuelle", "AG", 350, 250));
     }
@@ -16328,7 +16565,7 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
 
     QString texteInterpretation = ui->textEdit_interpretation_kine_bpcf->toPlainText();
 
-    if(texteInterpretation != ""){
+    if(!texteInterpretation.isEmpty()){
         presenceInfos = true;
         texteInfos = ecrireInterpretation(texteInterpretation, "Interprétation du kinésithérapeute :");
     }
@@ -17112,7 +17349,7 @@ void MainWindow::on_pushButton_bpsc_photos_analyseGestuelleBS_clicked()
         mapCheminsImages.insert(pathFichierCourant,"AGBS");
     }
 
-    this->ui->lineEdit_bpc_photos_analyseGestuelleBS->setText(nomFichiers.join(" | "));
+    this->ui->lineEdit_bpsc_photos_analyseGestuelleBS->setText(nomFichiers.join(" | "));
 }
 
 /****************************************
@@ -17465,6 +17702,45 @@ QString MainWindow::encadrerTableauEtImageFlexible(const QString& texteTableau,
     return html;
 }
 
+QString MainWindow::ecrireImage(const QString& cheminImage,
+                               const QString& position,
+                               int maxWidth,
+                               int maxHeight)
+{
+    QString html;
+
+    // Charger l'image pour obtenir ses dimensions
+    QImage img(cheminImage);
+    if (img.isNull()) {
+        return html;
+    }
+
+    // Calcul du ratio
+    double ratio = qMin((double)maxWidth / img.width(), (double)maxHeight / img.height());
+    int newW = static_cast<int>(img.width() * ratio);
+    int newH = static_cast<int>(img.height() * ratio);
+
+    // Image en haut ou en bas
+    html += "<div style='width:100%; margin-bottom:10px;'>";
+
+    if (position == "top") {
+        html += "<div style='text-align:center; margin-bottom:10px;'>"
+                "<img src='" + cheminImage + "' width='" + QString::number(newW) +
+                "' height='" + QString::number(newH) +
+                "' style='display:block; margin:auto; border:0;'/>"
+                "</div>";
+    }
+    else { // bottom
+        html += "<div style='text-align:center; margin-top:5px;margin-bottom:50px'>"
+                "<img src='" + cheminImage + "' width='" + QString::number(newW) +
+                "' height='" + QString::number(newH) +
+                "' style='display:block; margin:auto; border:0;'/>"
+                "</div>";
+    }
+
+    return html;
+}
+
 /****************************************
 /*
  *
@@ -17512,4 +17788,9 @@ void MainWindow::on_pushButton_bpf_photos_forceMaximale_clicked()
 
     this->ui->lineEdit_bpf_photos_analyseForceMaximale->setText(nomFichiers.join(" | "));
 }
+
+
+
+
+
 
