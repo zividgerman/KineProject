@@ -157,6 +157,8 @@ private slots:
 
     void on_toolButton_bpcf_clicked();
 
+    void on_comboBox_c_afficherFootLift_currentTextChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 
@@ -208,6 +210,7 @@ private:
     QString getCouleurScoreBS(double bkfo, int poids);
     QString getCouleurEI(double ratio);
     QString getCouleurSautsRepetesRsi(double rsi);
+    QString getCouleurLiftTest(int nbErreurs);
 
     QPair<QString, QString> getPaireRsiModifie(double numerateur, double denominateur, QString sexe);
     QPair<QString, QString> getPaireRatio(double numerateur, double denominateur, QString typeRatio);
@@ -216,7 +219,7 @@ private:
     QPair<QString, QString> calculerProgression(QString unite, double valeurAvant, double valeurApres);
     QPair<QString, QString> calculerProgressionEntier(QString unite, double valeurAvant, double valeurApres, bool inversionLogiqueCouleur);
     QPair<QString, QString> getProgressionPourcentage(bool inversion, double valeurAvant, double valeurApres);
-    QPair<QPair<QString, QString>, QPair<QString, QString>> getPourcentageEtCouleurRepartition(double forceG, double forceD);
+    QPair<QPair<QString, QString>, QPair<QString, QString>> getPourcentageEtCouleurRepartition(double forceG, double repartitionD);
 
     QString getCouleurReRiR1(double ratio);
     QString getCouleurReRiR2(double ratio);
@@ -362,7 +365,7 @@ private:
         //Course
     QString ecrireAnalyseGenerique(QMap<QString, QString> mapChemins, QString texteEncadre, QString titreEncadre, QString typeEncadre, int maxWidth, int maxHeight);
     QString ecrireInterpretation(QString texteInterpretation, QString titreInterpretation);
-    QString encadrerTableauEtImage(const QString& texteTableau, const QString& cheminImage, int maxWidth, int maxHeight, QString padding);
+    QString encadrerTableauEtImage(const QString& texteTableau, const QString& cheminImage, int maxWidth, int maxHeight, QString padding, QString positionTableau, QString positionImage);
     QString encadrerTableauEtImageFlexible(const QString& texteTableau, const QString& cheminImage, const QString& position, int maxWidth, int maxHeight);
     QString ecrireImage(const QString& cheminImage, const QString& position, int maxWidth, int maxHeight);
 

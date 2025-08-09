@@ -173,7 +173,7 @@
       <x>10</x>
       <y>950</y>
       <width>1111</width>
-      <height>2141</height>
+      <height>2431</height>
      </rect>
     </property>
     <widget class="QWidget" name="layoutWidget">
@@ -380,7 +380,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>1980</y>
+       <y>2280</y>
        <width>239</width>
        <height>75</height>
       </rect>
@@ -639,7 +639,7 @@
      <property name="geometry">
       <rect>
        <x>640</x>
-       <y>340</y>
+       <y>350</y>
        <width>349</width>
        <height>110</height>
       </rect>
@@ -788,7 +788,7 @@
      <property name="geometry">
       <rect>
        <x>310</x>
-       <y>2070</y>
+       <y>2370</y>
        <width>311</width>
        <height>51</height>
       </rect>
@@ -801,7 +801,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>340</y>
+       <y>350</y>
        <width>381</width>
        <height>110</height>
       </rect>
@@ -949,8 +949,8 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>1190</y>
+       <x>530</x>
+       <y>1260</y>
        <width>423</width>
        <height>154</height>
       </rect>
@@ -1153,7 +1153,7 @@
      <property name="geometry">
       <rect>
        <x>620</x>
-       <y>970</y>
+       <y>1040</y>
        <width>355</width>
        <height>66</height>
       </rect>
@@ -1248,7 +1248,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>480</y>
+       <y>520</y>
        <width>465</width>
        <height>110</height>
       </rect>
@@ -1397,7 +1397,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>1560</y>
+       <y>1860</y>
        <width>461</width>
        <height>191</height>
       </rect>
@@ -1503,7 +1503,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>1780</y>
+       <y>2080</y>
        <width>511</width>
        <height>151</height>
       </rect>
@@ -1574,7 +1574,7 @@
      <property name="geometry">
       <rect>
        <x>540</x>
-       <y>1560</y>
+       <y>1860</y>
        <width>351</width>
        <height>111</height>
       </rect>
@@ -1619,7 +1619,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>970</y>
+       <y>1040</y>
        <width>517</width>
        <height>138</height>
       </rect>
@@ -1777,7 +1777,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>1177</y>
+       <y>1247</y>
        <width>412</width>
        <height>178</height>
       </rect>
@@ -1973,7 +1973,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>810</y>
+       <y>880</y>
        <width>463</width>
        <height>98</height>
       </rect>
@@ -2155,7 +2155,7 @@
      <property name="geometry">
       <rect>
        <x>287</x>
-       <y>280</y>
+       <y>290</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -2168,7 +2168,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>460</y>
+       <y>490</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -2181,7 +2181,7 @@
      <property name="geometry">
       <rect>
        <x>300</x>
-       <y>750</y>
+       <y>810</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -2194,7 +2194,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>610</y>
+       <y>650</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -2207,7 +2207,7 @@
      <property name="geometry">
       <rect>
        <x>320</x>
-       <y>1960</y>
+       <y>2260</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -2220,7 +2220,7 @@
      <property name="geometry">
       <rect>
        <x>300</x>
-       <y>1510</y>
+       <y>1810</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -2233,7 +2233,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>630</y>
+       <y>680</y>
        <width>430</width>
        <height>110</height>
       </rect>
@@ -2382,7 +2382,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>310</y>
+       <y>320</y>
        <width>251</width>
        <height>16</height>
       </rect>
@@ -2440,7 +2440,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>1525</y>
+       <y>1825</y>
        <width>251</width>
        <height>21</height>
       </rect>
@@ -2469,7 +2469,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>770</y>
+       <y>840</y>
        <width>251</width>
        <height>16</height>
       </rect>
@@ -2498,7 +2498,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>1410</y>
+       <y>1460</y>
        <width>188</width>
        <height>58</height>
       </rect>
@@ -2566,7 +2566,7 @@
      <property name="geometry">
       <rect>
        <x>320</x>
-       <y>1410</y>
+       <y>1460</y>
        <width>282</width>
        <height>58</height>
       </rect>
@@ -2667,7 +2667,178 @@
      <property name="geometry">
       <rect>
        <x>340</x>
-       <y>1140</y>
+       <y>1210</y>
+       <width>311</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_118">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>1600</y>
+       <width>461</width>
+       <height>178</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_101">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_g_rsiMoyenSR">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLabel" name="label_test_cmjB_19">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Test de Sauts Repetes 10-5</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::TextFormat::PlainText</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_hauteur_saut_cmjB_20">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Hauteur moyenne (cm)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_g_repartitionSRO">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_fmax_cmjB_29">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>RSI moyen</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_fmax_cmjB_30">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Repartition force Opere (%)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_g_repartitionSRNO">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_g_hauteurMoyenneSR">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="label_fmax_cmjB_31">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Repartition force Sain  (%)</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="Line" name="line_62">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>1550</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -2681,7 +2852,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>3130</y>
+      <y>3430</y>
       <width>1091</width>
       <height>1481</height>
      </rect>
@@ -10003,8 +10174,8 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>540</y>
+       <x>500</x>
+       <y>380</y>
        <width>334</width>
        <height>138</height>
       </rect>
@@ -10168,7 +10339,7 @@
      <property name="geometry">
       <rect>
        <x>18</x>
-       <y>540</y>
+       <y>380</y>
        <width>287</width>
        <height>58</height>
       </rect>
@@ -10278,7 +10449,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>620</y>
+       <y>460</y>
        <width>276</width>
        <height>58</height>
       </rect>
@@ -10968,7 +11139,7 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_forceMoyenneSRO">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_repartitionSRO">
         <property name="cursor">
          <cursorShape>ArrowCursor</cursorShape>
         </property>
@@ -11008,12 +11179,12 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Force Moyenne opere(N)</string>
+         <string>Repartition force Opere (%)</string>
         </property>
        </widget>
       </item>
       <item row="3" column="3">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_forceMoyenneSRNO">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_repartitionSRNO">
         <property name="cursor">
          <cursorShape>ArrowCursor</cursorShape>
         </property>
@@ -11059,7 +11230,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Force Moyenne sain(N)</string>
+         <string>Repartition force Sain  (%)</string>
         </property>
        </widget>
       </item>
@@ -11160,7 +11331,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>2320</y>
+       <y>2350</y>
        <width>354</width>
        <height>58</height>
       </rect>
@@ -11471,7 +11642,7 @@
      <property name="geometry">
       <rect>
        <x>280</x>
-       <y>2400</y>
+       <y>2410</y>
        <width>311</width>
        <height>20</height>
       </rect>
@@ -11820,11 +11991,68 @@
       </item>
      </layout>
     </widget>
+    <widget class="Line" name="line_92">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>1640</y>
+       <width>311</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>2690</y>
+       <width>541</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_100">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_distanceM_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Longueur du membre inférieur (distance EIAS - malléole interne)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_longueurMI">
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        </property>
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
     <widget class="QWidget" name="layoutWidget_114">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>380</y>
+       <x>20</x>
+       <y>550</y>
        <width>381</width>
        <height>110</height>
       </rect>
@@ -11972,8 +12200,8 @@
     <widget class="QWidget" name="layoutWidget_115">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>380</y>
+       <x>500</x>
+       <y>550</y>
        <width>349</width>
        <height>110</height>
       </rect>
@@ -12118,62 +12346,43 @@
       </item>
      </layout>
     </widget>
-    <widget class="Line" name="line_92">
+    <widget class="QComboBox" name="comboBox_c_afficherFootLift">
      <property name="geometry">
       <rect>
-       <x>280</x>
-       <y>1640</y>
-       <width>311</width>
-       <height>20</height>
+       <x>160</x>
+       <y>2320</y>
+       <width>71</width>
+       <height>21</height>
       </rect>
      </property>
-     <property name="orientation">
-      <enum>Qt::Orientation::Horizontal</enum>
-     </property>
+     <item>
+      <property name="text">
+       <string>Oui</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Non</string>
+      </property>
+     </item>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QLabel" name="label_12">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>2690</y>
-       <width>541</width>
-       <height>23</height>
+       <y>2320</y>
+       <width>141</width>
+       <height>21</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout_100">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_distanceM_4">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Longueur du membre inférieur (distance EIAS - malléole interne)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_c_longueurMI">
-        <property name="cursor">
-         <cursorShape>ArrowCursor</cursorShape>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
-        </property>
-        <property name="accelerated">
-         <bool>true</bool>
-        </property>
-        <property name="decimals">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <double>100000.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Afficher Foot Lift Test</string>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="widget_generation_rapport_cheville" native="true">
@@ -12520,7 +12729,7 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>1880</y>
+      <y>1950</y>
       <width>311</width>
       <height>20</height>
      </rect>
@@ -14251,7 +14460,7 @@
        <number>15</number>
       </property>
       <item row="3" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_forceMoyenneSRG">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_repartitionSRG">
         <property name="cursor">
          <cursorShape>ArrowCursor</cursorShape>
         </property>
@@ -14325,12 +14534,12 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Force Moyenne gauche (N)</string>
+         <string>Repartition force Gauche (%)</string>
         </property>
        </widget>
       </item>
       <item row="3" column="3">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_forceMoyenneSRD">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpc_repartitionSRD">
         <property name="cursor">
          <cursorShape>ArrowCursor</cursorShape>
         </property>
@@ -14389,7 +14598,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Force Moyenne droite (N)</string>
+         <string>Repartition force Droite (%)</string>
         </property>
        </widget>
       </item>
@@ -18480,7 +18689,7 @@
        </widget>
       </item>
       <item row="3" column="3">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpsc_forceMoyenneSRD">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpsc_repartitionSRD">
         <property name="cursor">
          <cursorShape>ArrowCursor</cursorShape>
         </property>
@@ -18507,7 +18716,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Force Moyenne gauche (N)</string>
+         <string>Repartition force Gauche (%)</string>
         </property>
        </widget>
       </item>
@@ -18580,12 +18789,12 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Force Moyenne droite (N)</string>
+         <string>Repartition force Droite (%)</string>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpsc_forceMoyenneSRG">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpsc_repartitionSRG">
         <property name="cursor">
          <cursorShape>ArrowCursor</cursorShape>
         </property>
@@ -30140,7 +30349,7 @@
        <number>15</number>
       </property>
       <item row="3" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpcf_forceMoyenneSRG">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpcf_repartitionSRG">
         <property name="cursor">
          <cursorShape>ArrowCursor</cursorShape>
         </property>
@@ -30159,7 +30368,7 @@
        </widget>
       </item>
       <item row="3" column="3">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpcf_forceMoyenneSRD">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_bpcf_repartitionSRD">
         <property name="cursor">
          <cursorShape>ArrowCursor</cursorShape>
         </property>
@@ -30265,7 +30474,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Force Moyenne droite (N)</string>
+         <string>Repartition force Droite (%)</string>
         </property>
        </widget>
       </item>
@@ -30278,7 +30487,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Force Moyenne gauche (N)</string>
+         <string>Repartition force Gauche (%)</string>
         </property>
        </widget>
       </item>

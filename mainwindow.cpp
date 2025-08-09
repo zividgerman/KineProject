@@ -1733,6 +1733,16 @@ QString MainWindow::getCouleurScoreBS(double score, int poids){
         return "#169d53";  // green
 }
 
+QString MainWindow::getCouleurLiftTest(int nbErreurs){
+
+    if (nbErreurs < 1 )
+        return "#169d53";  // green
+    else if (nbErreurs <= 5)
+        return "#ff9929";  // orange
+    else
+        return "#9f3f36";  // red
+}
+
 //****************************************
 /*
  * QPair<couleur, calculAsymetrie>
@@ -1982,20 +1992,8 @@ QPair<QString, QString> MainWindow::getProgressionPourcentage(bool inversion, do
     return paireRes;
 }
 
-QPair<QPair<QString, QString>, QPair<QString, QString>> MainWindow::getPourcentageEtCouleurRepartition(double forceG, double forceD) {
+QPair<QPair<QString, QString>, QPair<QString, QString>> MainWindow::getPourcentageEtCouleurRepartition(double repartitionG, double repartitionD) {
     QPair<QPair<QString, QString>, QPair<QString, QString>> resultat;
-
-    double total = forceG + forceD;
-
-    // Éviter la division par zéro
-    if (total == 0.0) {
-        resultat.first  = qMakePair(QString("0%"), QString("#9f3f36"));
-        resultat.second = qMakePair(QString("0%"), QString("#9f3f36"));
-        return resultat;
-    }
-
-    double pctG = (forceG / total) * 100.0;
-    double pctD = (forceD / total) * 100.0;
 
     // Fonction lambda pour attribuer une couleur selon le % (entre 0 et 100)
     auto getCouleur = [](double pct) -> QString {
@@ -2007,8 +2005,8 @@ QPair<QPair<QString, QString>, QPair<QString, QString>> MainWindow::getPourcenta
             return "#169d53";  // Vert
     };
 
-    resultat.first  = qMakePair(QString::number(static_cast<int>(pctG)) + "%", getCouleur(pctG));
-    resultat.second = qMakePair(QString::number(static_cast<int>(pctD)) + "%", getCouleur(pctD));
+    resultat.first  = qMakePair(QString::number(static_cast<int>(repartitionG)) + "%", getCouleur(repartitionG));
+    resultat.second = qMakePair(QString::number(static_cast<int>(repartitionD)) + "%", getCouleur(repartitionD));
 
     return resultat;
 }
@@ -8841,7 +8839,7 @@ QString MainWindow::ecrireBroadJump(QList<QPair<QString, QMap<QString, QString>>
     cheminImageScore = redimensionnerImage(cheminImageScore, 1000);
 
     // Image à droite du tableau
-    texteTableauCourant = encadrerTableauEtImage(texteTableauCourant, cheminImageScore, 300, 250, "50");
+    texteTableauCourant = encadrerTableauEtImage(texteTableauCourant, cheminImageScore, 300, 250, "50", "top", "bottom");
 
     return texteTableauCourant;
 }
@@ -9968,7 +9966,7 @@ QString MainWindow::ecrireSautsRepetes(QList<QPair<QString, QMap<QString, QStrin
 
     QStringList listeTestFaits;
     QStringList listeCaracteresCol;
-    listeCaracteresCol << "forceMoyenneSR" << "hauteurMoyenneSR" << "pMoyenneSR" << "rsiMoyenSR";
+    listeCaracteresCol << "hauteurMoyenneSR"  << "rsiMoyenSR";
 
     for (int i = 0; i < listePairesRapport.count(); ++i) {
 
@@ -9984,10 +9982,12 @@ QString MainWindow::ecrireSautsRepetes(QList<QPair<QString, QMap<QString, QStrin
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST DE SAUTS REPETES 10-5</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Test de Sauts Repetes 10-5" <<  "Hauteur moyenne (cm)" << "RSI moyen" << "% Repartition des forces";
+    listeColonnesTab << "" <<  "Hauteur moyenne (cm)" << "RSI moyen" << "% Repartition des forces";
     for (int i = 0; i < listeColonnesTab.count(); ++i) {
         if(i==0){
             texteTableauCourant = texteTableauCourant + " <th scope=\"col\" style=\"background-color: white; color:#002e40; border: 1px solid #023448;\">"
@@ -10017,8 +10017,8 @@ QString MainWindow::ecrireSautsRepetes(QList<QPair<QString, QMap<QString, QStrin
     texteTableauCourant= texteTableauCourant + " <th scope=\"col\">sain</th>";
     texteTableauCourant= texteTableauCourant + " <th scope=\"col\">"+ labelBlessure+ "</th>";
 
-    auto result = getPourcentageEtCouleurRepartition(getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("forceMoyenneSRNO").toDouble(),
-                                                            getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("forceMoyenneSRO").toDouble());
+    auto result = getPourcentageEtCouleurRepartition(getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("repartitionSRNO").toDouble(),
+                                                            getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("repartitionSRO").toDouble());
 
     texteTableauCourant = texteTableauCourant + "</tr>"
                                                 "<tr>";
@@ -10056,8 +10056,8 @@ QString MainWindow::ecrireSautsRepetes(QList<QPair<QString, QMap<QString, QStrin
             texteTableauCourant= texteTableauCourant + " <th scope=\"col\">sain</th>";
             texteTableauCourant= texteTableauCourant + " <th scope=\"col\">"+ labelBlessure+ "</th>";
 
-            auto result = getPourcentageEtCouleurRepartition(getMapListeRapport(listePairesRapport, avantDernierTest).value("forceMoyenneSRNO").toDouble(),
-                                                                    getMapListeRapport(listePairesRapport, avantDernierTest).value("forceMoyenneSRO").toDouble());
+            auto result = getPourcentageEtCouleurRepartition(getMapListeRapport(listePairesRapport, avantDernierTest).value("repartitionSRNO").toDouble(),
+                                                                    getMapListeRapport(listePairesRapport, avantDernierTest).value("repartitionSRO").toDouble());
 
             texteTableauCourant = texteTableauCourant + "</tr>"
                                                         "<tr>";
@@ -10095,8 +10095,8 @@ QString MainWindow::ecrireSautsRepetes(QList<QPair<QString, QMap<QString, QStrin
         texteTableauCourant= texteTableauCourant + " <th scope=\"col\">sain</th>";
         texteTableauCourant= texteTableauCourant + " <th scope=\"col\">"+ labelBlessure+ "</th>";
 
-        auto result = getPourcentageEtCouleurRepartition(getMapListeRapport(listePairesRapport, dernierTest).value("forceMoyenneSRNO").toDouble(),
-                                                                getMapListeRapport(listePairesRapport, dernierTest).value("forceMoyenneSRO").toDouble());
+        auto result = getPourcentageEtCouleurRepartition(getMapListeRapport(listePairesRapport, dernierTest).value("repartitionSRNO").toDouble(),
+                                                                getMapListeRapport(listePairesRapport, dernierTest).value("repartitionSRO").toDouble());
 
         texteTableauCourant = texteTableauCourant + "</tr>"
                                                     "<tr>";
@@ -10115,7 +10115,21 @@ QString MainWindow::ecrireSautsRepetes(QList<QPair<QString, QMap<QString, QStrin
     cheminImageScore = redimensionnerImage(cheminImageScore, 1000);
 
     // Image à droite du tableau
-    texteTableauCourant = encadrerTableauEtImageFlexible(texteTableauCourant, cheminImageScore, "bottom", 400, 300);
+    QString positionTableau;
+
+    QString positionImage;
+
+    if(tailleListeFaits == 1){
+        positionTableau = "top";
+        positionImage = "bottom";
+
+    }
+    else{
+        positionTableau = "center";
+        positionImage = "bottom";
+
+    }
+    texteTableauCourant = encadrerTableauEtImage(texteTableauCourant, cheminImageScore, 240, 180, "50", positionTableau, positionImage);
 
     return texteTableauCourant;
 }
@@ -10135,10 +10149,12 @@ QString MainWindow::ecrireSautsRepetesBP(QList<QPair<QString, QMap<QString, QStr
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST DE SAUTS REPETES 10-5</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Test de Sauts Repetes 10-5" <<  "Hauteur moyenne (cm)" << "RSI moyen" << "% Repartition des forces";
+    listeColonnesTab << "" <<  "Hauteur moyenne (cm)" << "RSI moyen" << "% Repartition des forces";
     for (int i = 0; i < listeColonnesTab.count(); ++i) {
         if(i==0){
             texteTableauCourant= texteTableauCourant + "<th style=\"border: 0px;\"></th>";
@@ -10167,8 +10183,8 @@ QString MainWindow::ecrireSautsRepetesBP(QList<QPair<QString, QMap<QString, QStr
     texteTableauCourant= texteTableauCourant + " <th scope=\"col\">G</th>";
     texteTableauCourant= texteTableauCourant + " <th scope=\"col\">D</th>";
 
-    auto result = getPourcentageEtCouleurRepartition(mapCourante.value("forceMoyenneSRG").toDouble(),
-                                                            mapCourante.value("forceMoyenneSRD").toDouble());
+    auto result = getPourcentageEtCouleurRepartition(mapCourante.value("repartitionSRG").toDouble(),
+                                                            mapCourante.value("repartitionSRD").toDouble());
 
     texteTableauCourant = texteTableauCourant + "</tr>"
                                                 "<tr>";
@@ -10418,7 +10434,6 @@ QString MainWindow::ecrireHeelRise(QList<QPair<QString, QMap<QString, QString>>>
 }
 
 
-//****************************************
 QString MainWindow::ecrireFootLift(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure){
 
     QString texteTableauCourant;
@@ -10429,19 +10444,18 @@ QString MainWindow::ecrireFootLift(QList<QPair<QString, QMap<QString, QString>>>
     QStringList listeCaracteresCol;
     listeCaracteresCol << "nombreErreurFL";
 
-    for (int i = 0; i < listePairesRapport.count(); ++i) {
-
-        if(doitEtreEcrit(listeCaracteresCol, getMapListeRapport(listePairesRapport, QString::number(i+1)))){
-            listeTestFaits.append(QString::number(i+1));
+    for (int nbTests = 0; nbTests < listePairesRapport.count(); ++nbTests) {
+        if(getMapListeRapport(listePairesRapport, QString::number(nbTests + 1)).value("afficherFootLift") == "Oui"){
+            listeTestFaits << QString::number(nbTests + 1);
         }
     }
 
-    int tailleListeFaits = listeTestFaits.count();
-
-    //Si il n y a le bilan que d un seul test fait et que les amplitudes n ont pas ete ecrites, le tableau n existe pas
-    if(tailleListeFaits == 0){
+    if(listeTestFaits.isEmpty()){
+        qDebug() << "Aucun test footlift";
         return "";
     }
+
+    int tailleListeFaits = listeTestFaits.count();
 
     // Ecrire texte explicatif du test
     texteTableauCourant.append("<p style=\"text-align: justify;\">*Patient en équilibre unipodal, mains sur les hanches et les yeux fermés pendant 30 secondes,"
@@ -10458,69 +10472,75 @@ QString MainWindow::ecrireFootLift(QList<QPair<QString, QMap<QString, QString>>>
         listeColonnesTab << "Membre " + labelBlessure + " T" + numeroTestFait;
     }
 
-    listeColonnesTab << "Asymétrie T" + listeTestFaits.last();
-
     // Ecrire les colonnes associees
     for (int i = 0; i < listeColonnesTab.count(); ++i) {
 
         if(i == 0){
-            texteTableauCourant = texteTableauCourant + " <th scope=\"col\" style=\"background-color: white; color:#002e40; border: 1px solid #023448;\">"
+            texteTableauCourant += " <th scope=\"col\" style=\"background-color: white; color:#002e40; border: 1px solid #023448;\">"
                                   + listeColonnesTab.at(i) +"</th>";
         }
         else if(listeColonnesTab.at(i).contains(labelBlessure)){
-            texteTableauCourant= texteTableauCourant + " <th scope=\"col\"style=\"background-color:#e2edf1; color:#002e40;border:1px solid #023448\">"
+            texteTableauCourant += " <th scope=\"col\" style=\"background-color:#e2edf1; color:#002e40;border:1px solid #023448\">"
                                   + listeColonnesTab.at(i) +"</th>";
         }
         else{
-            texteTableauCourant= texteTableauCourant + " <th scope=\"col\">" + listeColonnesTab.at(i) +"</th>";
+            texteTableauCourant += " <th scope=\"col\">" + listeColonnesTab.at(i) +"</th>";
         }
     }
+
+    texteTableauCourant += "</tr>"; // fermeture de la ligne d’en-têtes
 
     QString dernierTest = listeTestFaits.last();
 
     // 1ere row - Distance saut (cm)
-    texteTableauCourant = texteTableauCourant + "</tr>"
-                                                "<tr>"
-                                                "<th scope=\"row\">Nombre d'erreurs</th>"
-                                                "<td>" + getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("nombreErreurFLNO") + "</td>"
-                                                "<td>" + getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("nombreErreurFLO") + "</td>";
+    texteTableauCourant += "<tr>"
+                           "<th scope=\"row\">Nombre d'erreurs</th>";
+
+    QString valeurCourante = getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("nombreErreurFLNO");
+    texteTableauCourant += "<td style=\"background-color:" + getCouleurLiftTest(valeurCourante.toInt()) + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
+                          + valeurCourante + "</td>";
+
+    valeurCourante = getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("nombreErreurFLO");
+    texteTableauCourant += "<td style=\"background-color:" + getCouleurLiftTest(valeurCourante.toInt()) + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
+                          + valeurCourante + "</td>"; // <-- corrigé ici, suppression du "<"
+
     if(tailleListeFaits > 1){
 
-        QString avantDernierTest = listeTestFaits.at(listeTestFaits.indexOf(listeTestFaits.last()) - 1);
-        if(tailleListeFaits == 3){
+        int indexDernier = listeTestFaits.indexOf(listeTestFaits.last());
+        QString avantDernierTest = (indexDernier > 0) ? listeTestFaits.at(indexDernier - 1) : "";
+
+        if(tailleListeFaits == 3 && !avantDernierTest.isEmpty()){
 
             //Membre sain T2
-            texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, avantDernierTest).value("nombreErreurFLNO") + "</td>" ;
+            valeurCourante = getMapListeRapport(listePairesRapport, avantDernierTest).value("nombreErreurFLNO");
+            texteTableauCourant += "<td style=\"background-color:" + getCouleurLiftTest(valeurCourante.toInt()) + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
+                                  + valeurCourante + "</td>";
 
-            // Membre opéré T2
-            texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, avantDernierTest).value("nombreErreurFLO")+ "</td>" ;
+            valeurCourante = getMapListeRapport(listePairesRapport, avantDernierTest).value("nombreErreurFLO");
+            texteTableauCourant += "<td style=\"background-color:" + getCouleurLiftTest(valeurCourante.toInt()) + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
+                                  + valeurCourante + "</td>";
         }
 
         //Membre sain TLast
-        QPair<QString, QString> prog = calculerProgressionEntier("",getMapListeRapport(listePairesRapport, avantDernierTest).value("nombreErreurFLNO").toDouble(),
+        QPair<QString, QString> prog = calculerProgressionEntier("", getMapListeRapport(listePairesRapport, avantDernierTest).value("nombreErreurFLNO").toDouble(),
                                                            getMapListeRapport(listePairesRapport, dernierTest).value("nombreErreurFLNO").toDouble(), true);
 
-
         QString texteEvolution = "<span style=\"color:" + prog.second+ ";\"> " + prog.first + "</span>";
-        texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, dernierTest).value("nombreErreurFLNO")
-                              + texteEvolution + "</td>" ;
+        valeurCourante = getMapListeRapport(listePairesRapport, dernierTest).value("nombreErreurFLNO");
+
+        texteTableauCourant += "<td style=\"background-color:" + getCouleurLiftTest(valeurCourante.toInt()) + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
+                                + valeurCourante + texteEvolution + "</td>" ;
 
         // Membre opéré TLast
-        prog = calculerProgressionEntier("",getMapListeRapport(listePairesRapport, avantDernierTest).value("nombreErreurFLO").toDouble(),
+        prog = calculerProgressionEntier("", getMapListeRapport(listePairesRapport, avantDernierTest).value("nombreErreurFLO").toDouble(),
                                    getMapListeRapport(listePairesRapport, dernierTest).value("nombreErreurFLO").toDouble(), true);
 
-
         texteEvolution = "<span style=\"color:" + prog.second+ ";\"> " + prog.first + "</span>";
-        texteTableauCourant = texteTableauCourant + "<td>" + getMapListeRapport(listePairesRapport, dernierTest).value("nombreErreurFLO")
-                              + texteEvolution + "</td>" ;
+        valeurCourante = getMapListeRapport(listePairesRapport, dernierTest).value("nombreErreurFLO");
+
+        texteTableauCourant += "<td style=\"background-color:" + getCouleurLiftTest(valeurCourante.toInt()) + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
+                                + valeurCourante + texteEvolution + "</td>" ;
     }
-
-    //Asymetrie
-    QPair<QString, QString> paireCourante = getPaireAsymetrie(false, getMapListeRapport(listePairesRapport, dernierTest).value("nombreErreurFLNO").toDouble(),
-                                                              getMapListeRapport(listePairesRapport, dernierTest).value("nombreErreurFLO").toDouble());
-
-    texteTableauCourant = texteTableauCourant + "<td style=\"background-color:" + paireCourante.first + "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">"
-                          + paireCourante.second+ "</td></tr>";
 
     texteTableauCourant.append("</table>");
 
@@ -10560,11 +10580,13 @@ QPair<QString, QString> MainWindow::calculerProgressionEntier(QString unite, dou
     }
     else {
         paireRes.second = "#fdfefe";
-        paireRes.first = "0" + unite;
+        paireRes.first = "";
     }
 
     return paireRes;
 }
+
+
 
 //****************************************
 QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString labelBlessure){
@@ -10576,16 +10598,16 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
     QStringList listeCaracteresCol;
     listeCaracteresCol << "distanceA" << "distancePM" << "distancePM";
 
-    for (int i = 0; i < listePairesRapport.count(); ++i) {
-
-        if(doitEtreEcrit(listeCaracteresCol, getMapListeRapport(listePairesRapport, QString::number(i+1)))){
-            listeTestFaits.append(QString::number(i+1));
+    // --- détecte les tests à écrire (on parcourt la liste fournie)
+    for (const auto &pair : listePairesRapport) {
+        if (doitEtreEcrit(listeCaracteresCol, pair.second)) {
+            listeTestFaits.append(pair.first);
         }
     }
 
     int tailleListeFaits = listeTestFaits.count();
 
-    //Si il n y a le bilan que d un seul test fait et que les amplitudes n ont pas ete ecrites, le tableau n existe pas
+    // Si aucun test à écrire
     if(tailleListeFaits == 0){
         return "";
     }
@@ -10606,14 +10628,21 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
         "</p><br />"
     );
 
-    //Ecrire les branches du test
+    // récupérateur local de valeur (cherche dans la liste de paires)
+    auto getValeur = [&](const QString &test, const QString &key) -> QString {
+        for (const auto &p : listePairesRapport) {
+            if (p.first == test) return p.second.value(key);
+        }
+        return QString();
+    };
+
+    //Ecrire les branches du test (suffixes et labels)
     QString suffixeDroit;
     QString suffixeGauche;
     QString labelDroit;
     QString labelGauche;
 
-    // Si le bras droit est opere alors on prend les bonnes informations
-    if(getMapListeRapport(listePairesRapport,listeTestFaits.first()).value("chevilleOperee") == "Droite"){
+    if(getValeur(listeTestFaits.first(), "chevilleOperee") == "Droite"){
         suffixeDroit = "O";
         suffixeGauche = "NO";
         labelDroit = labelBlessure;
@@ -10626,11 +10655,11 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
         labelGauche = labelBlessure;
     }
 
-    // Ecrire le T1
-    texteTableauCourant.append(dessinerTestYBalance(listePairesRapport,suffixeDroit, suffixeGauche, labelDroit,
-                                              labelGauche,listeTestFaits.last()));
+    // Ecrire le T1 (dessin)
+    texteTableauCourant.append(dessinerTestYBalance(listePairesRapport, suffixeDroit, suffixeGauche, labelDroit,
+                                              labelGauche, listeTestFaits.last()));
 
-    // Ecrire le tableau du test
+    // Ecrire le tableau du test (en-têtes)
     texteTableauCourant.append("<table><tr>");
 
     listeColonnesTab << "Test Y-Balance*";
@@ -10642,7 +10671,7 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
 
     listeColonnesTab << "Asymétrie T" + listeTestFaits.last();
 
-    // Ecrire les colonnes associees
+    // Ecrire les colonnes associees (th)
     for (int i = 0; i < listeColonnesTab.count(); ++i) {
 
         if(i == 0){
@@ -10650,62 +10679,55 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
                                   + listeColonnesTab.at(i) +"</th>";
         }
         else if(listeColonnesTab.at(i).contains(labelBlessure)){
-            texteTableauCourant= texteTableauCourant + " <th scope=\"col\"style=\"background-color:#e2edf1; color:#002e40;border:1px solid #023448\">"
+            texteTableauCourant= texteTableauCourant + " <th scope=\"col\" style=\"background-color:#e2edf1; color:#002e40;border:1px solid #023448\">"
                                   + listeColonnesTab.at(i) +"</th>";
         }
         else{
-            texteTableauCourant= texteTableauCourant + " <th scope=\"col\">" + listeColonnesTab.at(i) +"</th>";
+            texteTableauCourant= texteTableauCourant + " <th scope=\"col\" style=\"border:1px solid #023448;\">"
+                                  + listeColonnesTab.at(i) +"</th>";
         }
     }
-    // Recuperer dernier T et avant dernier T => Seront toujours dernier et avant dernier de la liste listeTestFaits
-    QString dernierTest = listeTestFaits.last();
-
-    auto getValeur = [&](const QString &test, const QString &key) -> QString {
-        return getMapListeRapport(listePairesRapport, test).value(key);
-    };
 
     // =====================
-    // DISTANCE SUPÉRO-LATÉRALE
+    // DISTANCE ANTÉRIEURE
     // =====================
     texteTableauCourant += "<tr><th scope=\"row\">Distance antérieure (cm)</th>";
-    for(int i = 0; i < listeTestFaits.size(); ++i){
-        QString test = listeTestFaits.at(i);
-        QString valeur = getValeur(test, "distanceANO");
-        QString texteCellule = valeur;
 
-        // Progression (si pas le premier test)
-        if(i == listeTestFaits.size() - 1 && listeTestFaits.size() > 1){
+    // boucle intercalée : pour chaque test, écrire Membre sain Ti puis Membre opéré Ti
+    for (int i = 0; i < listeTestFaits.size(); ++i) {
+        QString test = listeTestFaits.at(i);
+
+        // membre sain (distanceANO)
+        QString valeurSain = getValeur(test, "distanceANO");
+        QString texteCelluleSain = valeurSain;
+        if (listeTestFaits.size() > 1 && i == listeTestFaits.size() - 1) {
             QPair<QString, QString> prog = calculerProgression("cm",
                 getValeur(listeTestFaits.at(i-1), "distanceANO").toDouble(),
-                valeur.toDouble()
+                valeurSain.toDouble()
             );
-            texteCellule += "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
+            texteCelluleSain += "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
         }
-        texteTableauCourant += "<td>" + texteCellule + "</td>";
-    }
+        texteTableauCourant += "<td>" + texteCelluleSain + "</td>";
 
-    // Même chose pour membre opéré
-    for(int i = 0; i < listeTestFaits.size(); ++i){
-        QString test = listeTestFaits.at(i);
-        QString valeur = getValeur(test, "distanceAO");
-        QString texteCellule = valeur;
-
-        if(i == listeTestFaits.size() - 1 && listeTestFaits.size() > 1){
+        // membre opéré (distanceAO)
+        QString valeurOp = getValeur(test, "distanceAO");
+        QString texteCelluleOp = valeurOp;
+        if (listeTestFaits.size() > 1 && i == listeTestFaits.size() - 1) {
             QPair<QString, QString> prog = calculerProgression("cm",
                 getValeur(listeTestFaits.at(i-1), "distanceAO").toDouble(),
-                valeur.toDouble()
+                valeurOp.toDouble()
             );
-            texteCellule += "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
+            texteCelluleOp += "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
         }
-        texteTableauCourant += "<td>" + texteCellule + "</td>";
+        texteTableauCourant += "<td>" + texteCelluleOp + "</td>";
     }
 
     // Asymétrie finale (dernier test uniquement)
     {
-        QString dernierTest = listeTestFaits.last();
+        QString dernierTestLocal = listeTestFaits.last();
         QPair<QString, QString> paire = getPaireAsymetrie(false,
-            getValeur(dernierTest, "distanceANO").toDouble(),
-            getValeur(dernierTest, "distanceAO").toDouble()
+            getValeur(dernierTestLocal, "distanceANO").toDouble(),
+            getValeur(dernierTestLocal, "distanceAO").toDouble()
         );
         texteTableauCourant += "<td style=\"background-color:" + paire.first +
                                "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
@@ -10714,45 +10736,44 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
     texteTableauCourant += "</tr>";
 
     // =====================
-    //  DISTANCE
+    // DISTANCE POSTÉRO-MÉDIALE
     // =====================
     texteTableauCourant += "<tr><th scope=\"row\">Distance postéro-médiale (cm)</th>";
-    for(int i = 0; i < listeTestFaits.size(); ++i){
-        QString test = listeTestFaits.at(i);
-        QString valeur = getValeur(test, "distancePMNO");
-        QString texteCellule = valeur;
 
-        if(i == listeTestFaits.size() - 1 && listeTestFaits.size() > 1){
+    for (int i = 0; i < listeTestFaits.size(); ++i) {
+        QString test = listeTestFaits.at(i);
+
+        // membre sain (distancePMNO)
+        QString valeurSain = getValeur(test, "distancePMNO");
+        QString texteCelluleSain = valeurSain;
+        if (listeTestFaits.size() > 1 && i == listeTestFaits.size() - 1) {
             QPair<QString, QString> prog = calculerProgression("cm",
                 getValeur(listeTestFaits.at(i-1), "distancePMNO").toDouble(),
-                valeur.toDouble()
+                valeurSain.toDouble()
             );
-            texteCellule += "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
+            texteCelluleSain += "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
         }
-        texteTableauCourant += "<td>" + texteCellule + "</td>";
-    }
+        texteTableauCourant += "<td>" + texteCelluleSain + "</td>";
 
-    for(int i = 0; i < listeTestFaits.size(); ++i){
-        QString test = listeTestFaits.at(i);
-        QString valeur = getValeur(test, "distancePMO");
-        QString texteCellule = valeur;
-
-        if(i == listeTestFaits.size() - 1 && listeTestFaits.size() > 1){
+        // membre opéré (distancePMO)
+        QString valeurOp = getValeur(test, "distancePMO");
+        QString texteCelluleOp = valeurOp;
+        if (listeTestFaits.size() > 1 && i == listeTestFaits.size() - 1) {
             QPair<QString, QString> prog = calculerProgression("cm",
                 getValeur(listeTestFaits.at(i-1), "distancePMO").toDouble(),
-                valeur.toDouble()
+                valeurOp.toDouble()
             );
-            texteCellule += "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
+            texteCelluleOp += "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
         }
-        texteTableauCourant += "<td>" + texteCellule + "</td>";
+        texteTableauCourant += "<td>" + texteCelluleOp + "</td>";
     }
 
     // Asymétrie finale
     {
-        QString dernierTest = listeTestFaits.last();
+        QString dernierTestLocal = listeTestFaits.last();
         QPair<QString, QString> paire = getPaireAsymetrie(false,
-            getValeur(dernierTest, "distancePMNO").toDouble(),
-            getValeur(dernierTest, "distancePMO").toDouble()
+            getValeur(dernierTestLocal, "distancePMNO").toDouble(),
+            getValeur(dernierTestLocal, "distancePMO").toDouble()
         );
         texteTableauCourant += "<td style=\"background-color:" + paire.first +
                                "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
@@ -10761,45 +10782,44 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
     texteTableauCourant += "</tr>";
 
     // =====================
-    // DISTANCE
+    // DISTANCE POSTÉRO-LATÉRALE
     // =====================
-    texteTableauCourant += "<tr><th scope=\"row\">Distance Postéro-latérale (cm)</th>";
-    for(int i = 0; i < listeTestFaits.size(); ++i){
-        QString test = listeTestFaits.at(i);
-        QString valeur = getValeur(test, "distancePLNO");
-        QString texteCellule = valeur;
+    texteTableauCourant += "<tr><th scope=\"row\">Distance postéro-latérale (cm)</th>";
 
-        if(i == listeTestFaits.size() - 1 && listeTestFaits.size() > 1){
+    for (int i = 0; i < listeTestFaits.size(); ++i) {
+        QString test = listeTestFaits.at(i);
+
+        // membre sain (distancePLNO)
+        QString valeurSain = getValeur(test, "distancePLNO");
+        QString texteCelluleSain = valeurSain;
+        if (listeTestFaits.size() > 1 && i == listeTestFaits.size() - 1) {
             QPair<QString, QString> prog = calculerProgression("cm",
                 getValeur(listeTestFaits.at(i-1), "distancePLNO").toDouble(),
-                valeur.toDouble()
+                valeurSain.toDouble()
             );
-            texteCellule += "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
+            texteCelluleSain += "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
         }
-        texteTableauCourant += "<td>" + texteCellule + "</td>";
-    }
+        texteTableauCourant += "<td>" + texteCelluleSain + "</td>";
 
-    for(int i = 0; i < listeTestFaits.size(); ++i){
-        QString test = listeTestFaits.at(i);
-        QString valeur = getValeur(test, "distancePLO");
-        QString texteCellule = valeur;
-
-        if(i == listeTestFaits.size() - 1 && listeTestFaits.size() > 1){
+        // membre opéré (distancePLO)
+        QString valeurOp = getValeur(test, "distancePLO");
+        QString texteCelluleOp = valeurOp;
+        if (listeTestFaits.size() > 1 && i == listeTestFaits.size() - 1) {
             QPair<QString, QString> prog = calculerProgression("cm",
                 getValeur(listeTestFaits.at(i-1), "distancePLO").toDouble(),
-                valeur.toDouble()
+                valeurOp.toDouble()
             );
-            texteCellule += "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
+            texteCelluleOp += "<span style=\"color:" + prog.second + ";\"> " + prog.first + "</span>";
         }
-        texteTableauCourant += "<td>" + texteCellule + "</td>";
+        texteTableauCourant += "<td>" + texteCelluleOp + "</td>";
     }
 
     // Asymétrie finale
     {
-        QString dernierTest = listeTestFaits.last();
+        QString dernierTestLocal = listeTestFaits.last();
         QPair<QString, QString> paire = getPaireAsymetrie(false,
-            getValeur(dernierTest, "distancePLNO").toDouble(),
-            getValeur(dernierTest, "distancePLO").toDouble()
+            getValeur(dernierTestLocal, "distancePLNO").toDouble(),
+            getValeur(dernierTestLocal, "distancePLO").toDouble()
         );
         texteTableauCourant += "<td style=\"background-color:" + paire.first +
                                "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
@@ -10811,33 +10831,33 @@ QString MainWindow::ecrireYBalance(QList<QPair<QString, QMap<QString, QString>>>
     // LIMB SYMMETRY INDEX (LSI)
     // =====================
     texteTableauCourant += "<tr><th scope=\"row\">Limb Symmetry Index* (%)</th>";
-    for(int i = 0; i < listeTestFaits.size(); ++i){
+
+    for (int i = 0; i < listeTestFaits.size(); ++i) {
         QString test = listeTestFaits.at(i);
-        QPair<QString, QString> paireLSI = getPaireLSI(
+
+        // LSI membre sain
+        QPair<QString, QString> paireLSI_sain = getPaireLSI(
             getValeur(test, "distanceANO").toDouble(),
             getValeur(test, "distancePMNO").toDouble(),
             getValeur(test, "distancePLNO").toDouble(),
             getValeur(listeTestFaits.first(), "longueurMI").toDouble()
         );
-
-        texteTableauCourant += "<td style=\"background-color:" + paireLSI.first +
+        texteTableauCourant += "<td style=\"background-color:" + paireLSI_sain.first +
                                "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
-                               paireLSI.second + "%</td>";
-    }
+                               paireLSI_sain.second + "%</td>";
 
-    for(int i = 0; i < listeTestFaits.size(); ++i){
-        QString test = listeTestFaits.at(i);
-        QPair<QString, QString> paireLSI = getPaireLSI(
+        // LSI membre opéré
+        QPair<QString, QString> paireLSI_op = getPaireLSI(
             getValeur(test, "distanceAO").toDouble(),
             getValeur(test, "distancePMO").toDouble(),
             getValeur(test, "distancePLO").toDouble(),
             getValeur(listeTestFaits.first(), "longueurMI").toDouble()
         );
-
-        texteTableauCourant += "<td style=\"background-color:" + paireLSI.first +
+        texteTableauCourant += "<td style=\"background-color:" + paireLSI_op.first +
                                "; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">" +
-                               paireLSI.second + "%</td>";
+                               paireLSI_op.second + "%</td>";
     }
+
     texteTableauCourant += "</tr>";
 
     texteTableauCourant.append("</table>");
@@ -14263,7 +14283,7 @@ void MainWindow::on_comboBox_dateBilan_currentTextChanged(const QString &numeroT
             listeRadio << "controleGenouFrontal" << "controleGenouValgus" << "controleTroncOK" << "controleTroncNOK" << "angleFlexionNOK" << "angleFlexionOK";
 
             QStringList listeComboBox;
-            listeComboBox << "chevilleOperee";
+            listeComboBox << "chevilleOperee" << "afficherFootLift";
 
             QStringList listeColonnesValeursInt;
             listeColonnesValeursInt << "alrRsi";
@@ -14640,7 +14660,7 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
 
     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
     res.append("<h1 style=\"text-align:center;\">TESTS ET RATIOS DE FORCE ISOMÉTRIQUE</h1>");
-    res.append("<h3 style=\"text-align:center;\">Dynamomètre</h3><br><br>");
+    res.append("<h2 style=\"text-align:center;\"><i>Dynamomètre</i></h2><br><br>");
 
     // ecrire le tableau du ration ischio jambiers quadri
     res.append(ecrireRatioIJ(listePairesRapport, labelBlessure));
@@ -14654,7 +14674,8 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
     res.append(ecrireRatioREHanche(listePairesRapport, labelBlessure));
 
     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
-    res.append("<h1 style=\"text-align:center;\">TESTS DE PUISSANCE (PLATEFORME DE FORCE)</h1><br><br>");
+    res.append("<h1 style=\"text-align:center;\">TESTS DE PUISSANCE</h1>");
+    res.append("<h2 style=\"text-align:center;\"><i>Plateforme de force</i></h2><br><br>");
 
     // ecrire le tableau du squatJump bipodal
     res.append(ecrireSjBipodal(listePairesRapport, labelBlessure));
@@ -14674,6 +14695,9 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
 
     // ecrire le tableau du drop jump unipodal
     res.append(ecrireDjUnipodal(listePairesRapport, labelBlessure));
+
+    // ecrire le test de ecrireSautsRepetes
+    res.append(ecrireSautsRepetes(listePairesRapport, labelBlessure));
 
     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
     res.append("<h1 style=\"text-align:center;\">TESTS FONCTIONNELS</h1><br><br>");
@@ -15437,10 +15461,6 @@ QString MainWindow::remplirChaineHtmlCheville(QStringList listeNumerosTest){
 
     res.append("<h1 style=\"text-align:center;\">Tests et ratios de force isométrique</h1><br><br><br>");
 
-    res.append(ecrireRatioIJ(listePairesRapport, labelBlessure));
-
-    res.append(ecrireRatioA(listePairesRapport, labelBlessure));
-
     // ecrire le releveurs
     res.append(ecrireFmaxReleveursCheville(listePairesRapport, labelBlessure));
 
@@ -15450,9 +15470,9 @@ QString MainWindow::remplirChaineHtmlCheville(QStringList listeNumerosTest){
     // ecrire le test de Verseurs
     res.append(ecrireRatioVerseurs(listePairesRapport, labelBlessure));
 
-    // //Nouvelle page si T3 ou T2
-    // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
-    //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
+    res.append(ecrireRatioIJ(listePairesRapport, labelBlessure));
+
+    res.append(ecrireRatioA(listePairesRapport, labelBlessure));
 
     res.append("<h1 style=\"text-align:center;\">Tests de sauts verticaux</h1><br><br><br>");
 
@@ -15728,8 +15748,8 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
     // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
     //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de puissance (plateforme de force)</h1><br><br><br>");
-    res.append("<div style=\"height: 30px;\"></div>");
+    res.append("<h1 style=\"text-align:center;\">TESTS DE PUISSANCE</h1>");
+    res.append("<h2 style=\"text-align:center;\"><i>Plateforme de force</i></h2><br><br>");
 
     // ecrire le tableau du squatJump bipodal
     res.append(ecrireSjBipodalBP(listePairesRapport));
@@ -15990,8 +16010,8 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
 
     res.append(ecrireRatioREHancheBP(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:left;\">Tests de puissance (plateforme de force)</h1><br><br><br>");
-    res.append("<div style=\"height: 30px;\"></div>");
+    res.append("<h1 style=\"text-align:center;\">TESTS DE PUISSANCE</h1>");
+    res.append("<h2 style=\"text-align:center;\"><i>Plateforme de force</i></h2><br><br>");
 
     // ecrire le tableau du squatJump bipodal
     res.append(ecrireSjBipodalBP(listePairesRapport));
@@ -16269,8 +16289,8 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
     // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
     //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align:left;\">Tests de puissance (plateforme de force)</h1><br><br><br>");
-    res.append("<div style=\"height: 30px;\"></div>");
+    res.append("<h1 style=\"text-align:center;\">TESTS DE PUISSANCE</h1>");
+    res.append("<h2 style=\"text-align:center;\"><i>Plateforme de force</i></h2><br><br>");
 
     // ecrire le tableau du squatJump bipodal
     res.append(ecrireSjBipodalBP(listePairesRapport));
@@ -16515,8 +16535,8 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
     // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
     //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align:left;\">Tests de puissance (plateforme de force)</h1><br><br><br>");
-    res.append("<div style=\"height: 30px;\"></div>");
+    res.append("<h1 style=\"text-align:center;\">TESTS DE PUISSANCE</h1>");
+    res.append("<h2 style=\"text-align:center;\"><i>Plateforme de force</i></h2><br><br>");
 
     // ecrire le tableau du squatJump bipodal
     res.append(ecrireSjBipodalBP(listePairesRapport));
@@ -17435,7 +17455,10 @@ void MainWindow::on_pushButton_bpcf_photos_analyseGestuelle_clicked()
 QString MainWindow::encadrerTableauEtImage(const QString& texteTableau,
                                            const QString& cheminImage,
                                            int maxWidth,
-                                           int maxHeight, QString padding)
+                                           int maxHeight,
+                                           QString padding,
+                                           QString positionTableau,
+                                           QString positionImage)
 {
     QString html;
 
@@ -17455,10 +17478,10 @@ QString MainWindow::encadrerTableauEtImage(const QString& texteTableau,
 
     html += "<table style='border-collapse: collapse; width: 100%;'>"
             "<tr>"
-            "<td style='vertical-align: top; text-align: left;'>" +
+            "<td style='vertical-align: " + positionTableau + "; text-align: left;'>" +
             texteTableau +
             "</td>"
-            "<td style='vertical-align: bottom; text-align: center; padding-left:" + padding + "px;'>"
+            "<td style='vertical-align:" + positionImage + "; text-align: center; padding-left:" + padding + "px;'>"
             "<img src='" + cheminImage +
             "' width='" + QString::number(newW) +
             "' height='" + QString::number(newH) +
@@ -17472,164 +17495,8 @@ QString MainWindow::encadrerTableauEtImage(const QString& texteTableau,
 
 /****************************************
 /*
- * Affiche un tableau et une image côte à côte ou l'un au-dessus de l'autre.
- * position = "left", "right", "top", "bottom"
+ *
  */
-// QString MainWindow::encadrerTableauEtImageFlexible(const QString& texteTableau,
-//                                                    const QString& cheminImage,
-//                                                    const QString& position,
-//                                                    int maxWidth,
-//                                                    int maxHeight)
-// {
-//     QString html;
-
-//     // Charger l'image pour obtenir ses dimensions
-//     QImage img(cheminImage);
-//     if (img.isNull()) {
-//         html = "<div style='color:red;'>Image introuvable</div>" + texteTableau;
-//         return html;
-//     }
-
-//     // Calcul du ratio
-//     double ratio = qMin((double)maxWidth / img.width(), (double)maxHeight / img.height());
-//     int newW = (int)(img.width() * ratio);
-//     int newH = (int)(img.height() * ratio);
-
-//     // Construction HTML en fonction de la position
-//     if (position == "left" || position == "right") {
-//         // Image à gauche ou à droite du tableau
-//         html += "<table style='border-collapse: collapse; width: 100%;'><tr>";
-
-//         if (position == "left") {
-//             html += "<td style='vertical-align: middle; text-align: center; padding-right: 20px;'>"
-//                     "<img src='" + cheminImage +
-//                     "' width='" + QString::number(newW) +
-//                     "' height='" + QString::number(newH) +
-//                     "' style='display:block; margin:auto; border:0;'/>"
-//                     "</td>"
-//                     "<td style='vertical-align: middle; text-align: left; width:100%;'>" +
-//                     texteTableau +
-//                     "</td>";
-//         } else { // right
-//             html += "<td style='vertical-align: middle; text-align: left; width:100%;'>" +
-//                     texteTableau +
-//                     "</td>"
-//                     "<td style='vertical-align: middle; text-align: center; padding-left: 20px;'>"
-//                     "<img src='" + cheminImage +
-//                     "' width='" + QString::number(newW) +
-//                     "' height='" + QString::number(newH) +
-//                     "' style='display:block; margin:auto; border:0;'/>"
-//                     "</td>";
-//         }
-
-//         html += "</tr></table>";
-
-//     } else {
-//         // Image au-dessus ou en dessous du tableau
-//         html += "<div style='width:100%; text-align:center; margin-bottom:10px;'>";
-
-//         if (position == "top") {
-//             html += "<img src='" + cheminImage +
-//                     "' width='" + QString::number(newW) +
-//                     "' height='" + QString::number(newH) +
-//                     "' style='display:block; margin:auto; border:0;'/><br/>" +
-//                     texteTableau;
-//         } else { // bottom
-//             html += texteTableau +
-//                     "<br/><img src='" + cheminImage +
-//                     "' width='" + QString::number(newW) +
-//                     "' height='" + QString::number(newH) +
-//                     "' style='display:block; margin:auto; border:0;'/>";
-//         }
-
-//         html += "</div>";
-//     }
-
-//     return html;
-// }
-
-
-// QString MainWindow::encadrerTableauEtImageFlexible(const QString& texteTableau,
-//                                                    const QString& cheminImage,
-//                                                    const QString& position,
-//                                                    int maxWidth,
-//                                                    int maxHeight)
-// {
-//     QString html;
-
-//     // Charger l'image pour obtenir ses dimensions
-//     QImage img(cheminImage);
-//     if (img.isNull()) {
-//         html = "<div style='color:red;'>Image introuvable</div>" + texteTableau;
-//         return html;
-//     }
-
-//     // Calcul du ratio
-//     double ratio = qMin((double)maxWidth / img.width(), (double)maxHeight / img.height());
-//     int newW = (int)(img.width() * ratio);
-//     int newH = (int)(img.height() * ratio);
-
-//     // Construction HTML en fonction de la position
-//     if (position == "left" || position == "right") {
-//         // Image à gauche ou à droite du tableau
-//         html += "<table style='border-collapse: collapse; width: 100%;'><tr>";
-
-//         if (position == "left") {
-//             html += "<td style='vertical-align: middle; text-align: center;'>"
-//                     "<img src='" + cheminImage +
-//                     "' width='" + QString::number(newW) +
-//                     "' height='" + QString::number(newH) +
-//                     "' style='display:block; margin:auto; border:0;'/>"
-//                     "</td>"
-//                     "<td style='vertical-align: middle; text-align: left; width:100%; padding: 0;'>"
-//                     + texteTableau +
-//                     "</td>";
-//         } else { // right
-//             html += "<td style='vertical-align: middle; text-align: left; width:100%; padding: 0;'>"
-//                     + texteTableau +
-//                     "</td>"
-//                     "<td style='vertical-align: middle; text-align: center;'>"
-//                     "<img src='" + cheminImage +
-//                     "' width='" + QString::number(newW) +
-//                     "' height='" + QString::number(newH) +
-//                     "' style='display:block; margin:auto; border:0;'/>"
-//                     "</td>";
-//         }
-
-//         html += "</tr></table>";
-
-//     } else {
-//         // Image au-dessus ou en dessous du tableau
-//         html += "<div style='width:100%; margin-bottom:10px;'>";
-
-//         if (position == "top") {
-//             html += "<div style='text-align:center;'>"
-//                     "<img src='" + cheminImage +
-//                     "' width='" + QString::number(newW) +
-//                     "' height='" + QString::number(newH) +
-//                     "' style='display:block; margin:auto; border:0;'/>"
-//                     "</div>"
-//                     "<div style='text-align:left; padding:0;'>" +
-//                     texteTableau +
-//                     "</div>";
-//         } else { // bottom
-//             html += "<div style='text-align:left; padding:0;'>" +
-//                     texteTableau +
-//                     "</div>"
-//                     "<div style='text-align:center;'>"
-//                     "<img src='" + cheminImage +
-//                     "' width='" + QString::number(newW) +
-//                     "' height='" + QString::number(newH) +
-//                     "' style='display:block; margin:auto; border:0;'/>"
-//                     "</div>";
-//         }
-
-//         html += "</div>";
-//     }
-
-//     return html;
-// }
-
 QString MainWindow::encadrerTableauEtImageFlexible(const QString& texteTableau,
                                                    const QString& cheminImage,
                                                    const QString& position,
@@ -17695,7 +17562,7 @@ QString MainWindow::encadrerTableauEtImageFlexible(const QString& texteTableau,
                     "<img src='" + cheminImage + "' width='" + QString::number(newW) +
                     "' height='" + QString::number(newH) +
                     "' style='display:block; margin:auto; border:0;'/>"
-                    "</div>";
+                    "</div><br><br><br><br>";
         }
         html += "</div>";
     }
@@ -17793,5 +17660,15 @@ void MainWindow::on_pushButton_bpf_photos_forceMaximale_clicked()
 
 
 
-
+void MainWindow::on_comboBox_c_afficherFootLift_currentTextChanged(const QString &arg1)
+{
+    if(arg1 == "Oui"){
+        ui->doubleSpinBox_c_nombreErreurFLO->setEnabled(true);
+        ui->doubleSpinBox_c_nombreErreurFLNO->setEnabled(true);
+    }
+    else{
+        ui->doubleSpinBox_c_nombreErreurFLO->setEnabled(false);
+        ui->doubleSpinBox_c_nombreErreurFLNO->setEnabled(false);
+    }
+}
 
