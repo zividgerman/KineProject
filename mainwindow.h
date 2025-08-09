@@ -16,7 +16,10 @@
 #include <QScrollArea>
 #include <QFileDialog>
 #include <QPainter>
-
+#include <QTextDocumentFragment>
+#include <QTextBlock>
+#include <QPrinter>
+#include <QPageSize>
 
 #include "gestionpatients.h"
 
@@ -35,6 +38,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    /// Prend l'HTML complet (avec <html>…</html>) et renvoie l'HTML avec sauts de page ajoutés
+    QString insertPageBreaksNoCut(const QString &fullHtml) const;
 
 private slots:
     void initialiserFenetre();
@@ -330,7 +336,8 @@ private:
     QString ecrireProfilFVV(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
     QString ecrireProfilFVH(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
 
-    QString ecrireProfilVM(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString sexe);
+    QString ecrireProAgility(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString sexe);
+    QString ecrireIllinois(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport, QString sexe);
     QString ecrireDSI(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
 
     QString ecrireReRiR1BP(QList<QPair<QString, QMap<QString, QString>>> listePairesRapport);
@@ -377,6 +384,44 @@ private:
     void viderInfosRapport();
 
     void ecrireLog(QString text);
+
+    struct HtmlSegment {
+        QString html;
+        bool isNoCut;
+    };
+
+    // Découpe le <body> en segments (no-cut vs libre) en tolérant Start/End déséquilibrés
+    QVector<HtmlSegment> splitByNoCut(const QString &bodyHtml) const;
+
+    // Extrait prefix (<html>…<body>), bodyInner et suffix (</body>…)
+    bool extractBodyParts(const QString &fullHtml, QString &prefix, QString &bodyInner, QString &suffix) const;
+
+    // Mise en page (A4 en points typographiques)
+    QSizeF a4PageSizePt() const;
+
+    // Mesures via QTextDocument
+    int pageCountFor(const QString &fullHtml, const QSizeF &pageSizePt) const;
+    qreal lastPageUsedHeight(const QString &fullHtml, const QSizeF &pageSizePt) const;
+
+    // Convertisseurs
+    qreal mmToPt(qreal mm) const;
+
+    // Outils de pagination déjà existants chez toi :
+    // int pageCountFor(const QString &html, const QSizeF &pageSize) const;
+    // qreal lastPageUsedHeight(const QString &html, const QSizeF &pageSize) const;
+    // QSizeF a4PageSizePt() const;
+
+    // Mesurer la hauteur totale consommée par du HTML (toutes pages confondues)
+    qreal contentTotalHeightPt(const QString &html, const QSizeF &pageSize) const;
+
+    // Estimer la hauteur d’un bloc No-cut à partir du haut d’une page
+    qreal estimateSegmentHeightPt(const QString &prefix, const QString &segHtml,
+                                  const QString &suffix, const QSizeF &pageSize) const;
+
+    // Insertion des sauts de page en respectant No-cut (avec tolérance en millimètres)
+    QString insertPageBreaksNoCut(const QString &fullHtml,
+                                  qreal toleranceMM) const;
+
 
 };
 #endif // MAINWINDOW_H
