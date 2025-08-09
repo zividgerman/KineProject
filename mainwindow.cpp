@@ -2186,6 +2186,8 @@ QString MainWindow::ecrireAmplitudesGenou(QList<QPair<QString, QMap<QString, QSt
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>AMPLITUDES ARTICULAIRES</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
@@ -3893,11 +3895,7 @@ QString MainWindow::ecrirePerimetres(QList<QPair<QString, QMap<QString, QString>
     }
 
     //Titre du tableau
-    texteTableauCourant += "<font color='#0056b3' size='35' style=\"text-align: left; margin-bottom: 30px;font-weight: bold\">"
-                           "<b>PÉRIMÈTRES</b></font>";
-
-    texteTableauCourant.append("<p style=\"margin-bottom:35px\"></p>");
-
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>PÉRIMÈTRES</font></b><br><br>";
 
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table ><tr>");
@@ -4143,10 +4141,12 @@ QString MainWindow::ecrireRatioIJ(QList<QPair<QString, QMap<QString, QString>>> 
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>RATIO ISCHIOS-JAMBIERS / QUADRICEPS </font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Ratio Ischios-jambiers / Quadriceps";
+    listeColonnesTab << "";
 
     foreach (QString numeroTestFait, listeTestFaits) {
         listeColonnesTab << "Membre sain T" + numeroTestFait;
@@ -4434,10 +4434,12 @@ QString MainWindow::ecrireMcCall(QList<QPair<QString, QMap<QString, QString>>> l
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST MC CALL</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Test Mc Call";
+    listeColonnesTab << "";
 
     foreach (QString numeroTestFait, listeTestFaits) {
         listeColonnesTab << "Membre sain T" + numeroTestFait;
@@ -4794,10 +4796,12 @@ QString MainWindow::ecrireRatioA(QList<QPair<QString, QMap<QString, QString>>> l
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>RATIO ADDUCTEURS / ABDUCTEURS </font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Ratio Adducteurs / Abducteurs";
+    listeColonnesTab << "";
 
     foreach (QString numeroTestFait, listeTestFaits) {
         listeColonnesTab << "Membre sain T" + numeroTestFait;
@@ -5004,10 +5008,12 @@ QString MainWindow::ecrireRatioREHanche(QList<QPair<QString, QMap<QString, QStri
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>ROTATEURS EXTERNES DE HANCHE (REH)</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Rotateurs Externes de Hanche (REH)";
+    listeColonnesTab << "";
 
     foreach (QString numeroTestFait, listeTestFaits) {
         listeColonnesTab << "Membre sain T" + numeroTestFait;
@@ -5159,11 +5165,11 @@ QString MainWindow::ecrireRatioREHancheBP(QList<QPair<QString, QMap<QString, QSt
     listeColonnesTab << "Rotateurs Externes de Hanche (REH)";
 
     foreach (QString numeroTestFait, listeTestFaits) {
-        listeColonnesTab << "Membre G" + numeroTestFait;
-        listeColonnesTab << "Membre D" + numeroTestFait;
+        listeColonnesTab << "Membre G";
+        listeColonnesTab << "Membre D" ;
     }
 
-    listeColonnesTab << "Asymétrie T" + listeTestFaits.last();
+    listeColonnesTab << "Asymétrie T";
 
     // Ecrire les colonnes associees
     for (int i = 0; i < listeColonnesTab.count(); ++i) {
@@ -5315,8 +5321,9 @@ QString MainWindow::ecrireAclRsi(QList<QPair<QString, QMap<QString, QString>>> l
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST ACL-RSI</font></b><br><br>";
+
     texteTableauCourant.append("<table><tr>");
-    listeColonnesTab << "";
 
     foreach (QString numeroTestFait, listeTestFaits) {
         listeColonnesTab << "T" + numeroTestFait;
@@ -5325,18 +5332,12 @@ QString MainWindow::ecrireAclRsi(QList<QPair<QString, QMap<QString, QString>>> l
     // Ecrire les colonnes associees
     for (int i = 0; i < listeColonnesTab.count(); ++i) {
 
-        if(i == 0){
-            texteTableauCourant= texteTableauCourant + " <th scope=\"col\" style=\"background-color:#fdfefe; color:#002e40;\"></th>";
-        }
-        else{
-            texteTableauCourant= texteTableauCourant + " <th scope=\"col\">" + listeColonnesTab.at(i) +"</th>";
-        }
+        texteTableauCourant= texteTableauCourant + " <th scope=\"col\">" + listeColonnesTab.at(i) +"</th>";
     }
 
     // 1ere row
     texteTableauCourant = texteTableauCourant + "</tr>"
-                                                "<tr>"
-                                                "<th scope=\"row\" style=\"background-color: white; color:#002e40; border:1px solid #023448;\">Test ACL-RSI</th>";
+                                                "<tr>";
 
     couleurCourante = getCouleurACLRsi(getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("testRSI").toDouble());
 
@@ -5383,8 +5384,12 @@ QString MainWindow::ecrirePointsReceptionUnipodale(QList<QPair<QString, QMap<QSt
 
     QMap<QString, QString> mapDernierTest;
 
-    if(contexte == "Genou")
-        mapDernierTest = getMapListeRapport(listePairesRapport,"1");
+    if(contexte == "Genou"){
+        if(tailleListe > 1)
+            return "";
+        else
+            mapDernierTest = getMapListeRapport(listePairesRapport,"1");
+    }
     else
         mapDernierTest = getMapListeRapport(listePairesRapport, QString::number(listePairesRapport.count()));
 
@@ -5393,9 +5398,11 @@ QString MainWindow::ecrirePointsReceptionUnipodale(QList<QPair<QString, QMap<QSt
         return "";
     }
 
+    texteRes += "<b><font color='#0056b3' size='5'>SINGLE LEG LANDING</font></b><br><br>";
+
     // Titre du test
     texteRes = texteRes + "<table width=\"900\" style=\"text-align:left;\"><tr>";
-    texteRes= texteRes + " <th scope=\"col\" style=\"background-color: white; color:#002e40; border:1px solid #023448;\">Single leg landing</th>";
+    texteRes= texteRes + " <th scope=\"col\" style=\"background-color: white; color:#002e40; border:1px solid #023448;\"></th>";
     texteRes= texteRes + " <th scope=\"col\">Observation</th>";
 
     // Controle du tronc bassin
@@ -5520,10 +5527,12 @@ QString MainWindow::ecrireSjBipodal(QList<QPair<QString, QMap<QString, QString>>
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST SQUAT JUMP BIPODAL</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Test Squat Jump Bipodal" <<  "Hauteur de saut (cm)" << "RFDMax membre sain (N.s)" << "RFDMax membre " + labelBlessure + " (N.s)" << "Asymétrie RFDMax";
+    listeColonnesTab << "" <<  "Hauteur de saut (cm)" << "RFDMax membre sain (N.s)" << "RFDMax membre " + labelBlessure + " (N.s)" << "Asymétrie RFDMax";
     for (int i = 0; i < listeColonnesTab.count(); ++i) {
         if(i==0){
             texteTableauCourant = texteTableauCourant + " <th scope=\"col\" style=\"background-color: white; color:#002e40; border: 1px solid #023448;\">"
@@ -5633,6 +5642,8 @@ QString MainWindow::ecrireSjBipodalBP(QList<QPair<QString, QMap<QString, QString
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST SQUAT JUMP BIPODAL</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
@@ -5690,10 +5701,12 @@ QString MainWindow::ecrireCmjBipodal(QList<QPair<QString, QMap<QString, QString>
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST CMJ BIPODAL</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Test CMJ Bipodal"
+    listeColonnesTab << ""
                      << "Hauteur de saut (cm)"
                      << "RSI Modifie"
                      << "RFD Deceleration membre sain (N.s-1)"
@@ -5832,10 +5845,12 @@ QString MainWindow::ecrireCmjBipodalBP(QList<QPair<QString, QMap<QString, QStrin
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST CMJ BIPODAL</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Test CMJ Bipodal"
+    listeColonnesTab << ""
                      << "Hauteur de saut (cm)"
                      << "RSI Modifie"
                      << "RFD Deceleration membre G (N.s-1)"
@@ -5903,6 +5918,8 @@ QString MainWindow::ecrireCmjUnipodal(QList<QPair<QString, QMap<QString, QString
     if(tailleListeFaits == 0){
         return "";
     }
+
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST CMJ UNIPODAL</font></b><br><br>";
 
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
@@ -5997,10 +6014,12 @@ QString MainWindow::ecrireCmjUnipodalBP(QList<QPair<QString, QMap<QString, QStri
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST CMJ UNIPODAL</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Test CMJ Unipodal"
+    listeColonnesTab << ""
                     << "Membre G"
                     << "Membre D"
                     << "Asymétrie";
@@ -6059,10 +6078,12 @@ QString MainWindow::ecrireDjBipodal(QList<QPair<QString, QMap<QString, QString>>
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST DROP JUMP BIPODAL</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Test DropJump Bipodal"
+    listeColonnesTab << ""
                         << "Hauteur de saut (cm)"
                         << "RSI "
                         << "RFDMax membre sain(N.s)"
@@ -6204,10 +6225,12 @@ QString MainWindow::ecrireDjBipodalBP(QList<QPair<QString, QMap<QString, QString
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST DROP JUMP BIPODAL</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Test DropJump Bipodal"
+    listeColonnesTab << ""
                         << "Hauteur de saut (cm)"
                         << "RSI "
                         << "RFDMax membre G(N.s)"
@@ -6274,10 +6297,12 @@ QString MainWindow::ecrireDjUnipodal(QList<QPair<QString, QMap<QString, QString>
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST DROP JUMP UNIPODAL</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Test DropJump Unipodal";
+    listeColonnesTab << "";
 
     foreach (QString numeroTestFait, listeTestFaits) {
         listeColonnesTab << "Membre sain T" + numeroTestFait;
@@ -6456,10 +6481,12 @@ QString MainWindow::ecrireDjUnipodalBP(QList<QPair<QString, QMap<QString, QStrin
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST DROP JUMP UNIPODAL</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab    << "Test DropJump Unipodal"
+    listeColonnesTab    << ""
                         << "Membre G"
                         << "Membre D"
                         << "Asymétrie";
@@ -6501,8 +6528,10 @@ QString MainWindow::ecrireTestAcc(QList<QPair<QString, QMap<QString, QString>>> 
     QStringList listeColonnesTab;
     int tailleListe = listePairesRapport.size();
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST D'ACCROUPISSEMENT</font></b><br><br>";
+
     texteTableauCourant.append("<table><tr>");
-    listeColonnesTab << "" <<  "T1";
+    listeColonnesTab  <<  "T1";
 
     if(tailleListe == 2){
         listeColonnesTab <<  "T2";
@@ -6514,18 +6543,12 @@ QString MainWindow::ecrireTestAcc(QList<QPair<QString, QMap<QString, QString>>> 
     // Ecrire les colonnes associees
     for (int i = 0; i < listeColonnesTab.count(); ++i) {
 
-        if(i == 0){
-            texteTableauCourant= texteTableauCourant + " <th scope=\"col\" style=\"background-color:#fdfefe; color:#002e40;\"></th>";
-        }
-        else{
-            texteTableauCourant= texteTableauCourant + " <th scope=\"col\">" + listeColonnesTab.at(i) +"</th>";
-        }
+        texteTableauCourant= texteTableauCourant + " <th scope=\"col\">" + listeColonnesTab.at(i) +"</th>";
     }
 
     // 1ere row
     texteTableauCourant = texteTableauCourant + "</tr>"
                                                 "<tr>"
-                                                "<th scope=\"row\" style=\"background-color: white; color:#002e40; border:1px solid #023448;\">Test d'accroupissement</th>"
                                                 "<td>" + getMapListeRapport(listePairesRapport, "1").value("testAccroupissement").replace("<", "&lt; ") + "</td>";
 
     if(tailleListe > 1){
@@ -6547,13 +6570,15 @@ QString MainWindow::ecrirekStart(QList<QPair<QString, QMap<QString, QString>>> l
 
     QString texteTableauCourant;
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>K-START</font></b><br><br>";
+
     texteTableauCourant.append("<table>");
 
     foreach (QString numeroTest, listeNumerosTest) {
 
         if(getMapListeRapport(listePairesRapport, numeroTest).value("kStart") != "0"){
 
-            texteTableauCourant = texteTableauCourant + "<tr><th scope=\"col\" style=\"background-color: white; color:#002e40; border:1px solid #023448;\">KStart T"+numeroTest+"</th>";
+            texteTableauCourant = texteTableauCourant + "<tr><th scope=\"col\" style=\"background-color: #e2edf1; color:#002e40; border:1px solid #023448;\">T"+numeroTest+"</th>";
 
             QPair<QString, QString> pairekStart = getPaireKstart(getMapListeRapport(listePairesRapport, numeroTest).value("kStart").toDouble());
 
@@ -6593,10 +6618,12 @@ QString MainWindow::ecrireAmplitudesEpaule(QList<QPair<QString, QMap<QString, QS
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>AMPLITUDES ARTICULAIRES</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Amplitudes articulaires";
+    listeColonnesTab << "";
 
     foreach (QString numeroTestFait, listeTestFaits) {
         listeColonnesTab << "Membre sain T" + numeroTestFait;
@@ -6943,6 +6970,8 @@ QString MainWindow::ecrireTestsInstabilite(QList<QPair<QString, QMap<QString, QS
     QStringList listeColonnesTab;
     int tailleListe = listePairesRapport.size();
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TESTS D'INSTABILITÉ</font></b><br><br>";
+
     texteTableauCourant.append("<table><tr>");
     listeColonnesTab << "" <<  "T1";
 
@@ -6964,7 +6993,7 @@ QString MainWindow::ecrireTestsInstabilite(QList<QPair<QString, QMap<QString, QS
     // 1ere row
     texteTableauCourant = texteTableauCourant + "</tr>"
                                                 "<tr>"
-                                                "<th scope=\"row\" style=\"background-color: white; color:#002e40; border:1px solid #023448;\">Test d'instabilité antérieure</th>"
+                                                "<th scope=\"row\" style=\"background-color: #c0c0c0; color:#002e40; border:1px solid #023448;\">Test d'instabilité antérieure</th>"
                                                 "<td>" + getMapListeRapport(listePairesRapport, "1").value("testInstabiliteA").replace("<", "&lt; ") + "</td>";
 
     if(tailleListe > 1){
@@ -6974,7 +7003,7 @@ QString MainWindow::ecrireTestsInstabilite(QList<QPair<QString, QMap<QString, QS
     // 2eme row
     texteTableauCourant = texteTableauCourant + "</tr>"
                                                 "<tr>"
-                                                "<th scope=\"row\" style=\"background-color: white; color:#002e40; border:1px solid #023448;\">Test d'instabilité postérieure</th>"
+                                                "<th scope=\"row\" style=\"background-color: #c0c0c0; color:#002e40; border:1px solid #023448;\">Test d'instabilité postérieure</th>"
                                                 "<td>" + getMapListeRapport(listePairesRapport, "1").value("testInstabiliteP").replace("<", "&lt; ") + "</td>";
 
     if(tailleListe > 1){
@@ -7011,6 +7040,8 @@ QString MainWindow::ecrireSiRsi(QList<QPair<QString, QMap<QString, QString>>> li
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST SI-RSI</font></b><br><br>";
+
     texteTableauCourant.append("<table><tr>");
     listeColonnesTab << "";
 
@@ -7021,18 +7052,12 @@ QString MainWindow::ecrireSiRsi(QList<QPair<QString, QMap<QString, QString>>> li
     // Ecrire les colonnes associees
     for (int i = 0; i < listeColonnesTab.count(); ++i) {
 
-        if(i == 0){
-            texteTableauCourant= texteTableauCourant + " <th scope=\"col\" style=\"background-color:#fdfefe; color:#002e40;\"></th>";
-        }
-        else{
             texteTableauCourant= texteTableauCourant + " <th scope=\"col\">" + listeColonnesTab.at(i) +"</th>";
-        }
     }
 
     // 1ere row
     texteTableauCourant = texteTableauCourant + "</tr>"
-                                                "<tr>"
-                                                "<th scope=\"row\" style=\"background-color: white; color:#002e40; border:1px solid #023448;\">Test SI-RSI</th>";
+                                                "<tr>";
 
     couleurCourante = getCouleurSiRsi(getMapListeRapport(listePairesRapport, listeTestFaits.first()).value("testSIRSI").toDouble());
 
@@ -8762,10 +8787,12 @@ QString MainWindow::ecrireBroadJump(QList<QPair<QString, QMap<QString, QString>>
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>TEST BROAD JUMP</font></b><br><br><br><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Test Broad Jump ";
+    listeColonnesTab << "";
 
     foreach (QString numeroTestFait, listeTestFaits) {
         listeColonnesTab << "T" + numeroTestFait;
@@ -8814,7 +8841,7 @@ QString MainWindow::ecrireBroadJump(QList<QPair<QString, QMap<QString, QString>>
     cheminImageScore = redimensionnerImage(cheminImageScore, 1000);
 
     // Image à droite du tableau
-    texteTableauCourant = encadrerTableauEtImageFlexible(texteTableauCourant, cheminImageScore, "right", 400, 300);
+    texteTableauCourant = encadrerTableauEtImage(texteTableauCourant, cheminImageScore, 300, 250, "50");
 
     return texteTableauCourant;
 }
@@ -8850,10 +8877,12 @@ QString MainWindow::ecrireHop(QList<QPair<QString, QMap<QString, QString>>> list
         return "";
     }
 
+    texteTableauCourant += "<b><font color='#0056b3' size='4'>HOP TEST</font></b><br><br>";
+
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
 
-    listeColonnesTab << "Hop Test";
+    listeColonnesTab << "";
 
     foreach (QString numeroTestFait, listeTestFaits) {
         listeColonnesTab << "Membre sain T" + numeroTestFait;
@@ -11321,7 +11350,7 @@ QString MainWindow::ecrireProfilFVV(QList<QPair<QString, QMap<QString, QString>>
         return "";
     }
 
-    texteTableauCourant += "<h1 style=\"text-align: left; margin-bottom: 30px;\">Profil Force / Vitesse Vertical</h1>";
+    texteTableauCourant += "<h1 style=\"text-align: left; margin-bottom: 30px;\">Profil Force / Vitesse Vertical</h1><br><br><br>";
 
     // Ecrire liste des colonnes du tableau
     texteTableauCourant.append("<table><tr>");
@@ -11359,19 +11388,16 @@ QString MainWindow::ecrireProfilFVV(QList<QPair<QString, QMap<QString, QString>>
     texteTableauCourant.append("</table>");
 
     //DiSPLAYZ
-    QString cheminImageScore =  QApplication::applicationDirPath() + "/src/" + getValue(PATH_CONFIG, "nomsFichier", "profilFVV");
-    // On génère une version HD pour éviter la pixellisation
-    cheminImageScore = redimensionnerImage(cheminImageScore, 1000);
-
-    // Image à droite du tableau
-    texteTableauCourant = encadrerTableauEtImageFlexible(texteTableauCourant, cheminImageScore, "right", 400, 300);
 
     //Courbe FVV
     if(mapCheminsImages.values().contains("PFVV")){
 
         QString cheminImageVV = redimensionnerImage(mapCheminsImages.key("PFVV"), 1000);
-        texteTableauCourant  += ecrireImage(cheminImageVV, "bottom", 400, 300);
+        texteTableauCourant  = encadrerTableauEtImageFlexible(texteTableauCourant, cheminImageVV, "right", 400, 300);
     }
+    else
+        return "";
+
     return texteTableauCourant;
 }
 
@@ -14590,17 +14616,13 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
            "scp9bis@gmail.com – 05 61 57 13 13"
            "</td></tr></table>";
 
-    res += "<div style='border:2pt solid black;border-radius:10pt;padding:10pt;margin:10pt 0;font-size:50pt;'>"
-           "Encadré avec des bords arrondis en pt"
-           "</div>";
-
-    res = res +  "<DIV STYLE=\"page-break-before:always\"></DIV>";
-
     //Ecrire la legende
-    QString legende = "<table><tr><th scope=\"col\" style=\"background-color: white; color:#002e40; border:1px solid #023448;\">Legende tableau</th>"
+    QString legende = "<table><tr><th scope=\"col\" style=\"background-color: white; color:#002e40; border:1px solid #023448;\">Legende du document</th>"
                       "<td style=\"background-color:#169d53; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">Bon</td>"
                       "<td style=\"background-color:#ff9929; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">Moyen</td>"
                       "<td style=\"background-color:#9f3f36; color:#002e40;border:1px solid #023448; padding: 8px 10px;\">Insuffisant</td></tr></table>";
+
+    res = res +  "<DIV STYLE=\"page-break-before:always\"></DIV>";
 
     res.append(legende);
 
@@ -14616,7 +14638,9 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
     // ecrire le ACL RSI
     res.append(ecrireAclRsi(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:center;\">Tests et ratios de force isométrique</h1>");
+    res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
+    res.append("<h1 style=\"text-align:center;\">TESTS ET RATIOS DE FORCE ISOMÉTRIQUE</h1>");
+    res.append("<h3 style=\"text-align:center;\">Dynamomètre</h3><br><br>");
 
     // ecrire le tableau du ration ischio jambiers quadri
     res.append(ecrireRatioIJ(listePairesRapport, labelBlessure));
@@ -14624,16 +14648,13 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
     // ecrire le test de Mc Call
     res.append(ecrireMcCall(listePairesRapport, labelBlessure));
 
-    //Nouvelle page si T3 ou T2
-    if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
-        res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
-
     // ecrire le tableau des abdd add
     res.append(ecrireRatioA(listePairesRapport, labelBlessure));
 
     res.append(ecrireRatioREHanche(listePairesRapport, labelBlessure));
 
-    res.append("<h1 style=\"text-align:center;\">Tests de sauts verticaux</h1>");
+    res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
+    res.append("<h1 style=\"text-align:center;\">TESTS DE PUISSANCE (PLATEFORME DE FORCE)</h1><br><br>");
 
     // ecrire le tableau du squatJump bipodal
     res.append(ecrireSjBipodal(listePairesRapport, labelBlessure));
@@ -14648,17 +14669,14 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
     // ecrire le tableau du drop jump bipodal
     res.append(ecrireDjBipodal(listePairesRapport, labelBlessure));
 
-    //Nouvelle page si T1
-    if(listeNumerosTest.count() == 1 || listeNumerosTest.count() == 2)
-        res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
-
     // ecrire le tableau du test CMJ unipodal
     res.append(ecrireCmjUnipodal(listePairesRapport, labelBlessure));
 
     // ecrire le tableau du drop jump unipodal
     res.append(ecrireDjUnipodal(listePairesRapport, labelBlessure));
 
-    res.append("<h1 style=\"text-align:center;\">Tests fonctionnels</h1>");
+    res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
+    res.append("<h1 style=\"text-align:center;\">TESTS FONCTIONNELS</h1><br><br>");
 
     // ecrire les points de reception unipodale
     res.append(ecrirePointsReceptionUnipodale(listePairesRapport, "Genou"));
@@ -14670,10 +14688,7 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
     // ecrire le KSTart
     res.append(ecrirekStart(listePairesRapport, listeNumerosTest));
 
-    //Nouvelle page si T2
-    if(listeNumerosTest.count() == 2)
-        res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
-
+    res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
     // Ecrire l interpretation du professionnel
     // Recuperer le texte interpretation
     bool presenceInfos = false;
@@ -14684,19 +14699,7 @@ QString MainWindow::remplirChaineHtmlGenou(QStringList listeNumerosTest){
 
     if(!texteInterpretation.isEmpty()){
         presenceInfos = true;
-        texteInterpretation.replace("\n","<br/>");
-        texteInterpretation.replace("[", "<span style=\"font-weight: bold;\">");
-        texteInterpretation.replace("]", "</span>");
-
-        texteInfos = texteInfos
-                     + "<table style=\"margin-bottom:20px; width: 300px;\">"
-                       "<tr>"
-                       "<th scope=\"col\" style=\"background-color:#f0f3f4; font-weight:normal;color:#002e40; border:0.5px solid #023448;\">"
-                       "<p style=\" font-size: 200px;font-weight: bold; text-align:left;\"> Interprétation du kinésithérapeute :<p>< br¨/>"
-                       "<p style=\"text-align:left;\"><br>" + texteInterpretation +"</p></br>"
-                         "</th>"
-                         "</tr>"
-                         "</table>";
+        texteInfos += ecrireInterpretation(texteInterpretation, "Interprétation / Conclusion :");
     }
 
     // Recuperer les libelles des checkBox coches
@@ -14907,7 +14910,7 @@ QString MainWindow::remplirChaineHtmlEpaule(QStringList listeNumerosTest){
     //Nouvelle page
     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align:center;\">Tests et ratios de force isométrique</h1>");
+    res.append("<h1 style=\"text-align:center;\">Tests et ratios de force isométrique</h1><br><br><br>");
 
     // ecrire le tableau du test de grip
     res.append(ecrireTestGrip(listePairesRapport, labelBlessure));
@@ -14924,7 +14927,7 @@ QString MainWindow::remplirChaineHtmlEpaule(QStringList listeNumerosTest){
     //Nouvelle page
     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align:center;\">Tests fonctionnels</h1>");
+    res.append("<h1 style=\"text-align:center;\">Tests fonctionnels</h1><br><br><br>");
 
     // ecrire le tableau du test UQ YBT
     res.append(ecrireUQYBT(listePairesRapport, labelBlessure));
@@ -14967,7 +14970,7 @@ QString MainWindow::remplirChaineHtmlEpaule(QStringList listeNumerosTest){
                      + "<table style=\"margin-bottom:20px; width: 300px;\">"
                        "<tr>"
                        "<th scope=\"col\" style=\"background-color:#f0f3f4; font-weight:normal;color:#002e40; border:0.5px solid #023448;\">"
-                       "<p style=\" font-size: 200px;font-weight: bold; text-align:left;\"> Interprétation du kinésithérapeute :<p>< br¨/>"
+                       "<p style=\" font-size: 200px;font-weight: bold; text-align:left;\"> Interprétation / Conclusion :<p>< br¨/>"
                        "<p style=\"text-align:left;\"><br>" + texteInterpretation +"</p></br>"
                          "</th>"
                          "</tr>"
@@ -15157,7 +15160,7 @@ QString MainWindow::remplirChaineHtmlHanche(QStringList listeNumerosTest){
     // ecrire le tableau des permietres
     res.append(ecrirePerimetres(listePairesRapport, labelBlessure));
 
-    res.append("<h1 style=\"text-align:center;\">Tests et ratios de force isométrique</h1>");
+    res.append("<h1 style=\"text-align:center;\">Tests et ratios de force isométrique</h1><br><br><br>");
 
     // ecrire le tableau du ration ischio jambiers quadri
     res.append(ecrireRatioIJ(listePairesRapport, labelBlessure));
@@ -15173,7 +15176,7 @@ QString MainWindow::remplirChaineHtmlHanche(QStringList listeNumerosTest){
     if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
         res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align:center;\">Tests de sauts verticaux</h1>");
+    res.append("<h1 style=\"text-align:center;\">Tests de sauts verticaux</h1><br><br><br>");
 
     // ecrire le tableau du squatJump bipodal
     res.append(ecrireSjBipodal(listePairesRapport, labelBlessure));
@@ -15198,7 +15201,7 @@ QString MainWindow::remplirChaineHtmlHanche(QStringList listeNumerosTest){
     // ecrire le tableau du drop jump unipodal
     res.append(ecrireDjUnipodal(listePairesRapport, labelBlessure));
 
-    res.append("<h1 style=\"text-align:center;\">Tests fonctionnels</h1>");
+    res.append("<h1 style=\"text-align:center;\">Tests fonctionnels</h1><br><br><br>");
 
     // ecrire les points de reception unipodale
     res.append(ecrirePointsReceptionUnipodale(listePairesRapport, "Hanche"));
@@ -15232,7 +15235,7 @@ QString MainWindow::remplirChaineHtmlHanche(QStringList listeNumerosTest){
                      + "<table style=\"margin-bottom:20px; width: 300px;\">"
                        "<tr>"
                        "<th scope=\"col\" style=\"background-color:#f0f3f4; font-weight:normal;color:#002e40; border:0.5px solid #023448;\">"
-                       "<p style=\" font-size: 200px;font-weight: bold; text-align:left;\"> Interprétation du kinésithérapeute :<p>< br¨/>"
+                       "<p style=\" font-size: 200px;font-weight: bold; text-align:left;\"> Interprétation / Conclusion :<p>< br¨/>"
                        "<p style=\"text-align:left;\"><br>" + texteInterpretation +"</p></br>"
                                              "</th>"
                                              "</tr>"
@@ -15432,7 +15435,7 @@ QString MainWindow::remplirChaineHtmlCheville(QStringList listeNumerosTest){
     // ecrire le ALR RSI
     res.append(ecrireAlrRsi(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:center;\">Tests et ratios de force isométrique</h1>");
+    res.append("<h1 style=\"text-align:center;\">Tests et ratios de force isométrique</h1><br><br><br>");
 
     res.append(ecrireRatioIJ(listePairesRapport, labelBlessure));
 
@@ -15451,7 +15454,7 @@ QString MainWindow::remplirChaineHtmlCheville(QStringList listeNumerosTest){
     // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
     //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align:center;\">Tests de sauts verticaux</h1>");
+    res.append("<h1 style=\"text-align:center;\">Tests de sauts verticaux</h1><br><br><br>");
 
     // ecrire le tableau du squatJump bipodal
     res.append(ecrireSjBipodal(listePairesRapport, labelBlessure));
@@ -15479,7 +15482,7 @@ QString MainWindow::remplirChaineHtmlCheville(QStringList listeNumerosTest){
     // ecrire le test de ecrireSautsRepetes
     res.append(ecrireSautsRepetes(listePairesRapport, labelBlessure));
 
-    res.append("<h1 style=\"text-align:center;\">Tests fonctionnels</h1>");
+    res.append("<h1 style=\"text-align:center;\">Tests fonctionnels</h1><br><br><br>");
 
     // ecrire les points de reception unipodale
     res.append(ecrirePointsReceptionUnipodale(listePairesRapport, "Cheville"));
@@ -15517,7 +15520,7 @@ QString MainWindow::remplirChaineHtmlCheville(QStringList listeNumerosTest){
                      + "<table style=\"margin-bottom:20px; width: 300px;\">"
                        "<tr>"
                        "<th scope=\"col\" style=\"background-color:#f0f3f4; font-weight:normal;color:#002e40; border:0.5px solid #023448;\">"
-                       "<p style=\" font-size: 200px;font-weight: bold; text-align:left;\"> Interprétation du kinésithérapeute :<p>< br¨/>"
+                       "<p style=\" font-size: 200px;font-weight: bold; text-align:left;\"> Interprétation / Conclusion :<p>< br¨/>"
                        "<p style=\"text-align:left;\"><br>" + texteInterpretation +"</p></br>"
                         "</th>"
                         "</tr>"
@@ -15684,8 +15687,7 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
     res.append(legende);
 
     //ZYZY
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Analyse mobilité articulaire</h1>");
-    res.append("<div style=\"height: 30px;\"></div>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">ANALYSE MOBILITÉ ARTICULAIRE</h1><br><br><br>");
 
     // ecrire le tableau des amplitudes articulaires
     res.append(ecrireAmplitudesBp(listePairesRapport));
@@ -15700,7 +15702,7 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
                    "Analyse Posturale Dynamique", "APD", 350, 250));
     }
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / dynamomètre</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / dynamomètre</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     res.append(ecrireRatioVerseursBP(listePairesRapport));
@@ -15726,7 +15728,7 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
     // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
     //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de puissance (plateforme de force)</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de puissance (plateforme de force)</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du squatJump bipodal
@@ -15750,7 +15752,7 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
     res.append(ecrireBroadJump(listePairesRapport, ""));
     res.append(ecrireHopBP(listePairesRapport));
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Test de Force Maximale</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Test de Force Maximale</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     //DISPLAY Image Back Squat
@@ -15760,7 +15762,7 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
 
     res.append(ecrireFmaxBS(listePairesRapport, mapInfosPatient.value("poids")));
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests fonctionnels</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests fonctionnels</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     //Ecrire test Hop
@@ -15789,7 +15791,7 @@ QString MainWindow::remplirChaineHtmlCourse(QStringList listeNumerosTest){
 
     if(!texteInterpretation.isEmpty()){
         presenceInfos = true;
-        texteInfos += ecrireInterpretation(texteInterpretation, "Interprétation du kinésithérapeute :");
+        texteInfos += ecrireInterpretation(texteInterpretation, "Interprétation / Conclusion :");
     }
 
     // Recuperer les libelles des checkBox coches
@@ -15952,7 +15954,7 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
     res.append(legende);
 
     //ZYZY
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Analyse mobilité articulaire</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Analyse mobilité articulaire</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
     // ecrire le tableau des amplitudes articulaires
     res.append(ecrireAmplitudesBp(listePairesRapport));
@@ -15967,7 +15969,7 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
                    "Analyse Posturale Dynamique", "APD", 350, 250));
     }
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / dynamomètre</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / dynamomètre</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
     res.append(ecrireRatioVerseursBP(listePairesRapport));
 
@@ -15988,7 +15990,7 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
 
     res.append(ecrireRatioREHancheBP(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:left;\">Tests de puissance (plateforme de force)</h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de puissance (plateforme de force)</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du squatJump bipodal
@@ -16013,7 +16015,7 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
     res.append(ecrireHopBP(listePairesRapport));
     res.append(ecrireHeelRiseBP(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:left;\">Tests de Force Maximale </h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de Force Maximale </h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     //DISPLAY Image Back Squat
@@ -16026,14 +16028,14 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
 
     res.append(ecrireNordicCurl(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:left;\">Tests fonctionnels</h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests fonctionnels</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     //Ecrire test Hop
     res.append(ecrireTripleHopBP(listePairesRapport));
     res.append(ecrireCrossOverHopBP(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:left;\">Profilage Force /Vitesse</h1>");
+    res.append("<h1 style=\"text-align:left;\">Profilage Force /Vitesse</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     res.append(ecrireDSI(listePairesRapport));
@@ -16046,7 +16048,7 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
                        "Analyse Gestuelle Sprint", "AGSprint", 350, 250));
     }
 
-    res.append("<h1 style=\"text-align:left;\">Tests de vitesse multidirectionnelle</h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de vitesse multidirectionnelle</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
     res.append(ecrireProfilVM(listePairesRapport, mapInfosPatient.value("sexe")));
 
@@ -16065,7 +16067,7 @@ QString MainWindow::remplirChaineHtmlSportCollectif(QStringList listeNumerosTest
 
     if(!texteInterpretation.isEmpty()){
         presenceInfos = true;
-        texteInfos = ecrireInterpretation(texteInterpretation, "Interprétation du kinésithérapeute :");
+        texteInfos = ecrireInterpretation(texteInterpretation, "Interprétation / Conclusion :");
     }
 
     // Recuperer les libelles des checkBox coches
@@ -16227,7 +16229,7 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
 
     res.append(legende);
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Analyse mobilité articulaire</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Analyse mobilité articulaire</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
     // ecrire le tableau des amplitudes articulaires
     res.append(ecrireAmplitudesBpf(listePairesRapport));
@@ -16247,7 +16249,7 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
                        "Analyse Posturale Dynamique Membre Superieur", "APDMS", 350, 250));
     }
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / dynamomètre</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / dynamomètre</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du test de grip
@@ -16267,7 +16269,7 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
     // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
     //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align:left;\">Tests de puissance (plateforme de force)</h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de puissance (plateforme de force)</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du squatJump bipodal
@@ -16283,13 +16285,13 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
     res.append(ecrireHopBP(listePairesRapport));
     res.append(ecrireMTT(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:left;\">Profilage Force /Vitesse</h1>");
+    res.append("<h1 style=\"text-align:left;\">Profilage Force /Vitesse</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     res.append(ecrireDSI(listePairesRapport));
     res.append(ecrireProfilFVV(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:left;\">Tests de Force Maximale </h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de Force Maximale </h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     res.append(ecrireTestFmaxBPF(listePairesRapport, mapInfosPatient.value("poids")));
@@ -16314,7 +16316,7 @@ QString MainWindow::remplirChaineHtmlSportCombat(QStringList listeNumerosTest){
 
     if(!texteInterpretation.isEmpty()){
         presenceInfos = true;
-        texteInfos = ecrireInterpretation(texteInterpretation, "Interprétation du kinésithérapeute :");
+        texteInfos = ecrireInterpretation(texteInterpretation, "Interprétation / Conclusion :");
     }
 
     // Recuperer les libelles des checkBox coches
@@ -16476,7 +16478,7 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
 
     res.append(legende);
 
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Analyse mobilité articulaire</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Analyse mobilité articulaire</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");// ecrire le tableau des amplitudes articulaires
     res.append(ecrireAmplitudesBpcf(listePairesRapport));
 
@@ -16494,7 +16496,7 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
         res.append(ecrireAnalyseGenerique(mapCheminsImages, ui->textEdit_bpcf_analysePosturaleDynamiqueMS->toPlainText(),
                    "Analyse Posturale Dynamique Membre Superieur", "APDMS", 350, 250));
     }
-    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / dynamomètre</h1>");
+    res.append("<h1 style=\"text-align: left; margin-bottom: 30px;\">Tests de force isométrique et ratios agonistes / antagonistes / dynamomètre</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
     // ecrire le tableau du test de grip
     res.append(ecrireTestGripBP(listePairesRapport));
@@ -16513,7 +16515,7 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
     // if(listeNumerosTest.count() == 3 || listeNumerosTest.count() == 2)
     //     res.append("<DIV STYLE=\"page-break-before:always\"></DIV>");
 
-    res.append("<h1 style=\"text-align:left;\">Tests de puissance (plateforme de force)</h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de puissance (plateforme de force)</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     // ecrire le tableau du squatJump bipodal
@@ -16538,12 +16540,12 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
     res.append(ecrireHopBP(listePairesRapport));
     res.append(ecrireMTT(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:left;\">Profilage Force /Vitesse</h1>");
+    res.append("<h1 style=\"text-align:left;\">Profilage Force /Vitesse</h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
     res.append(ecrireDSI(listePairesRapport));
     res.append(ecrireProfilFVV(listePairesRapport));
 
-    res.append("<h1 style=\"text-align:left;\">Tests de Force Maximale </h1>");
+    res.append("<h1 style=\"text-align:left;\">Tests de Force Maximale </h1><br><br><br>");
     res.append("<div style=\"height: 30px;\"></div>");
 
     res.append(ecrireTestFmaxBPCF(listePairesRapport, mapInfosPatient.value("poids")));
@@ -16567,7 +16569,7 @@ QString MainWindow::remplirChaineHtmlCrossfit(QStringList listeNumerosTest){
 
     if(!texteInterpretation.isEmpty()){
         presenceInfos = true;
-        texteInfos = ecrireInterpretation(texteInterpretation, "Interprétation du kinésithérapeute :");
+        texteInfos = ecrireInterpretation(texteInterpretation, "Interprétation / Conclusion :");
     }
 
     // Recuperer les libelles des checkBox coches
@@ -16702,7 +16704,7 @@ QString MainWindow::ecrireAnalyseGenerique(QMap<QString, QString> mapChemins,
 {
     QString texteInfos;
 
-    texteInfos += "<h1 style='text-align: left; margin-bottom: 30px;'>" + titreEncadre + "</h1>";
+    texteInfos += "<h1 style='text-align: left; margin-bottom: 30px;'>" + titreEncadre + "</h1><br><br><br>";
     texteInfos += "<table style='margin-top:50px; margin-bottom:20px; border:0; border-collapse:collapse; "
                   "margin-left:auto; margin-right:auto; text-align:center;'>";
 
@@ -16787,16 +16789,17 @@ QString MainWindow::ecrireInterpretation(QString texteInterpretation, QString ti
     texteInterpretation.replace("[", "<span style=\"font-weight: bold;\">");
     texteInterpretation.replace("]", "</span>");
 
+    if(titreInterpretation != ""){
+        texteInfos += "<b><font color='#ca6032' size='5'>" + titreInterpretation.toUpper() + "</font></b><br><br>";
+    }
+
     texteInfos = texteInfos
                  + "<table style=\"margin-bottom:20px; width: 300px;\">"
                    "<tr>"
-                   "<th scope=\"col\" style=\"background-color:#f0f3f4; font-weight:normal;color:#002e40; border:0.5px solid #023448;\">";
+                   "<th scope=\"col\" style=\"background-color:#f0f3f4; font-weight:normal; color:#002e40; "
+                   "border:0.5px solid #023448; padding:10px;\">";
 
-    if(titreInterpretation != ""){
-        texteInfos += "<h3 style=\"text-align: left; margin-bottom: 20px;\">" + titreInterpretation + "</h3>";
-    }
-
-    texteInfos = texteInfos + "<p style=\"text-align:left;\"><br>" + texteInterpretation +"</p></br>"
+    texteInfos = texteInfos + "<p style=\"text-align:left;\">" + texteInterpretation + "</p>"
                             "</th>"
                             "</tr>"
                             "</table>";
@@ -17236,6 +17239,8 @@ void MainWindow::on_pushButton_bpsc_photos_analyseGestuelleFVV_clicked()
     this->ui->lineEdit_bpsc_photos_analyseGestuelleFVV->setText(fichierInfo.fileName());
 }
 
+
+//****************************************
 void MainWindow::on_pushButton_bpcf_photos_analyseGestuelleFVV_clicked()
 {
     QString pathFichierCourant = QFileDialog::getOpenFileName(
@@ -17428,46 +17433,42 @@ void MainWindow::on_pushButton_bpcf_photos_analyseGestuelle_clicked()
  *
  */
 QString MainWindow::encadrerTableauEtImage(const QString& texteTableau,
-                                            const QString& cheminImage,
-                                            int maxWidth,
-                                            int maxHeight)
- {
-     QString html;
+                                           const QString& cheminImage,
+                                           int maxWidth,
+                                           int maxHeight, QString padding)
+{
+    QString html;
 
-     // Charger l'image pour récupérer ses dimensions originales
-     QImage img(cheminImage);
-     if (img.isNull()) {
-         // Image introuvable ou corrompue
-         html = "<table style='border-collapse: collapse; width: 100%;'><tr>"
-                "<td style='vertical-align: bottom; text-align: left;'>" + texteTableau + "</td>"
-                "<td style='vertical-align: top; text-align: center; padding-left: 30px;'>"
-                "<span style='color:red;'>Image introuvable</span>"
-                "</td></tr></table>";
-         return html;
-     }
+    QImage img(cheminImage);
+    if (img.isNull()) {
+        html = "<table style='border-collapse: collapse; width: 100%;'><tr>"
+               "<td style='vertical-align: middle; text-align: left;'>" + texteTableau + "</td>"
+               "<td style='vertical-align: middle; text-align: center; padding-left: " + padding + "px;'>"
+               "<span style='color:red;'>Image introuvable</span>"
+               "</td></tr></table>";
+        return html;
+    }
 
-     // Calcul du ratio pour redimensionner sans perte
-     double ratio = qMin((double)maxWidth / img.width(), (double)maxHeight / img.height());
-     int newW = (int)(img.width() * ratio);
-     int newH = (int)(img.height() * ratio);
+    double ratio = qMin((double)maxWidth / img.width(), (double)maxHeight / img.height());
+    int newW = (int)(img.width() * ratio);
+    int newH = (int)(img.height() * ratio);
 
-     // Génération du HTML avec image redimensionnée
-     html += "<table style='border-collapse: collapse; width: 100%;'>"
-             "<tr>"
-             "<td style='vertical-align: bottom; text-align: left;'>" +
-             texteTableau +
-             "</td>"
-             "<td style='vertical-align: top; text-align: center; padding-left: 30px;'>"
-             "<img src='" + cheminImage +
-             "' width='" + QString::number(newW) +
-             "' height='" + QString::number(newH) +
-             "' style='display:block; margin:auto; border:0;'/>"
-             "</td>"
-             "</tr>"
-             "</table>";
+    html += "<table style='border-collapse: collapse; width: 100%;'>"
+            "<tr>"
+            "<td style='vertical-align: top; text-align: left;'>" +
+            texteTableau +
+            "</td>"
+            "<td style='vertical-align: bottom; text-align: center; padding-left:" + padding + "px;'>"
+            "<img src='" + cheminImage +
+            "' width='" + QString::number(newW) +
+            "' height='" + QString::number(newH) +
+            "' style='display:block; margin:auto; border:0;'/>"
+            "</td>"
+            "</tr>"
+            "</table>";
 
-     return html;
- }
+    return html;
+}
 
 /****************************************
 /*
@@ -17658,11 +17659,11 @@ QString MainWindow::encadrerTableauEtImageFlexible(const QString& texteTableau,
                     "' height='" + QString::number(newH) +
                     "' style='display:block; margin:auto; border:0;'/>"
                     "</td>"
-                    "<td style='vertical-align: middle; text-align: left; width:100%; padding: 0;'>"
+                    "<td style='vertical-align: middle; text-align: left; width:100%; padding: 30px;'>"
                     + texteTableau +
                     "</td>";
         } else {
-            html += "<td style='vertical-align: middle; text-align: left; width:100%; padding: 0;'>"
+            html += "<td style='vertical-align: middle; text-align: left; width:100%; padding: 30px;'>"
                     + texteTableau +
                     "</td>"
                     "<td style='vertical-align: middle; text-align: center;'>"

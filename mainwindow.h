@@ -362,8 +362,8 @@ private:
         //Course
     QString ecrireAnalyseGenerique(QMap<QString, QString> mapChemins, QString texteEncadre, QString titreEncadre, QString typeEncadre, int maxWidth, int maxHeight);
     QString ecrireInterpretation(QString texteInterpretation, QString titreInterpretation);
-    QString encadrerTableauEtImage(const QString& texteTableau, const QString& cheminImage, int maxWidth, int maxHeight);
-    QString encadrerTableauEtImageFlexible(const QString& texteTableau, const QString& cheminImage, const QString& position,int maxWidth,int maxHeight);
+    QString encadrerTableauEtImage(const QString& texteTableau, const QString& cheminImage, int maxWidth, int maxHeight, QString padding);
+    QString encadrerTableauEtImageFlexible(const QString& texteTableau, const QString& cheminImage, const QString& position, int maxWidth, int maxHeight);
     QString ecrireImage(const QString& cheminImage, const QString& position, int maxWidth, int maxHeight);
 
     void redimensionnerImages();

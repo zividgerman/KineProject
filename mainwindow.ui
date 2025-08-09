@@ -2736,7 +2736,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Interprétation du kinesithérapeute :</string>
+      <string>Interprétation / Conclusion :</string>
      </property>
      <property name="textFormat">
       <enum>Qt::TextFormat::PlainText</enum>
@@ -5356,7 +5356,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Interprétation du kinesithérapeute :</string>
+      <string>Interprétation / Conclusion :</string>
      </property>
      <property name="textFormat">
       <enum>Qt::TextFormat::PlainText</enum>
@@ -8433,7 +8433,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Interprétation du kinesithérapeute :</string>
+      <string>Interprétation / Conclusion :</string>
      </property>
      <property name="textFormat">
       <enum>Qt::TextFormat::PlainText</enum>
@@ -12131,7 +12131,7 @@
       <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -12248,7 +12248,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Interprétation du kinesithérapeute :</string>
+      <string>Interprétation / Conclusion :</string>
      </property>
      <property name="textFormat">
       <enum>Qt::TextFormat::PlainText</enum>
@@ -15835,7 +15835,7 @@
       <item row="0" column="2">
        <widget class="QLabel" name="label_non_opere_90">
         <property name="text">
-         <string>Sain</string>
+         <string>Droit</string>
         </property>
        </widget>
       </item>
@@ -15864,7 +15864,7 @@
       <item row="0" column="1">
        <widget class="QLabel" name="label_opere_92">
         <property name="text">
-         <string>Opere</string>
+         <string>Gauche</string>
         </property>
        </widget>
       </item>
@@ -16642,7 +16642,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Interprétation du kinesithérapeute :</string>
+      <string>Interprétation / Conclusion :</string>
      </property>
      <property name="textFormat">
       <enum>Qt::TextFormat::PlainText</enum>
@@ -21869,7 +21869,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Interprétation du kinesithérapeute :</string>
+      <string>Interprétation / Conclusion :</string>
      </property>
      <property name="textFormat">
       <enum>Qt::TextFormat::PlainText</enum>
@@ -26105,7 +26105,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Interprétation du kinesithérapeute :</string>
+      <string>Interprétation / Conclusion :</string>
      </property>
      <property name="textFormat">
       <enum>Qt::TextFormat::PlainText</enum>
@@ -31284,7 +31284,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Interprétation du kinesithérapeute :</string>
+      <string>Interprétation / Conclusion :</string>
      </property>
      <property name="textFormat">
       <enum>Qt::TextFormat::PlainText</enum>
